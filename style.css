@@ -1,0 +1,155 @@
+/* styles.css */
+
+/* --- Base Styles --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+}
+
+/* --- Background Image --- */
+body {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* --- Glass Morphism Card --- */
+.card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  padding: 40px;
+  width: 90%;
+  max-width: 900px;
+  color: #fff;
+  text-align: center;
+  animation: fadeInUp 1s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* --- Animation --- */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Card Content Styles --- */
+.card h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  font-weight: normal;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.card h3 {
+    font-size: 1.8rem;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    text-align: left;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.card p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    text-align: justify;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.card ul {
+    text-align: left;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.card li {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.card a {
+    color: #a0d2eb;
+    text-decoration: none;
+}
+
+.card a:hover {
+    text-decoration: underline;
+}
+
+/* --- Navigation --- */
+.nav-buttons {
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    z-index: 10; /* Ensure buttons are clickable over card */
+}
+
+.nav-button {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 10px 20px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.nav-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .card {
+        padding: 25px;
+        width: 95%;
+    }
+
+    .card h1 {
+        font-size: 2rem;
+    }
+
+    .card h2 {
+        font-size: 1.2rem;
+    }
+
+     .card h3 {
+        font-size: 1.5rem;
+    }
+
+    .card p, .card li {
+        font-size: 1rem;
+    }
+}
