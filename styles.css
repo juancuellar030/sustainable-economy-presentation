@@ -27,20 +27,27 @@ body {
 
 /* --- Glass Morphism Card --- */
 .card {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  background: rgba(255, 255, 255, 0.15); /* White with low opacity */
+  backdrop-filter: blur(10px); /* Blur effect - key for glassmorphism */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  border-radius: 20px; /* Rounded corners */
+  border: 1px solid rgba(255, 255, 255, 0.18); /* Subtle border */
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Soft shadow */
   padding: 40px;
   width: 90%;
-  max-width: 900px;
-  color: #fff;
-  text-align: center;
-  animation: fadeInUp 1s ease-out forwards;
-  opacity: 0;
-  transform: translateY(20px);
+  max-width: 900px; /* Limit card width */
+  color: #fff; /* White text for contrast */
+  text-align: center; /* Center text by default */
+  animation: fadeInUp 1s ease-out forwards; /* Apply animation */
+  opacity: 0; /* Start hidden for animation */
+  transform: translateY(20px); /* Start slightly below for animation */
+  
+  /* Add a dark gradient overlay for depth */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2), /* Darker at the top */
+    rgba(0, 0, 0, 0.05) /* Lighter at the bottom */
+  ), rgba(255, 255, 255, 0.15);
 }
 
 /* --- Animation --- */
