@@ -45,8 +45,8 @@ body {
   /* Add a dark gradient overlay for depth */
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.2), /* Darker at the top */
-    rgba(0, 0, 0, 0.05) /* Lighter at the bottom */
+    rgba(0, 0, 0, 0.4), /* Darker at the top */
+    rgba(0, 0, 0, 0.2) /* Lighter at the bottom */
   ), rgba(255, 255, 255, 0.15);
 }
 
