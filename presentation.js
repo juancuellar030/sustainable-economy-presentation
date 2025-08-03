@@ -1,45 +1,73 @@
 document.addEventListener("DOMContentLoaded", function() {
-    
-    // --- PART 1: This runs on EVERY slide ---
-    // On page load, check if we're supposed to be in fullscreen mode.
+
+    // --- The "Brain" of the Presentation ---
+    // This array defines the correct order of all your slides.
+    const slides = [
+        'index.html',
+        'slide2.html',
+        'slide3.html',
+        'slide4.html',
+        'slide5.html',
+        'slide6.html',
+        'slide7.html',
+        'slide8.html',
+        'slide9.html'
+    ];
+
+    // --- Find the current page's place in the slide order ---
+    const currentPage = window.location.pathname.split('/').pop();
+    const currentIndex = slides.indexOf(currentPage);
+
+    // --- Fullscreen Logic (from before) ---
     if (sessionStorage.getItem('fullscreen') === 'true') {
-        // Use a small timeout to ensure the page is ready before requesting.
-        setTimeout(() => {
-            enterFullscreen();
-        }, 50); // 50ms is very fast, but gives the browser a moment to breathe.
+        setTimeout(() => enterFullscreen(), 50);
     }
 
-    // --- PART 2: This ONLY runs on the first slide (index.html) ---
-    // It looks for the button with id="start-btn".
     const startButton = document.getElementById('start-btn');
     if (startButton) {
         startButton.addEventListener('click', function(event) {
-            event.preventDefault(); // Stop it from navigating immediately.
-            
-            // Set the "memory" that we want to be in fullscreen mode.
+            event.preventDefault();
             sessionStorage.setItem('fullscreen', 'true');
-            
-            // Enter fullscreen and then go to the next slide.
             enterFullscreen();
-            
-            // Give the browser a moment before navigating.
-            setTimeout(() => {
-                window.location.href = startButton.href;
-            }, 200);
+            setTimeout(() => { window.location.href = startButton.href; }, 200);
         });
     }
 
-    // A reusable function to enter fullscreen across all browsers.
+    // --- NEW: Smart Navigation Logic ---
+    const nextBtn = document.getElementById('next-btn');
+    const prevBtn = document.getElementById('prev-btn');
+
+    // Handle the "Next" button
+    if (nextBtn) {
+        if (currentIndex === slides.length - 1) {
+            // On the last slide, make the button a "Restart" button
+            nextBtn.textContent = 'Reiniciar';
+            nextBtn.href = slides[0]; // Link back to the first slide
+        } else {
+            nextBtn.href = slides[currentIndex + 1];
+        }
+    }
+
+    // Handle the "Previous" button
+    if (prevBtn) {
+        if (currentIndex <= 0) {
+            // On the first slide (or if something goes wrong), hide the button
+            prevBtn.style.display = 'none';
+        } else {
+            prevBtn.href = slides[currentIndex - 1];
+        }
+    }
+
+    // A reusable function to enter fullscreen
     function enterFullscreen() {
         const docElement = document.documentElement;
         if (docElement.requestFullscreen) docElement.requestFullscreen();
-        else if (docElement.mozRequestFullScreen) docElement.mozRequestFullScreen(); // Firefox
-        else if (docElement.webkitRequestFullscreen) docElement.webkitRequestFullscreen(); // Chrome, Safari
-        else if (docElement.msRequestFullscreen) docElement.msRequestFullscreen(); // Edge
+        else if (docElement.mozRequestFullScreen) docElement.mozRequestFullScreen();
+        else if (docElement.webkitRequestFullscreen) docElement.webkitRequestFullscreen();
+        else if (docElement.msRequestFullscreen) docElement.msRequestFullscreen();
     }
-
-    // --- Optional: Clean up when the session ends ---
-    // When the user closes the tab, clear the flag.
+    
+    // Clean up sessionStorage when the tab is closed
     window.addEventListener('beforeunload', () => {
         sessionStorage.removeItem('fullscreen');
     });
