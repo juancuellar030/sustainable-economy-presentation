@@ -106,7 +106,7 @@ These rules apply to all slides EXCEPT the index page.
 }
 
 .card {
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(10px);
     border-radius: 15px;
     padding: 40px; /* Increased padding slightly for the new font */
