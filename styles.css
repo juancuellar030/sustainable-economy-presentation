@@ -20,15 +20,17 @@ body {
 }
 
 /* --- Main Content Container --- */
-/* This is the flex container that centers the card vertically and horizontally */
+/* This is the overlay that centers the card. */
 .main-container {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative; /* Ensures it sits above the background */
-  z-index: 1;
+  z-index: 1; /* Ensures it sits above the background layers */
 }
 
 /* --- Background Layers --- */
