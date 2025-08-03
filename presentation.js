@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-    // --- The "Brain" of the Presentation ---
-    // This array defines the correct order of all your slides.
     const slides = [
         'index.html',
         'slide2.html',
@@ -14,13 +12,13 @@ document.addEventListener("DOMContentLoaded", function() {
         'slide9.html'
     ];
 
-    // --- Find the current page's place in the slide order ---
-    const currentPage = window.location.pathname.split('/').pop();
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     const currentIndex = slides.indexOf(currentPage);
 
-    // --- Fullscreen Logic (from before) ---
+    // --- Fullscreen Logic ---
+    // If the sessionStorage flag is set, enter fullscreen immediately.
     if (sessionStorage.getItem('fullscreen') === 'true') {
-        setTimeout(() => enterFullscreen(), 50);
+        enterFullscreen(); // MODIFIED: Removed the timeout for faster execution.
     }
 
     const startButton = document.getElementById('start-btn');
@@ -33,32 +31,28 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // --- NEW: Smart Navigation Logic ---
+    // --- Smart Navigation Logic ---
     const nextBtn = document.getElementById('next-btn');
     const prevBtn = document.getElementById('prev-btn');
 
-    // Handle the "Next" button
     if (nextBtn) {
-        if (currentIndex === slides.length - 1) {
-            // On the last slide, make the button a "Restart" button
+        if (currentIndex >= slides.length - 1) {
             nextBtn.textContent = 'Reiniciar';
-            nextBtn.href = slides[0]; // Link back to the first slide
+            nextBtn.href = slides[0];
         } else {
             nextBtn.href = slides[currentIndex + 1];
         }
     }
 
-    // Handle the "Previous" button
     if (prevBtn) {
         if (currentIndex <= 0) {
-            // On the first slide (or if something goes wrong), hide the button
             prevBtn.style.display = 'none';
         } else {
             prevBtn.href = slides[currentIndex - 1];
         }
     }
 
-    // A reusable function to enter fullscreen
+    // --- Reusable Functions ---
     function enterFullscreen() {
         const docElement = document.documentElement;
         if (docElement.requestFullscreen) docElement.requestFullscreen();
@@ -67,8 +61,8 @@ document.addEventListener("DOMContentLoaded", function() {
         else if (docElement.msRequestFullscreen) docElement.msRequestFullscreen();
     }
     
-    // Clean up sessionStorage when the tab is closed
     window.addEventListener('beforeunload', () => {
-        sessionStorage.removeItem('fullscreen');
+        // This is a failsafe, but we don't clear the key on every navigation.
+        // It will be cleared when the user closes the tab.
     });
 });
