@@ -30,42 +30,37 @@ html, body {
 
 /* Ensure the PNG files scale correctly */
 .background-layer img {
-  width: auto;
+  width: 100%;
   height: 100%;
   object-fit: cover; /* Scale and crop the image to fit the container */
 }
 
 /* --- Background Layers --- */
 #layer-1 {
-  background-image: url('images/index-bg-layer-1.png');
   animation: fadeInFromBottom 1s ease-out forwards;
   animation-delay: 0s;
   z-index: 1;
 }
 
 #layer-2 {
-  background-image: url('images/index-bg-layer-2.png');
   animation: fadeInFromBottom 1s ease-out forwards;
   animation-delay: 0.2s;
   z-index: 2;
 }
 
 #layer-3 {
-  background-image: url('images/index-bg-layer-3.png');
   animation: fadeInFromTop 1s ease-out forwards;
   animation-delay: 0.4s;
   z-index: 3;
 }
 
 #layer-4 {
-  background-image: url('images/index-bg-layer-4.png');
   animation: fadeInFromBottom 1s ease-out forwards;
   animation-delay: 0.6s;
   z-index: 4;
 }
 
 #layer-5 {
-  background-image: url('images/index-bg-layer-5.png');
   animation: fadeInFromBottom 1s ease-out forwards;
   animation-delay: 0.8s;
   z-index: 5;
@@ -96,29 +91,26 @@ html, body {
 
 /* --- Glass Morphism Card --- */
 .card {
-  background: rgba(255, 255, 255, 0.15); /* White with low opacity */
-  backdrop-filter: blur(10px); /* Blur effect - key for glassmorphism */
-  -webkit-backdrop-filter: blur(10px); /* Safari support */
-  border-radius: 20px; /* Rounded corners */
-  border: 1px solid rgba(255, 255, 255, 0.18); /* Subtle border */
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Soft shadow */
-  padding: 40px;
-  width: 90%;
-  max-width: 900px; /* Limit card width */
-  color: #fff; /* White text for contrast */
-  text-align: center; /* Center text by default */
-  animation: fadeInUp 1s ease-out forwards; /* Apply animation */
-  opacity: 0; /* Start hidden for animation */
-  transform: translateY(20px); /* Start slightly below for animation */
-  z-index: 10; /* Ensure the card is above all background layers */
-}
-  
-  /* Add a dark gradient overlay for depth */
+  /* Combines the gradient and the transparent base color */
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.8), /* Darker at the top */
-    rgba(0, 0, 0, 0.6) /* Lighter at the bottom */
+    rgba(0, 0, 0, 0.8),
+    rgba(0, 0, 0, 0.6)
   ), rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  padding: 40px;
+  width: 90%;
+  max-width: 900px;
+  color: #fff;
+  text-align: center;
+  animation: fadeInUp 1s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+  z-index: 10; /* Ensure the card is above all background layers */
 }
 
 /* --- Animation --- */
