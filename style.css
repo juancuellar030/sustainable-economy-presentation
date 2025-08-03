@@ -119,33 +119,40 @@ These rules apply to all slides EXCEPT the index page.
 
 .button {
     display: inline-block;
-    padding: 12px 24px; /* Slightly larger button */
-    background-color: rgba(255, 255, 255, 0.3);
+    padding: 12px 35px; /* Added more padding */
+    background-color: rgba(255, 255, 255, 0.25);
     color: white;
     text-decoration: none;
-    border-radius: 5px;
-    margin-top: 20px;
-    transition: background-color 0.3s;
-    font-weight: 700; /* Bold button text */
+    /* MODIFIED: Increased border-radius for a 'pill' shape */
+    border-radius: 50px;
+    margin-top: 30px;
+    transition: all 0.3s;
+    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .button:hover {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
 }
-
 
 /*
 --- FONT & TYPOGRAPHY (Updated for Aleo) ---
 */
 h1 {
-    font-size: 2.6rem; /* Adjusted for Aleo */
-    font-weight: 700;
-    line-height: 1.2;
+    font-size: 2.6rem;
+    font-weight: 700; /* Bolder part of the title */
+    line-height: 1.3;
     margin-bottom: 25px;
 }
 
+/* NEW: This class targets the second part of the title to make it lighter */
+.light-title {
+    font-weight: 400; /* Regular weight */
+}
+
 h2 {
-    font-size: 2.2rem; /* Adjusted for Aleo */
+    font-size: 2.2rem;
     font-weight: 700;
     margin-bottom: 25px;
 }
@@ -170,6 +177,7 @@ li {
     margin-bottom: 15px;
 }
 
+/* MODIFIED: This ensures 'Presentado por:' is always bold (700 weight) */
 strong {
     font-weight: 700;
 }
