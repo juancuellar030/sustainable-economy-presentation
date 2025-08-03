@@ -74,11 +74,13 @@ body {
 /* NEW: Style rules for the bike layer */
 .index-page .layer-6 {
     background-image: url('images/bike-layer.png');
-    z-index: 5; /* Bike is in front of the car */
+    /* MODIFIED: Bike is in front of the car */
+    z-index: 5;
     background-size: contain;
     background-position: right bottom;
-    animation: endlessSlideReverse 25s linear infinite; /* Slower animation */
-    animation-delay: 2s; /* Starts slightly after the car */
+    animation: endlessSlideReverse 25s linear infinite;
+    /* MODIFIED: Staggered the delay to start slightly after the car */
+    animation-delay: 2.2s;
     opacity: 0;
 }
 
@@ -193,5 +195,5 @@ strong { font-weight: 700; } /* This will now work correctly */
 /* NEW: Keyframe animation for the bike moving from right to left */
 @keyframes endlessSlideReverse {
     0% { transform: translateX(100vw); opacity: 1; }
-    100% { transform: translateX(-20%); opacity: 1; }
+    100% { transform: translateX(-100%); opacity: 1; } /* Changed to -100% so it crosses the whole screen */
 }
