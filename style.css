@@ -68,7 +68,7 @@ body {
     /* This animation now correctly targets an existing element */
     animation: endlessSlide 15s linear infinite;
     animation-delay: 1.5s; /* Delay it slightly so it appears after other layers */
-    opacity: 1; /* Set opacity to 1 so it's visible for its animation */
+    opacity: 0; /* Set opacity to 1 so it's visible for its animation */
 }
 
 /* --- Card styling for the Index Page --- */
@@ -167,7 +167,15 @@ strong { font-weight: 700; } /* This will now work correctly */
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* MODIFIED: The animation now controls the opacity, making the car appear */
 @keyframes endlessSlide {
-    from { transform: translateX(-20%); }
-    to { transform: translateX(100vw); }
+    0% {
+        transform: translateX(-20%);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100vw);
+        opacity: 1;
+    }
 }
+
