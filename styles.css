@@ -28,11 +28,11 @@ html, body {
   overflow: hidden; /* Prevent any overflow */
 }
 
-/* Ensure the SVGs scale correctly */
-.background-layer svg {
-  width: 100%;
+/* Ensure the PNG files scale correctly */
+.background-layer img {
+  width: auto;
   height: 100%;
-  object-fit: cover; /* Scale and crop the SVG to fit the container */
+  object-fit: cover; /* Scale and crop the image to fit the container */
 }
 
 /* --- Background Layers --- */
@@ -110,6 +110,8 @@ html, body {
   animation: fadeInUp 1s ease-out forwards; /* Apply animation */
   opacity: 0; /* Start hidden for animation */
   transform: translateY(20px); /* Start slightly below for animation */
+  z-index: 10; /* Ensure the card is above all background layers */
+}
   
   /* Add a dark gradient overlay for depth */
   background: linear-gradient(
