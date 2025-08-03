@@ -10,7 +10,7 @@ body {
 These rules ONLY apply to the index page because of the .index-page class.
 */
 .index-page {
-    background-color: #a3e6ff; /* Base color during load */
+    background-color: #84ebff; /* Base color during load */
 }
 
 .index-page .background-container {
@@ -36,37 +36,41 @@ These rules ONLY apply to the index page because of the .index-page class.
 .index-page .layer-1 {
     background-image: url('images/index-bg-layer-1.png');
     z-index: 1;
-    animation: slideInFromBottom 1.5s ease-out 0s forwards;
+    animation: slideInFromBottom 1s ease-out 0s forwards;
 }
 
 .index-page .layer-2 {
     background-image: url('images/index-bg-layer-2.png');
     z-index: 2;
-    animation: slideInFromBottom 1.5s ease-out 0.4s forwards;
+    animation: slideInFromBottom 1s ease-out 0.4s forwards;
 }
 
 .index-page .layer-3 {
     background-image: url('images/index-bg-layer-3.png');
     z-index: 3;
-    animation: slideInFromTop 1.5s ease-out 0.8s forwards;
+    animation: slideInFromTop 1s ease-out 0.8s forwards;
 }
 
 .index-page .layer-4 {
     background-image: url('images/index-bg-layer-4.png');
     z-index: 4;
-    animation: slideInFromBottom 1.5s ease-out 1.2s forwards;
+    animation: slideInFromBottom 1s ease-out 1.2s forwards;
 }
 
 .index-page .layer-5 {
     background-image: url('images/index-bg-layer-5.png');
     z-index: 5;
-    animation: slideInFromLeft 1.5s ease-out 1.6s forwards;
+    animation: slideInFromLeft 1s ease-out 1.6s forwards;
+
+    /* MODIFIED: This is the fix for the car not appearing */
+    background-size: contain;
+    background-position: left bottom;
 }
 
 /* --- Card styling for the Index Page (with longer delay) --- */
 .index-page .card {
     opacity: 0;
-    animation: card-enter 1s ease-out 2.5s forwards; /* Delayed until backgrounds are done */
+    animation: card-enter 1s ease-out 2s forwards; /* Delayed until backgrounds are done */
 }
 
 
@@ -131,7 +135,7 @@ These styles for the card, button, etc., are shared across all pages.
 */
 @keyframes card-enter {
     from {
-        opacity: 0;
+        opacity: 1;
         transform: translateY(50px);
     }
     to {
@@ -142,7 +146,7 @@ These styles for the card, button, etc., are shared across all pages.
 
 @keyframes slideInFromTop {
     from {
-        opacity: 0;
+        opacity: 1;
         transform: translateY(-100%);
     }
     to {
@@ -153,7 +157,7 @@ These styles for the card, button, etc., are shared across all pages.
 
 @keyframes slideInFromLeft {
     from {
-        opacity: 0;
+        opacity: 1;
         transform: translateX(-100%);
     }
     to {
@@ -164,7 +168,7 @@ These styles for the card, button, etc., are shared across all pages.
 
 @keyframes slideInFromRight {
     from {
-        opacity: 0;
+        opacity: 1;
         transform: translateX(100%);
     }
     to {
@@ -175,7 +179,7 @@ These styles for the card, button, etc., are shared across all pages.
 
 @keyframes slideInFromBottom {
     from {
-        opacity: 0;
+        opacity: 1;
         transform: translateY(100%);
     }
     to {
