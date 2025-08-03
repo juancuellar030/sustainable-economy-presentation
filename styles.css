@@ -24,35 +24,49 @@ html, body {
   z-index: -1; /* Ensure layers are behind the card */
 }
 
+.welcome-scene-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Use min-height to ensure it fills the screen */
+    width: 100%;
+    position: relative; /* Needed for z-index on child elements to work correctly */
+    z-index: 1;
+}
+
 #layer-5 {
   background-image: url('images/index-bg-layer-5.svg');
   animation: fadeInFromLeft 1s ease-out forwards;
   animation-delay: 0s;
+  z-index: -5; /* Furthest back */
 }
 
 #layer-4 {
   background-image: url('images/index-bg-layer-4.svg');
   animation: fadeInFromBottom 1s ease-out forwards;
   animation-delay: 0.2s;
+  z-index: -4;
 }
 
 #layer-3 {
   background-image: url('images/index-bg-layer-3.svg');
   animation: fadeInFromTop 1s ease-out forwards;
   animation-delay: 0.4s;
+  z-index: -3;
 }
 
 #layer-2 {
   background-image: url('images/index-bg-layer-2.svg');
   animation: fadeInFromBottom 1s ease-out forwards;
   animation-delay: 0.6s;
+  z-index: -2;
 }
 
 #layer-1 {
   background-image: url('images/index-bg-layer-1.svg');
   animation: fadeInFromBottom 1s ease-out forwards;
   animation-delay: 0.8s;
-}
+  z-index: -1; /* Closest to the front */
 
 /* --- Glass Morphism Card --- */
 .card {
