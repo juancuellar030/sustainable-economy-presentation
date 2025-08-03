@@ -1,9 +1,8 @@
-/* MODIFIED: Replaced Poppins with Aleo */
+/* Using the correct import with both 400 and 700 font weights */
 @import url('https://fonts.googleapis.com/css2?family=Aleo:wght@400;700&display=swap');
 
 /* --- General Body & Font Styles --- */
 body {
-    /* MODIFIED: Set the new default font for the entire presentation */
     font-family: 'Aleo', serif;
     margin: 0;
     overflow: hidden;
@@ -11,10 +10,9 @@ body {
 
 /*
 --- 1. INDEX PAGE STYLES ---
-These rules ONLY apply to the index page because of the .index-page class.
 */
 .index-page {
-    background-color: #84ebff; /* Base color during load */
+    background-color: #84ebff;
 }
 
 .index-page .background-container {
@@ -34,10 +32,10 @@ These rules ONLY apply to the index page because of the .index-page class.
     background-size: cover;
     background-position: center bottom;
     background-repeat: no-repeat;
-    opacity: 0; /* Start invisible */
+    opacity: 0; /* All layers start invisible */
 }
 
-/* --- Layer-Specific Animations (All are now slide animations) --- */
+/* --- Layer-Specific Animations --- */
 .index-page .layer-1 {
     background-image: url('images/index-bg-layer-1.png');
     z-index: 1;
@@ -62,38 +60,35 @@ These rules ONLY apply to the index page because of the .index-page class.
     animation: slideInFromBottom 1s ease-out 0.8s forwards;
 }
 
-/* MODIFIED: New animation for the endless moving car */
 .index-page .layer-5 {
-    background-image: url('https://juancuellar030.github.io/sustainable-economy-presentation/images/index-bg-layer-5.png');
+    background-image: url('images/index-bg-layer-5.png');
     z-index: 5;
     background-size: contain;
     background-position: left bottom;
-    /* Apply the new endless animation */
+    /* This animation now correctly targets an existing element */
     animation: endlessSlide 15s linear infinite;
-    animation-delay: 1s; /* Let other layers settle first */
-    opacity: 1; /* Start this layer as visible */
+    animation-delay: 1.5s; /* Delay it slightly so it appears after other layers */
+    opacity: 1; /* Set opacity to 1 so it's visible for its animation */
 }
 
-/* --- Card styling for the Index Page (with longer delay) --- */
+/* --- Card styling for the Index Page --- */
 .index-page .card {
     opacity: 0;
-    animation: card-enter 1s ease-out 1.8s forwards; /* Delayed until backgrounds are done */
+    animation: card-enter 1s ease-out 1.8s forwards;
 }
 
 
 /*
 --- 2. CONTENT PAGE STYLES ---
-These rules apply to all slides EXCEPT the index page.
 */
 .content-page {
-    /* A simple, static background for all other slides */
     background-image: url('images/index-bg-layer-2.png');
     background-size: cover;
     background-position: center;
 }
 
 .content-page .card {
-    animation: card-enter 1s ease-out forwards; /* No delay needed */
+    animation: card-enter 1s ease-out forwards;
 }
 
 
@@ -112,7 +107,7 @@ These rules apply to all slides EXCEPT the index page.
     background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(10px);
     border-radius: 15px;
-    padding: 40px; /* Increased padding slightly for the new font */
+    padding: 40px;
     color: white;
     max-width: 800px;
     text-align: center;
@@ -122,11 +117,10 @@ These rules apply to all slides EXCEPT the index page.
 
 .button {
     display: inline-block;
-    padding: 12px 35px; /* Added more padding */
+    padding: 12px 35px;
     background-color: rgba(255, 255, 255, 0.25);
     color: white;
     text-decoration: none;
-    /* MODIFIED: Increased border-radius for a 'pill' shape */
     border-radius: 50px;
     margin-top: 30px;
     transition: all 0.3s;
@@ -139,105 +133,41 @@ These rules apply to all slides EXCEPT the index page.
     transform: scale(1.05);
 }
 
-/*
---- FONT & TYPOGRAPHY (Updated for Aleo) ---
-*/
-h1 {
-    font-size: 2.6rem;
-    font-weight: 700; /* Bolder part of the title */
-    line-height: 1.3;
-    margin-bottom: 25px;
-}
-
-/* NEW: This class targets the second part of the title to make it lighter */
-.light-title {
-    font-weight: 400; /* Regular weight */
-}
-
-h2 {
-    font-size: 2.2rem;
-    font-weight: 700;
-    margin-bottom: 25px;
-}
-
-p, li {
-    font-size: 1.1rem;
-    font-weight: 400;
-    line-height: 1.7; 
-}
-
-.card > p {
-    text-align: center;
-}
-
-ul {
-    padding-left: 30px;
-    margin-top: 20px;
-    text-align: left;
-}
-
-li {
-    margin-bottom: 15px;
-}
-
-/* MODIFIED: This ensures 'Presentado por:' is always bold (700 weight) */
-strong {
-    font-weight: 700;
-}
+/* --- FONT & TYPOGRAPHY --- */
+h1 { font-size: 2.6rem; font-weight: 700; line-height: 1.3; margin-bottom: 25px; }
+.light-title { font-weight: 400; }
+h2 { font-size: 2.2rem; font-weight: 700; margin-bottom: 25px; }
+p, li { font-size: 1.1rem; font-weight: 400; line-height: 1.7; }
+.card > p { text-align: center; }
+ul { padding-left: 30px; margin-top: 20px; text-align: left; }
+li { margin-bottom: 15px; }
+strong { font-weight: 700; } /* This will now work correctly */
 
 /*
 --- 4. ALL KEYFRAME ANIMATIONS ---
 */
 @keyframes card-enter {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
+/* MODIFIED: Fixed all keyframes to start with opacity: 0 */
 @keyframes slideInFromTop {
-    from {
-        opacity: 1;
-        transform: translateY(-100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-100%); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideInFromLeft {
-    from {
-        opacity: 1;
-        transform: translateX(-100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+    from { opacity: 0; transform: translateX(-100%); }
+    to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes slideInFromBottom {
-    from {
-        opacity: 1;
-        transform: translateY(100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(100%); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* NEW: Keyframe animation for the endlessly moving car */
 @keyframes endlessSlide {
-    from {
-        transform: translateX(-20%); /* Start just off-screen left */
-    }
-    to {
-        transform: translateX(100vw); /* End far off-screen right */
-    }
+    from { transform: translateX(-20%); }
+    to { transform: translateX(100vw); }
 }
