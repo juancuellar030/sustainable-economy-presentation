@@ -24,6 +24,7 @@ These rules ONLY apply to the index page because of the .index-page class.
     width: 100%;
     height: 100%;
     z-index: -1;
+    overflow: hidden; /* Prevents scrollbars from the moving car */
 }
 
 .index-page .bg-layer {
@@ -61,14 +62,16 @@ These rules ONLY apply to the index page because of the .index-page class.
     animation: slideInFromBottom 1s ease-out 0.8s forwards;
 }
 
+/* MODIFIED: New animation for the endless moving car */
 .index-page .layer-5 {
-    background-image: url('images/index-bg-layer-5.png');
+    background-image: url('https://juancuellar030.github.io/sustainable-economy-presentation/images/index-bg-layer-5.png');
     z-index: 5;
-    animation: slideInFromLeft 1s ease-out 1.4s forwards;
-
-    /* MODIFIED: This is the fix for the car not appearing */
     background-size: contain;
     background-position: left bottom;
+    /* Apply the new endless animation */
+    animation: endlessSlide 15s linear infinite;
+    animation-delay: 1s; /* Let other layers settle first */
+    opacity: 1; /* Start this layer as visible */
 }
 
 /* --- Card styling for the Index Page (with longer delay) --- */
@@ -218,17 +221,6 @@ strong {
     }
 }
 
-@keyframes slideInFromRight {
-    from {
-        opacity: 1;
-        transform: translateX(100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
 @keyframes slideInFromBottom {
     from {
         opacity: 1;
@@ -237,5 +229,15 @@ strong {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* NEW: Keyframe animation for the endlessly moving car */
+@keyframes endlessSlide {
+    from {
+        transform: translateX(-20%); /* Start just off-screen left */
+    }
+    to {
+        transform: translateX(100vw); /* End far off-screen right */
     }
 }
