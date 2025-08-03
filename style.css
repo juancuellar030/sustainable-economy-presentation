@@ -62,7 +62,7 @@ body {
 
 .index-page .layer-5 {
     background-image: url('images/index-bg-layer-5.png');
-    z-index: 5;
+    z-index: 6;
     background-size: contain;
     background-position: left bottom;
     /* This animation now correctly targets an existing element */
@@ -74,7 +74,7 @@ body {
 /* NEW: Style rules for the bike layer */
 .index-page .layer-6 {
     background-image: url('images/bike-layer.png');
-    z-index: 6; /* Bike is in front of the car */
+    z-index: 5; /* Bike is in front of the car */
     background-size: contain;
     background-position: right bottom;
     animation: endlessSlideReverse 25s linear infinite; /* Slower animation */
