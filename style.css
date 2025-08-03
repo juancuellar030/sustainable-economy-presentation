@@ -1,6 +1,10 @@
+/* MODIFIED: Add font import at the very top */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
 /* --- General Body & Font Styles --- */
 body {
-    font-family: sans-serif;
+    /* MODIFIED: Set the new default font for the entire presentation */
+    font-family: 'Montserrat', sans-serif;
     margin: 0;
     overflow: hidden;
 }
@@ -92,7 +96,6 @@ These rules apply to all slides EXCEPT the index page.
 
 /*
 --- 3. SHARED STYLES ---
-These styles for the card, button, etc., are shared across all pages.
 */
 .slide-container {
     display: flex;
@@ -103,10 +106,10 @@ These styles for the card, button, etc., are shared across all pages.
 }
 
 .card {
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(10px);
     border-radius: 15px;
-    padding: 30px;
+    padding: 40px; /* Increased padding slightly for the new font */
     color: white;
     max-width: 800px;
     text-align: center;
@@ -116,17 +119,54 @@ These styles for the card, button, etc., are shared across all pages.
 
 .button {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 12px 24px; /* Slightly larger button */
     background-color: rgba(255, 255, 255, 0.3);
     color: white;
     text-decoration: none;
     border-radius: 5px;
     margin-top: 20px;
     transition: background-color 0.3s;
+    font-weight: 700; /* Bold button text */
 }
 
 .button:hover {
     background-color: rgba(255, 255, 255, 0.5);
+}
+
+
+/*
+--- NEW: FONT & TYPOGRAPHY ---
+*/
+h1 {
+    font-size: 2.5rem; /* Large size for the main title */
+    font-weight: 700;   /* Bold weight */
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 2.1rem; /* Slightly smaller for slide titles */
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+p, li {
+    font-size: 1.1rem;  /* Comfortable size for body text */
+    font-weight: 400;   /* Regular weight */
+    line-height: 1.6;   /* Improved spacing between lines */
+    text-align: left;   /* Align list text to the left for readability */
+}
+
+ul {
+    padding-left: 25px; /* Adjust list indentation */
+    margin-top: 20px;
+}
+
+li {
+    margin-bottom: 15px; /* Space out list items */
+}
+
+.card p {
+    text-align: center; /* Keep main paragraphs centered */
 }
 
 
