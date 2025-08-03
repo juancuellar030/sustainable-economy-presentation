@@ -7,18 +7,26 @@
   box-sizing: border-box;
 }
 
-html, body {
+html {
+  height: 100%;
+  /* Move the background color here */
+  background-color: #1a1a1a; 
+}
+
+body {
   height: 100%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   position: relative;
-  background-color: #1a1a1a; /* Fallback for when images are loading */
+  /* Make the body's background see-through */
+  background-color: transparent; 
+  /* Add this to prevent scrollbars */
+  overflow: hidden; 
 }
 
 .main-container {
   width: 100%;
   height: 100%;
   position: relative;
-  /* Add these lines to center the card */
   display: flex;
   justify-content: center;
   align-items: center;
