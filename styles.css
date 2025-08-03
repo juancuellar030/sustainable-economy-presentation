@@ -22,16 +22,25 @@ html, body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw; /* Ensure full viewport width */
+  height: 100vh; /* Ensure full viewport height */
   z-index: -1; /* Ensure layers are behind the card */
+  overflow: hidden; /* Prevent any overflow */
 }
 
+/* Ensure the SVGs scale correctly */
+.background-layer svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Scale and crop the SVG to fit the container */
+}
+
+/* --- Background Layers --- */
 #layer-1 {
   background-image: url('images/index-bg-layer-1.svg');
   animation: fadeInFromBottom 1s ease-out forwards;
   animation-delay: 0s;
-  z-index: 1; /* Lowest layer */
+  z-index: 1;
 }
 
 #layer-2 {
@@ -45,7 +54,7 @@ html, body {
   background-image: url('images/index-bg-layer-3.svg');
   animation: fadeInFromTop 1s ease-out forwards;
   animation-delay: 0.4s;
-  z-index: 3; /* Middle layer */
+  z-index: 3;
 }
 
 #layer-4 {
@@ -59,7 +68,30 @@ html, body {
   background-image: url('images/index-bg-layer-5.svg');
   animation: fadeInFromBottom 1s ease-out forwards;
   animation-delay: 0.8s;
-  z-index: 5; /* Closest layer */
+  z-index: 5;
+}
+
+/* --- Animation Definitions --- */
+@keyframes fadeInFromBottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInFromTop {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* --- Glass Morphism Card --- */
