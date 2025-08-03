@@ -9,27 +9,26 @@
 
 html {
   height: 100%;
-  /* Move the background color here */
-  background-color: #1a1a1a; 
+  background-color: #1a1a1a; /* Fallback background */
 }
 
 body {
   height: 100%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   position: relative;
-  /* Make the body's background see-through */
-  background-color: transparent; 
-  /* Add this to prevent scrollbars */
-  overflow: hidden; 
+  overflow: hidden; /* This prevents scrollbars from appearing during animations */
 }
 
+/* --- Main Content Container --- */
+/* This is the flex container that centers the card vertically and horizontally */
 .main-container {
   width: 100%;
   height: 100%;
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative; /* Ensures it sits above the background */
+  z-index: 1;
 }
 
 /* --- Background Layers --- */
@@ -37,15 +36,17 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  /* This tells the browser to optimize these layers for animation, reducing stutter */
+  will-change: transform, opacity;
 }
 
 /* Ensure the PNG files scale correctly */
 .background-layer img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Scale and crop the image to fit the container */
+  object-fit: cover;
 }
 
 /* --- Background Layers --- */
