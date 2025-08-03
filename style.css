@@ -71,6 +71,17 @@ body {
     opacity: 0; /* Set opacity to 1 so it's visible for its animation */
 }
 
+/* NEW: Style rules for the bike layer */
+.index-page .layer-6 {
+    background-image: url('images/bike-layer.png');
+    z-index: 6; /* Bike is in front of the car */
+    background-size: contain;
+    background-position: right bottom;
+    animation: endlessSlideReverse 25s linear infinite; /* Slower animation */
+    animation-delay: 2s; /* Starts slightly after the car */
+    opacity: 0;
+}
+
 /* --- Card styling for the Index Page --- */
 .index-page .card {
     opacity: 0;
@@ -179,3 +190,8 @@ strong { font-weight: 700; } /* This will now work correctly */
     }
 }
 
+/* NEW: Keyframe animation for the bike moving from right to left */
+@keyframes endlessSlideReverse {
+    0% { transform: translateX(100vw); opacity: 1; }
+    100% { transform: translateX(-20%); opacity: 1; }
+}
