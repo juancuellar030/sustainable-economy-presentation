@@ -16,18 +16,23 @@ document.addEventListener("DOMContentLoaded", function() {
     const currentIndex = slides.indexOf(currentPage);
 
     // --- Fullscreen Logic ---
-    // If the sessionStorage flag is set, enter fullscreen immediately.
-    if (sessionStorage.getItem('fullscreen') === 'true') {
-        enterFullscreen(); // MODIFIED: Removed the timeout for faster execution.
-    }
-
     const startButton = document.getElementById('start-btn');
     if (startButton) {
         startButton.addEventListener('click', function(event) {
-            event.preventDefault();
-            sessionStorage.setItem('fullscreen', 'true');
+            event.preventDefault(); // Prevent the link from navigating immediately
+
+            // This function will handle the navigation
+            const navigateToNextSlide = () => {
+                // Remove the event listener to avoid it firing again
+                document.removeEventListener('fullscreenchange', navigateToNextSlide);
+                window.location.href = startButton.href;
+            };
+
+            // Listen for the 'fullscreenchange' event
+            document.addEventListener('fullscreenchange', navigateToNextSlide);
+
+            // Request to enter fullscreen
             enterFullscreen();
-            setTimeout(() => { window.location.href = startButton.href; }, 200);
         });
     }
 
@@ -60,9 +65,4 @@ document.addEventListener("DOMContentLoaded", function() {
         else if (docElement.webkitRequestFullscreen) docElement.webkitRequestFullscreen();
         else if (docElement.msRequestFullscreen) docElement.msRequestFullscreen();
     }
-    
-    window.addEventListener('beforeunload', () => {
-        // This is a failsafe, but we don't clear the key on every navigation.
-        // It will be cleared when the user closes the tab.
-    });
 });
