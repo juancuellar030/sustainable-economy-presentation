@@ -7,12 +7,114 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="content-page">
-    <!-- The empty background-container div is now removed -->
+
     <div class="slide-container">
         <div class="card">
+            <!-- Existing Content -->
             <h2>Por qué el Cuidado Ambiental es Fundamental</h2>
             <p>El cambio climático y la degradación ambiental son desafíos críticos, intrínsecamente ligados a nuestros modelos socioeconómicos.</p>
+
+            <!-- 1. NEW: Buttons to trigger the content -->
+            <div class="interactive-buttons">
+                <button class="button interactive-btn" id="stats-btn">Estadísticas</button>
+                <button class="button interactive-btn" id="impact-btn">Impacto Visual</button>
+            </div>
+
+            <!-- 2. NEW: Container for the revealable content -->
+            <div class="info-box-container">
+
+                <!-- Stats Content (hidden by default) -->
+                <div id="stats-content" class="info-box">
+                    <div class="chart-container">
+                        <div class="chart-bar-group">
+                            <div class="bar-label">Mundial</div>
+                            <div class="bar-wrapper"><div class="bar" id="bar-global"><span>30%</span></div></div>
+                        </div>
+                        <div class="chart-bar-group">
+                            <div class="bar-label">Tropical</div>
+                            <div class="bar-wrapper"><div class="bar" id="bar-tropical"><span>60%</span></div></div>
+                        </div>
+                    </div>
+                    <p class="chart-caption">La biodiversidad mundial ha disminuido un 30% en 38 años, con las especies tropicales registrando una reducción del 60%, directamente atribuida a las acciones humanas y actividades industriales. Define las prácticas sostenibles como acciones que buscan minimizar el impacto negativo en el medio ambiente, la sociedad y la economía, promoviendo la conservación de los recursos naturales y la equidad social.</p>
+                </div>
+
+                <!-- Image Slider Content (hidden by default) -->
+                <div id="impact-content" class="info-box">
+                    <!-- IMPORTANT: Replace with your image paths -->
+                    <div class="comparison-slider" id="comparison-slider">
+                        <img src="images/before-image.jpg" alt="Before" class="before-image">
+                        <div class="after-image-container" id="after-image-container">
+                            <img src="images/after-image.jpg" alt="After" class="after-image">
+                        </div>
+                        <div class="slider-handle" id="slider-handle">
+                            <div class="handle-line"></div>
+                            <div class="handle-arrows"></div>
+                            <div class="handle-line"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
+
+    <!-- 3. NEW: Local script for this slide's interactivity -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Get button and content elements
+        const statsBtn = document.getElementById('stats-btn');
+        const impactBtn = document.getElementById('impact-btn');
+        const statsContent = document.getElementById('stats-content');
+        const impactContent = document.getElementById('impact-content');
+
+        // Show Stats Content
+        statsBtn.addEventListener('click', () => {
+            impactContent.classList.remove('active');
+            statsContent.classList.add('active');
+        });
+
+        // Show Impact Content
+        impactBtn.addEventListener('click', () => {
+            statsContent.classList.remove('active');
+            impactContent.classList.add('active');
+        });
+        
+        // --- Before/After Slider Logic ---
+        const slider = document.getElementById('comparison-slider');
+        const handle = document.getElementById('slider-handle');
+        const afterImageContainer = document.getElementById('after-image-container');
+        let isDragging = false;
+
+        // Mouse Events
+        handle.addEventListener('mousedown', () => { isDragging = true; });
+        document.addEventListener('mouseup', () => { isDragging = false; });
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            // Calculate position
+            const rect = slider.getBoundingClientRect();
+            let offsetX = e.clientX - rect.left;
+            // Constrain movement
+            if (offsetX < 0) offsetX = 0;
+            if (offsetX > rect.width) offsetX = rect.width;
+            // Apply styles
+            handle.style.left = offsetX + 'px';
+            afterImageContainer.style.width = offsetX + 'px';
+        });
+
+        // Touch Events
+        handle.addEventListener('touchstart', (e) => { isDragging = true; e.preventDefault(); });
+        document.addEventListener('touchend', () => { isDragging = false; });
+        document.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const rect = slider.getBoundingClientRect();
+            let offsetX = e.touches[0].clientX - rect.left;
+            if (offsetX < 0) offsetX = 0;
+            if (offsetX > rect.width) offsetX = rect.width;
+            handle.style.left = offsetX + 'px';
+            afterImageContainer.style.width = offsetX + 'px';
+        });
+    });
+    </script>
+
 </body>
 </html>
