@@ -199,3 +199,158 @@ strong { font-weight: 700; } /* This will now work correctly */
     0% { transform: translateX(100vw); opacity: 1; }
     100% { transform: translateX(-100%); opacity: 1; } /* Changed to -100% so it crosses the whole screen */
 }
+
+/*
+--- 6. SLIDE 2 INTERACTIVE ELEMENTS ---
+*/
+
+/* Container for the two new buttons */
+.interactive-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Make sure buttons inside the card don't have excessive top margin */
+.interactive-btn {
+    margin-top: 0;
+}
+
+/* Container that holds the hidden/revealed content */
+.info-box-container {
+    margin-top: 25px;
+    min-height: 250px; /* Reserve space to prevent layout jumps */
+}
+
+/* The content boxes themselves, hidden by default */
+.info-box {
+    display: none;
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* This class is added by JS to show the content */
+.info-box.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Animated Chart Styles --- */
+.chart-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+}
+.chart-bar-group {
+    text-align: center;
+    width: 40%;
+}
+.bar-wrapper {
+    height: 100px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    display: flex;
+    align-items: flex-end; /* Makes bars grow from the bottom */
+}
+.bar {
+    width: 100%;
+    background-color: #34c7c7;
+    border-radius: 5px;
+    color: white;
+    font-weight: 700;
+    position: relative;
+    height: 0; /* Starts at 0 height */
+}
+.bar span {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+}
+.bar-label {
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+.chart-caption {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-top: 15px;
+    text-align: justify;
+}
+
+/* Animate the bars when the stats box becomes active */
+.info-box.active #bar-global {
+    animation: growBar30 1s 0.2s ease-out forwards;
+}
+.info-box.active #bar-tropical {
+    animation: growBar60 1s 0.4s ease-out forwards;
+}
+.info-box.active .bar span {
+    animation: fadeIn 0.5s 1.5s ease-out forwards;
+}
+
+@keyframes growBar30 {
+    from { height: 0; }
+    to { height: 30%; }
+}
+@keyframes growBar60 {
+    from { height: 0; }
+    to { height: 60%; }
+}
+
+/* --- Before/After Image Slider Styles --- */
+.comparison-slider {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Common aspect ratio for images */
+    margin: auto;
+    overflow: hidden;
+    border-radius: 10px;
+}
+.before-image, .after-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.after-image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%; /* Initial split position */
+    height: 100%;
+    overflow: hidden;
+}
+.slider-handle {
+    position: absolute;
+    top: 0;
+    left: 50%; /* Initial split position */
+    height: 100%;
+    width: 4px;
+    background: rgba(255, 255, 255, 0.8);
+    cursor: ew-resize; /* East-West resize cursor */
+    transform: translateX(-2px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+.handle-arrows {
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 50%;
+    border: 3px solid #333;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M6 11.5a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1 0-1h5a.5.5 0 0 1 .5.5zm-5-4a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm.5 3.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM16 8a.5.5 0 0 1-.5.5H10a.5.5 0 0 1 0-1h5.5a.5.5 0 0 1 .5.5z'/%3E%3C/svg%3E");
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
