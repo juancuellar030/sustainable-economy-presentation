@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
 
+    // Note: The first slide is now the intro content, not a separate file.
+    // The presentation itself starts at slide2.html.
     const slides = [
-        'index.html',
         'slide2.html',
         'slide3.html',
         'slide4.html',
@@ -12,52 +13,71 @@ document.addEventListener("DOMContentLoaded", function() {
         'slide9.html'
     ];
 
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    const currentIndex = slides.indexOf(currentPage);
+    let currentIndex = -1; // -1 means we are on the intro screen
 
-    // --- Fullscreen Logic ---
     const startButton = document.getElementById('start-btn');
-    if (startButton) {
-        startButton.addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent the link from navigating immediately
-
-            // This function will handle the navigation
-            const navigateToNextSlide = () => {
-                // Remove the event listener to avoid it firing again
-                document.removeEventListener('fullscreenchange', navigateToNextSlide);
-                window.location.href = startButton.href;
-            };
-
-            // Listen for the 'fullscreenchange' event
-            document.addEventListener('fullscreenchange', navigateToNextSlide);
-
-            // Request to enter fullscreen
-            enterFullscreen();
-        });
-    }
-
-    // --- Smart Navigation Logic ---
     const nextBtn = document.getElementById('next-btn');
     const prevBtn = document.getElementById('prev-btn');
+    const introContainer = document.getElementById('intro-container');
+    const presentationContainer = document.getElementById('presentation-container');
+    const navContainer = document.getElementById('nav-container');
 
-    if (nextBtn) {
+    startButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        enterFullscreen();
+
+        // Hide the intro and show the presentation layout
+        introContainer.style.display = 'none';
+        navContainer.style.display = 'flex';
+        document.body.classList.add('presentation-view'); // Optional class to change styles
+
+        // Create the iframe and load the first slide
+        const iframe = document.createElement('iframe');
+        iframe.id = 'slide-frame';
+        presentationContainer.appendChild(iframe);
+        
+        // Start with the first slide
+        currentIndex = 0;
+        loadSlide(currentIndex);
+    });
+
+    nextBtn.addEventListener('click', function(e) {
+        e.preventDefault();
         if (currentIndex >= slides.length - 1) {
-            nextBtn.textContent = 'Reiniciar';
-            nextBtn.href = slides[0];
+            // Restart logic
+            window.location.reload(); // Easiest way to get back to the start
         } else {
-            nextBtn.href = slides[currentIndex + 1];
+            currentIndex++;
+            loadSlide(currentIndex);
         }
-    }
+    });
 
-    if (prevBtn) {
+    prevBtn.addEventListener('click', function(e) {
+        e.preventDefault();
         if (currentIndex <= 0) {
-            prevBtn.style.display = 'none';
+            // Can't go back further
+            return;
+        }
+        currentIndex--;
+        loadSlide(currentIndex);
+    });
+
+    function loadSlide(index) {
+        const iframe = document.getElementById('slide-frame');
+        if (iframe) {
+            iframe.src = slides[index];
+        }
+
+        // Update button states
+        prevBtn.style.display = (index <= 0) ? 'none' : 'inline-block';
+
+        if (index >= slides.length - 1) {
+            nextBtn.textContent = 'Reiniciar';
         } else {
-            prevBtn.href = slides[currentIndex - 1];
+            nextBtn.textContent = 'Siguiente';
         }
     }
 
-    // --- Reusable Functions ---
     function enterFullscreen() {
         const docElement = document.documentElement;
         if (docElement.requestFullscreen) docElement.requestFullscreen();
