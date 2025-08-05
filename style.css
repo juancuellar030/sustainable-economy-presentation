@@ -92,12 +92,11 @@ body {
 
 
 /*
---- 2. CONTENT PAGE STYLES ---
-*/
+/* --- 2. CONTENT PAGE STYLES --- */
 .content-page {
-    background-image: url('images/index-bg-layer-2.png');
-    background-size: cover;
-    background-position: center;
+    /* MODIFIED: This allows the main index animation to show through the iframe */
+    background: transparent;
+    /* The old background-image rule is removed */
 }
 
 .content-page .card {
