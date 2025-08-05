@@ -6,34 +6,38 @@
     <title>El Cuidado Ambiental</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Add some styles to make the iframe fill the page */
+        /* --- CRITICAL FIX FOR IFRAME LAYOUT --- */
+        #presentation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* Places it above the background but below the nav */
+        }
+        
         #slide-frame {
             width: 100%;
             height: 100%;
             border: none;
-            /* CRITICAL: Make the iframe transparent to see the background */
             background-color: transparent;
         }
-        .presentation-view .intro-card {
-            display: none; /* Hide the intro card when the presentation starts */
-        }
-        .presentation-view .nav-container {
-            display: flex; /* Show the navigation buttons */
-        }
+
+        /* --- Navigation Button Styling --- */
         .nav-container {
             display: none; /* Hide nav buttons by default */
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 100;
+            z-index: 100; /* Ensure nav is on top of everything */
             gap: 15px;
         }
     </style>
 </head>
 <body class="index-page">
 
-    <!-- RESTORED: Your multi-layered background animation now lives here permanently -->
+    <!-- Your multi-layered background animation (No changes here) -->
     <div class="background-container">
         <div class="bg-layer layer-1"></div>
         <div class="bg-layer layer-2"></div>
@@ -43,7 +47,7 @@
         <div class="bg-layer layer-6"></div>
     </div>
 
-    <!-- This is the initial content the user sees -->
+    <!-- Initial intro content (No changes here) -->
     <div class="slide-container" id="intro-container">
         <div class="card intro-card">
             <h1>El Cuidado Ambiental: <span class="light-title">El Motor Invisible de la Economía Sostenible de una Nación</span></h1>
@@ -52,15 +56,16 @@
         </div>
     </div>
 
-    <!-- The iframe will be placed here once the presentation starts -->
+    <!-- The iframe will be placed inside this container, which now has a size -->
     <div id="presentation-container"></div>
 
-    <!-- Navigation buttons live outside the iframe -->
+    <!-- Navigation buttons (No changes here) -->
     <div class="nav-container" id="nav-container">
         <a href="#" class="button" id="prev-btn">Anterior</a>
         <a href="#" class="button" id="next-btn">Siguiente</a>
     </div>
 
+    <!-- Your script (No changes here) -->
     <script src="presentation.js"></script>
 </body>
 </html>
