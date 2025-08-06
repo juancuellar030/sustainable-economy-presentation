@@ -201,81 +201,54 @@ strong { font-weight: 700; } /* This will now work correctly */
 }
 
 /*
---- 6. SLIDE 2 INTERACTIVE ELEMENTS ---
+--- NEW: Line Chart Styles ---
 */
 
-/* Container for the two new buttons */
-.interactive-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 20px;
+/* Grid to hold the two charts */
+.line-chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    padding: 15px 0;
 }
 
-/* Make sure buttons inside the card don't have excessive top margin */
-.interactive-btn {
-    margin-top: 0;
-}
-
-/* Container that holds the hidden/revealed content */
-.info-box-container {
-    margin-top: 25px;
-    min-height: 250px; /* Reserve space to prevent layout jumps */
-}
-
-/* The content boxes themselves, hidden by default */
-.info-box {
-    display: none;
-    animation: fadeIn 0.5s ease-out forwards;
-}
-
-/* This class is added by JS to show the content */
-.info-box.active {
-    display: block;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* --- Animated Chart Styles --- */
-.chart-container {
-    display: flex;
-    justify-content: space-around;
-    padding: 20px 0;
-}
-.chart-bar-group {
+.line-chart h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.1rem;
     text-align: center;
-    width: 40%;
 }
-.bar-wrapper {
-    height: 100px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
-    display: flex;
-    align-items: flex-end; /* Makes bars grow from the bottom */
-}
-.bar {
+
+/* Style for the SVG elements */
+.line-chart svg {
     width: 100%;
-    background-color: #34c7c7;
-    border-radius: 5px;
-    color: white;
-    font-weight: 700;
-    position: relative;
-    height: 0; /* Starts at 0 height */
+    height: auto;
 }
-.bar span {
-    position: absolute;
-    top: -25px;
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 0;
+
+.axis {
+    stroke: rgba(255, 255, 255, 0.4);
+    stroke-width: 1;
 }
-.bar-label {
-    margin-bottom: 10px;
-    font-size: 0.9rem;
+
+.label {
+    fill: rgba(255, 255, 255, 0.7);
+    font-size: 10px;
+    text-anchor: end; /* Align Y-axis labels to the right */
 }
+
+/* This is the line that will be animated */
+.data-line {
+    fill: none;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke: #34c7c7; /* Default color */
+}
+
+/* A different color for the second line */
+.data-line.red {
+    stroke: #ff6b6b;
+}
+
 .chart-caption {
     font-size: 0.95rem;
     line-height: 1.6;
@@ -283,24 +256,16 @@ strong { font-weight: 700; } /* This will now work correctly */
     text-align: justify;
 }
 
-/* Animate the bars when the stats box becomes active */
-.info-box.active #bar-global {
-    animation: growBar30 1s 0.2s ease-out forwards;
-}
-.info-box.active #bar-tropical {
-    animation: growBar60 1s 0.4s ease-out forwards;
-}
-.info-box.active .bar span {
-    animation: fadeIn 0.5s 1.5s ease-out forwards;
+/* The class added by JS to trigger the animation */
+.animate-draw {
+    /* This animation makes the line "draw" itself */
+    animation: drawLine 2s ease-out forwards;
 }
 
-@keyframes growBar30 {
-    from { height: 0; }
-    to { height: 30%; }
-}
-@keyframes growBar60 {
-    from { height: 0; }
-    to { height: 60%; }
+@keyframes drawLine {
+    to {
+        stroke-dashoffset: 0;
+    }
 }
 
 /* --- Before/After Image Slider Styles --- */
