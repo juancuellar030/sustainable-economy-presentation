@@ -201,6 +201,44 @@ strong { font-weight: 700; } /* This will now work correctly */
 }
 
 /*
+--- 6. SLIDE 2 INTERACTIVE ELEMENTS (Master Rules) ---
+*/
+
+/* Container for the two new buttons */
+.interactive-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.interactive-btn {
+    margin-top: 0;
+}
+
+/* Container that holds the hidden/revealed content */
+.info-box-container {
+    margin-top: 25px;
+    min-height: 300px; /* Adjusted space for the taller charts */
+}
+
+/* THE CRITICAL FIX: Hide content boxes by default */
+.info-box {
+    display: none;
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* This class is added by JS to show the content */
+.info-box.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/*
 --- NEW: Line Chart Styles ---
 */
 
