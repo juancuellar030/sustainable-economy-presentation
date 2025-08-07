@@ -239,43 +239,62 @@ strong { font-weight: 700; } /* This will now work correctly */
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- Animated Chart Styles --- */
+/*
+--- SLIDE 2: Shrinking Bar Chart ---
+*/
+
 .chart-container {
     display: flex;
     justify-content: space-around;
+    align-items: flex-end;
     padding: 20px 0;
+    height: 150px; /* Give the container a fixed height */
 }
+
 .chart-bar-group {
     text-align: center;
-    width: 40%;
+    width: 35%;
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse; /* Flips order so label is on bottom */
 }
+
 .bar-wrapper {
-    height: 100px;
+    height: 100%;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 5px;
     display: flex;
-    align-items: flex-end; /* Makes bars grow from the bottom */
+    align-items: flex-end;
 }
+
 .bar {
     width: 100%;
     background-color: #34c7c7;
-    border-radius: 5px;
     color: white;
     font-weight: 700;
     position: relative;
-    height: 0; /* Starts at 0 height */
+    /* This is the initial state before animation */
+    height: 100%;
 }
-.bar span {
-    position: absolute;
-    top: -25px;
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 0;
+
+.bar.red {
+    background-color: #ff6b6b;
 }
+
+/* This triggers the animations when the box is active */
+.info-box.active #bar-global {
+    animation: shrinkTo70 1.5s ease-out forwards;
+}
+
+.info-box.active #bar-tropical {
+    animation: shrinkTo40 1.5s ease-out forwards;
+}
+
 .bar-label {
-    margin-bottom: 10px;
+    margin-top: 10px;
     font-size: 0.9rem;
 }
+
 .chart-caption {
     font-size: 0.95rem;
     line-height: 1.6;
@@ -283,24 +302,29 @@ strong { font-weight: 700; } /* This will now work correctly */
     text-align: justify;
 }
 
-/* Animate the bars when the stats box becomes active */
-.info-box.active #bar-global {
-    animation: growBar30 1s 0.2s ease-out forwards;
+/* The percentage value display */
+.bar span {
+    position: absolute;
+    bottom: 5px; /* Position text inside the bar at the bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0; /* Hidden by default */
 }
-.info-box.active #bar-tropical {
-    animation: growBar60 1s 0.4s ease-out forwards;
-}
+
+/* Fade in the text after the bar has shrunk */
 .info-box.active .bar span {
     animation: fadeIn 0.5s 1.5s ease-out forwards;
 }
 
-@keyframes growBar30 {
-    from { height: 0; }
-    to { height: 30%; }
+/* Keyframe Animations for Shrinking */
+@keyframes shrinkTo70 {
+    from { height: 100%; }
+    to { height: 70%; }
 }
-@keyframes growBar60 {
-    from { height: 0; }
-    to { height: 60%; }
+
+@keyframes shrinkTo40 {
+    from { height: 100%; }
+    to { height: 40%; }
 }
 
 /*
