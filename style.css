@@ -93,18 +93,20 @@ strong {
 .index-page .layer-3 {
     background-image: url('images/index-bg-layer-3.png');
     z-index: 3;
-    animation: slideInFromTop 1s ease-out 0.6s forwards;
+    animation: endlessSlide 35s linear infinite;
+    animation-delay: 1s; /* Delay it slightly so it appears after other layers */
+    opacity: 0;
 }
 
 .index-page .layer-4 {
     background-image: url('images/index-bg-layer-4.png');
-    z-index: 4;
+    z-index: 6;
     animation: slideInFromBottom 1s ease-out 0.8s forwards;
 }
 
 .index-page .layer-5 {
     background-image: url('images/index-bg-layer-5.png');
-    z-index: 6;
+    z-index: 5;
     background-size: contain;
     background-position: left bottom;
     /* This animation now correctly targets an existing element */
@@ -117,7 +119,7 @@ strong {
 .index-page .layer-6 {
     background-image: url('images/bike-layer.png');
     /* MODIFIED: Bike is in front of the car */
-    z-index: 5;
+    z-index: 4;
     background-size: contain;
     background-position: right bottom;
     animation: endlessSlideReverse 25s linear infinite;
