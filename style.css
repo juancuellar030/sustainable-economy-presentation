@@ -1,15 +1,73 @@
-/* Using the correct import with both 400 and 700 font weights */
-@import url('https://fonts.googleapis.com/css2?family=Aleo:wght@400;700&display=swap');
+/* --- Custom Walkway Font Definitions --- */
+
+/* --- Normal Styles --- */
+@font-face {
+    font-family: 'Walkway';
+    src: url('fonts/Walkway_SemiBold-webfont.woff') format('woff');
+    font-weight: 600; /* SemiBold */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Walkway';
+    src: url('fonts/Walkway_Bold-webfont.woff') format('woff');
+    font-weight: 700; /* Bold */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Walkway';
+    src: url('fonts/Walkway_Black-webfont.woff') format('woff');
+    font-weight: 900; /* Black */
+    font-style: normal;
+}
+
+/* --- Italic/Oblique Styles --- */
+@font-face {
+    font-family: 'Walkway';
+    src: url('fonts/Walkway_Oblique_SemiBold-webfont.woff') format('woff');
+    font-weight: 600; /* SemiBold */
+    font-style: oblique;
+}
+
+@font-face {
+    font-family: 'Walkway';
+    src: url('fonts/Walkway_Oblique_Bold-webfont.woff') format('woff');
+    font-weight: 700; /* Bold */
+    font-style: oblique;
+}
+
+@font-face {
+    font-family: 'Walkway';
+    src: url('fonts/Walkway_Oblique_Black-webfont.woff') format('woff');
+    font-weight: 900; /* Black */
+    font-style: oblique;
+}
 
 /* --- General Body & Font Styles --- */
 html, body {
     height: 100%;
 }
 
+/* --- General Body & Font Styles --- */
 body {
-    font-family: 'Aleo', serif;
+    /* REPLACE 'Aleo' with 'Walkway' */
+    font-family: 'Walkway', sans-serif; /* Keep the fallback font */
     margin: 0;
     overflow: hidden;
+}
+
+/* --- FONT & TYPOGRAPHY --- */
+h1, h2 {
+    font-weight: 900; /* This will use the "Black" font style */
+}
+
+p, li {
+    font-weight: 600; /* Using SemiBold for the body text */
+}
+
+strong {
+    font-weight: 700; /* This will correctly use the "Bold" style */
 }
 
 /*
