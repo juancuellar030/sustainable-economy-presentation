@@ -80,17 +80,18 @@
             }
         }
         
-        // --- MODIFIED: New JavaScript logic for the NASA-style slider ---
+        // --- FINAL CORRECTED: JavaScript logic for the clip-path slider ---
         const slider = document.getElementById('comparison-slider');
         const handle = document.getElementById('slider-handle');
-        const beforeImageContainer = document.getElementById('before-image-container'); // Changed target
+        const beforeImage = document.getElementById('before-image'); // Target the image directly
         let isDragging = false;
-
+        
         const startDrag = () => { isDragging = true; };
         const stopDrag = () => { isDragging = false; };
-
+        
         const doDrag = (e) => {
             if (!isDragging) return;
+            
             // Use touch or mouse event coordinates
             const clientX = e.clientX || e.touches[0].clientX;
             const rect = slider.getBoundingClientRect();
@@ -100,18 +101,21 @@
             if (offsetX < 0) offsetX = 0;
             if (offsetX > rect.width) offsetX = rect.width;
             
-            // Move the handle and resize the top image's container
-            handle.style.left = offsetX + 'px';
-            beforeImageContainer.style.width = offsetX + 'px';
+            // Calculate the percentage
+            const percentage = (offsetX / rect.width) * 100;
+            
+            // Move the handle and update the clip-path of the top image
+            handle.style.left = percentage + '%';
+            beforeImage.style.clipPath = `polygon(0 0, ${percentage}% 0, ${percentage}% 100%, 0 100%)`;
         };
-
+        
         // Mouse Events
         handle.addEventListener('mousedown', startDrag);
         document.addEventListener('mouseup', stopDrag);
         document.addEventListener('mousemove', doDrag);
-
+        
         // Touch Events
-        handle.addEventListener('touchstart', startDrag);
+        handle.addEventListener('touchstart', startDrag, { passive: true });
         document.addEventListener('touchend', stopDrag);
         document.addEventListener('touchmove', doDrag);
     });
