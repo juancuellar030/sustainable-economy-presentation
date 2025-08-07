@@ -229,7 +229,7 @@ strong { font-weight: 700; } /* This will now work correctly */
 /* MODIFIED: The animation now controls the opacity, making the car appear */
 @keyframes endlessSlide {
     0% {
-        transform: translateX(-20%);
+        transform: translateX(-100%);
         opacity: 1;
     }
     100% {
