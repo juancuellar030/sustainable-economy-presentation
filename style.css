@@ -29,6 +29,9 @@ h2 {
     font-weight: 400; /* Use the font's normal weight */
     margin-bottom: 25px;
 }
+.highlight-green {
+    color: #a5ff9b; /* A pleasant, not-too-dark green */
+}
 p, li {
     font-size: 1.1rem;
     font-weight: 400; /* Use the font's normal weight */
@@ -192,6 +195,12 @@ strong {
 .button:hover {
     background-color: rgba(255, 255, 255, 0.4);
     transform: scale(1.05);
+}
+
+/* NEW: Add this rule specifically for the start button's hover state */
+#start-btn:hover {
+    background-color: rgba(140, 255, 130, 0.5); /* Translucent green */
+    border-color: rgba(140, 255, 130, 0.7); /* A slightly more solid green border */
 }
 
 /* --- FONT & TYPOGRAPHY --- */
