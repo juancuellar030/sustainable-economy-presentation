@@ -456,3 +456,65 @@ strong { font-weight: 700; } /* This will now work correctly */
     pointer-events: none; /* Prevents the label from interfering with mouse dragging */
 }
 
+/*
+--- 9. FALLING LEAVES ANIMATION ---
+*/
+
+/* Shared styles for all leaves */
+.falling-leaf {
+    position: absolute;
+    top: -10%; /* Start above the screen */
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 7; /* Ensure they are in front of most background layers */
+    
+    /* Apply both animations here */
+    animation-name: fall-and-drift, spin;
+    animation-timing-function: linear, ease-in-out;
+    animation-iteration-count: infinite, infinite;
+    animation-direction: normal, alternate;
+}
+
+/* Individual leaf properties for randomness */
+#leaf-1 {
+    background-image: url('images/leaf-1.png');
+    left: 20%; /* Starting horizontal position */
+    animation-duration: 12s, 4s; /* fall duration, spin duration */
+    animation-delay: 0s; /* Start immediately */
+}
+
+#leaf-2 {
+    background-image: url('images/leaf-2.png');
+    left: 60%;
+    animation-duration: 15s, 5s;
+    animation-delay: 5s; /* Wait 5 seconds to start */
+}
+
+#leaf-3 {
+    background-image: url('images/leaf-3.png');
+    left: 85%;
+    animation-duration: 10s, 3.5s;
+    animation-delay: 9s; /* Wait 9 seconds to start */
+}
+
+
+/* Keyframe animation for the falling and drifting motion */
+@keyframes fall-and-drift {
+    from {
+        transform: translateY(0) translateX(0);
+        opacity: 1;
+    }
+    to {
+        /* Move it down 120vh (well below screen) and drift 15vw to the left */
+        transform: translateY(120vh) translateX(-15vw);
+        opacity: 0.8;
+    }
+}
+
+/* Keyframe animation for the gentle spinning/rocking motion */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(25deg); }
+}
