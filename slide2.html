@@ -37,15 +37,17 @@
                 <!-- MODIFIED: New HTML Structure for the NASA-style slider -->
                 <div id="impact-content" class="info-box">
                     <div class="comparison-slider" id="comparison-slider">
-                        <!-- After image is the base layer -->
-                        <img src="images/after-image.jpg" alt="After" class="comparison-image">
-
-                        <!-- Before image is in a clipping container on top -->
-                        <div class="before-image-container" id="before-image-container">
+                        <!-- The "After" image is the base layer -->
+                        <div class="comparison-item">
+                            <img src="images/after-image.jpg" alt="After" class="comparison-image">
+                        </div>
+                
+                        <!-- The "Before" image is in a clipped container on top -->
+                        <div class="comparison-item top" id="before-image-container">
                             <img src="images/before-image.jpg" alt="Before" class="comparison-image">
                         </div>
-
-                        <!-- The draggable handle -->
+                
+                        <!-- The handle now sits on its own -->
                         <div class="slider-handle" id="slider-handle">
                             <div class="handle-grabber"></div>
                         </div>
