@@ -363,3 +363,22 @@ strong { font-weight: 700; } /* This will now work correctly */
     background-position: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
+
+/*
+--- Image Label for Comparison Slider ---
+*/
+
+.image-label {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    padding: 5px 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 13px; /* Small and readable */
+    font-weight: 400;
+    border-radius: 5px;
+    z-index: 25; /* Ensures it's above the images but below the handle's grabber if needed */
+    pointer-events: none; /* Prevents the label from interfering with mouse dragging */
+}
+
