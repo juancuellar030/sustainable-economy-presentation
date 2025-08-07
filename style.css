@@ -304,7 +304,7 @@ strong { font-weight: 700; } /* This will now work correctly */
 }
 
 /*
---- CORRECTED: NASA-Style Comparison Slider ---
+--- FINAL CORRECTED: NASA-Style Comparison Slider ---
 */
 
 .comparison-slider {
@@ -312,55 +312,51 @@ strong { font-weight: 700; } /* This will now work correctly */
     width: 100%;
     aspect-ratio: 16 / 9;
     margin: 20px auto 0;
-    user-select: none; /* Prevents selecting text while dragging */
+    user-select: none;
     overflow: hidden;
     border-radius: 10px;
 }
 
-/* This is the container for EACH image */
 .comparison-item {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden; /* This is key */
+    overflow: hidden;
 }
 
-/* This class puts the "Before" image on top */
 .comparison-item.top {
     z-index: 10;
-    width: 50%; /* Initial clipped state */
+    width: 50%;
 }
 
-/* This rule ensures the images inside are ALWAYS full size and aligned */
+/* THE CRITICAL FIX IS HERE */
 .comparison-image {
-    position: absolute;
+    /* By removing absolute positioning, the image now correctly
+       fills its parent container without creating a conflict. */
     width: 100%;
     height: 100%;
-    top: 0;
-    left: 0;
-    object-fit: cover; /* CRITICAL: Prevents stretching/zooming */
-    object-position: left center; /* CRITICAL: Aligns the clipped image */
+    object-fit: cover;
+    object-position: left center; /* Aligns both images from the left edge */
 }
 
-/* The draggable handle styling */
+/* The draggable handle styling (No changes below this line) */
 .slider-handle {
     position: absolute;
     top: 0;
-    left: 50%; /* Initial position */
+    left: 50%;
     width: 4px;
     height: 100%;
     background: rgba(255, 255, 255, 0.9);
     cursor: ew-resize;
     transform: translateX(-2px);
-    z-index: 20; /* Handle must be on top of everything */
+    z-index: 20;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* The circular grabber part of the handle */
 .handle-grabber {
     width: 40px;
     height: 40px;
