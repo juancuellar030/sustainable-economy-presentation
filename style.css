@@ -1,48 +1,5 @@
-/* --- Custom Walkway Font Definitions --- */
-
-/* --- Normal Styles --- */
-@font-face {
-    font-family: 'Walkway';
-    src: url('fonts/Walkway_SemiBold-webfont.woff') format('woff');
-    font-weight: 600; /* SemiBold */
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Walkway';
-    src: url('fonts/Walkway_Bold-webfont.woff') format('woff');
-    font-weight: 700; /* Bold */
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Walkway';
-    src: url('fonts/Walkway_Black-webfont.woff') format('woff');
-    font-weight: 900; /* Black */
-    font-style: normal;
-}
-
-/* --- Italic/Oblique Styles --- */
-@font-face {
-    font-family: 'Walkway';
-    src: url('fonts/Walkway_Oblique_SemiBold-webfont.woff') format('woff');
-    font-weight: 600; /* SemiBold */
-    font-style: oblique;
-}
-
-@font-face {
-    font-family: 'Walkway';
-    src: url('fonts/Walkway_Oblique_Bold-webfont.woff') format('woff');
-    font-weight: 700; /* Bold */
-    font-style: oblique;
-}
-
-@font-face {
-    font-family: 'Walkway';
-    src: url('fonts/Walkway_Oblique_Black-webfont.woff') format('woff');
-    font-weight: 900; /* Black */
-    font-style: oblique;
-}
+/* Using the correct import for the new font */
+@import url('https://fonts.googleapis.com/css2?family=Parkinsans&display=swap');
 
 /* --- General Body & Font Styles --- */
 html, body {
@@ -51,23 +8,46 @@ html, body {
 
 /* --- General Body & Font Styles --- */
 body {
-    /* REPLACE 'Aleo' with 'Walkway' */
-    font-family: 'Walkway', sans-serif; /* Keep the fallback font */
+    /* REPLACE 'Walkway' with 'Parkinsans' */
+    font-family: 'Parkinsans', sans-serif; /* Keep a fallback font */
     margin: 0;
     overflow: hidden;
 }
 
 /* --- FONT & TYPOGRAPHY --- */
-h1, h2 {
-    font-weight: 900; /* This will use the "Black" font style */
+h1 {
+    font-size: 2.6rem;
+    font-weight: 400; /* Use the font's normal weight */
+    line-height: 1.3;
+    margin-bottom: 25px;
 }
-
+.light-title {
+    font-weight: 400; /* There's no lighter version, so keep it normal */
+}
+h2 {
+    font-size: 2.2rem;
+    font-weight: 400; /* Use the font's normal weight */
+    margin-bottom: 25px;
+}
 p, li {
-    font-weight: 600; /* Using SemiBold for the body text */
+    font-size: 1.1rem;
+    font-weight: 400; /* Use the font's normal weight */
+    line-height: 1.7;
 }
-
+.card > p {
+    text-align: center;
+}
+ul {
+    padding-left: 30px;
+    margin-top: 20px;
+    text-align: left;
+}
+li {
+    margin-bottom: 15px;
+}
 strong {
-    font-weight: 700; /* This will correctly use the "Bold" style */
+    /* Let the browser create its own bold effect */
+    font-weight: bold;
 }
 
 /*
