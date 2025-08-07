@@ -374,18 +374,19 @@ strong { font-weight: 700; } /* This will now work correctly */
     justify-content: center;
 }
 
-/* The circular grabber part of the handle */
+/* THIS IS THE NEW HANDLE STYLE */
 .handle-grabber {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.9);
-    border: 3px solid #333;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23333'%3E%3Cpath d='M7.21 4.79L4 8l3.21 3.21a.75.75 0 11-1.06 1.06L2.39 8.53a.75.75 0 010-1.06l3.76-3.76a.75.75 0 011.06 1.06zm1.58 0a.75.75 0 011.06-1.06l3.76 3.76a.75.75 0 010 1.06L9.85 12.27a.75.75 0 11-1.06-1.06L12 8l-3.21-3.21z'%3E%3C/path%3E%3C/svg%3E");
-    background-size: 50%;
+    background-color: white;
+    border: 2px solid #0b3d91; /* NASA blue */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    /* The new SVG for the chevrons */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%230b3d91' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6.5 4.5l-3 3.5 3 3.5'/%3E%3Cpath d='M9.5 4.5l3 3.5 -3 3.5'/%3E%3C/svg%3E");
+    background-size: 18px;
     background-repeat: no-repeat;
     background-position: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 /*
