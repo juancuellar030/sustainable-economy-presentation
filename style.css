@@ -457,63 +457,77 @@ strong { font-weight: 700; } /* This will now work correctly */
 }
 
 /*
---- 9. FALLING LEAVES ANIMATION ---
+--- 9. FALLING LEAVES ANIMATION (CORRECTED) ---
 */
 
-/* Shared styles for all leaves */
+/* This parent element handles the FALLING and DRIFTING */
 .falling-leaf {
     position: absolute;
-    top: -10%; /* Start above the screen */
+    top: -10%;
     width: 50px;
     height: 50px;
+    z-index: 7;
+    animation: fall-and-drift linear infinite;
+}
+
+/* This nested element handles the SPINNING and the IMAGE */
+.leaf-inner {
+    width: 100%;
+    height: 100%;
     background-size: contain;
     background-repeat: no-repeat;
-    z-index: 7; /* Ensure they are in front of most background layers */
-    
-    /* Apply both animations here */
-    animation-name: fall-and-drift, spin;
-    animation-timing-function: linear, ease-in-out;
-    animation-iteration-count: infinite, infinite;
-    animation-direction: normal, alternate;
+    animation: spin 4s ease-in-out infinite alternate; /* The spin is now isolated */
 }
 
-/* Individual leaf properties for randomness */
+/* --- Individual Leaf Properties for Randomness --- */
+
+/* Leaf 1 */
 #leaf-1 {
+    left: 20%;
+    animation-duration: 12s; /* Fall duration */
+    animation-delay: 0s;
+}
+#leaf-1 .leaf-inner {
     background-image: url('images/leaf-1.png');
-    left: 20%; /* Starting horizontal position */
-    animation-duration: 12s, 4s; /* fall duration, spin duration */
-    animation-delay: 0s; /* Start immediately */
+    animation-duration: 4s; /* Spin duration */
 }
 
+/* Leaf 2 */
 #leaf-2 {
-    background-image: url('images/leaf-2.png');
     left: 60%;
-    animation-duration: 15s, 5s;
-    animation-delay: 5s; /* Wait 5 seconds to start */
+    animation-duration: 15s;
+    animation-delay: 5s;
+}
+#leaf-2 .leaf-inner {
+    background-image: url('images/leaf-2.png');
+    animation-duration: 5s;
 }
 
+/* Leaf 3 */
 #leaf-3 {
-    background-image: url('images/leaf-3.png');
     left: 85%;
-    animation-duration: 10s, 3.5s;
-    animation-delay: 9s; /* Wait 9 seconds to start */
+    animation-duration: 10s;
+    animation-delay: 9s;
+}
+#leaf-3 .leaf-inner {
+    background-image: url('images/leaf-3.png');
+    animation-duration: 3.5s;
 }
 
 
-/* Keyframe animation for the falling and drifting motion */
+/* --- Keyframe Definitions (No changes needed here) --- */
+
 @keyframes fall-and-drift {
     from {
-        transform: translateY(0) translateX(0);
+        transform: translateX(0);
         opacity: 1;
     }
     to {
-        /* Move it down 120vh (well below screen) and drift 15vw to the left */
         transform: translateY(120vh) translateX(-15vw);
         opacity: 0.8;
     }
 }
 
-/* Keyframe animation for the gentle spinning/rocking motion */
 @keyframes spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(25deg); }
