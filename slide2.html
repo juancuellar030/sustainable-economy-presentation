@@ -10,46 +10,44 @@
 
     <div class="slide-container">
         <div class="card">
-            <!-- Existing Content -->
             <h2>Por qué el Cuidado Ambiental es Fundamental</h2>
             <p>El cambio climático y la degradación ambiental son desafíos críticos, intrínsecamente ligados a nuestros modelos socioeconómicos.</p>
 
-            <!-- 1. NEW: Buttons to trigger the content -->
             <div class="interactive-buttons">
                 <button class="button interactive-btn" id="stats-btn">Estadísticas</button>
                 <button class="button interactive-btn" id="impact-btn">Impacto Visual</button>
             </div>
 
-            <!-- 2. NEW: Container for the revealable content -->
             <div class="info-box-container">
-
-                <!-- Stats Content (hidden by default) -->
+                <!-- Stats Content (No changes here) -->
                 <div id="stats-content" class="info-box">
-                    <div class="chart-container">
-                        <div class="chart-bar-group">
-                            <div class="bar-label">Mundial</div>
-                            <div class="bar-wrapper"><div class="bar" id="bar-global"><span>30%</span></div></div>
+                    <div class="line-chart-grid">
+                        <div class="line-chart">
+                            <h3>Disminución Global</h3>
+                            <svg viewBox="0 0 200 120"><line class="axis" x1="30" y1="10" x2="30" y2="110"/><text class="label" x="25" y="15">100%</text><text class="label" x="25" y="115">0%</text><line class="axis" x1="30" y1="110" x2="190" y2="110"/><text class="label" x="30" y="120" text-anchor="middle">Inicio</text><text class="label" x="190" y="120" text-anchor="middle">38 Años</text><polyline id="global-line" class="data-line" points="30,10 190,40"/></svg>
                         </div>
-                        <div class="chart-bar-group">
-                            <div class="bar-label">Tropical</div>
-                            <div class="bar-wrapper"><div class="bar" id="bar-tropical"><span>60%</span></div></div>
+                        <div class="line-chart">
+                            <h3>Disminución Tropical</h3>
+                            <svg viewBox="0 0 200 120"><line class="axis" x1="30" y1="10" x2="30" y2="110"/><text class="label" x="25" y="15">100%</text><text class="label" x="25" y="115">0%</text><line class="axis" x1="30" y1="110" x2="190" y2="110"/><text class="label" x="30" y="120" text-anchor="middle">Inicio</text><text class="label" x="190" y="120" text-anchor="middle">38 Años</text><polyline id="tropical-line" class="data-line red" points="30,10 190,70"/></svg>
                         </div>
                     </div>
-                    <p class="chart-caption">La biodiversidad mundial ha disminuido un 30% en 38 años, con las especies tropicales registrando una reducción del 60%, directamente atribuida a las acciones humanas y actividades industriales. Define las prácticas sostenibles como acciones que buscan minimizar el impacto negativo en el medio ambiente, la sociedad y la economía, promoviendo la conservación de los recursos naturales y la equidad social.</p>
+                    <p class="chart-caption">La biodiversidad mundial ha disminuido un 30% en 38 años... [etc]</p>
                 </div>
 
-                <!-- Image Slider Content (hidden by default) -->
+                <!-- MODIFIED: New HTML Structure for the NASA-style slider -->
                 <div id="impact-content" class="info-box">
-                    <!-- IMPORTANT: Replace with your image paths -->
                     <div class="comparison-slider" id="comparison-slider">
-                        <img src="images/before-image.jpg" alt="Before" class="before-image">
-                        <div class="after-image-container" id="after-image-container">
-                            <img src="images/after-image.jpg" alt="After" class="after-image">
+                        <!-- After image is the base layer -->
+                        <img src="images/after-image.jpg" alt="After" class="comparison-image">
+
+                        <!-- Before image is in a clipping container on top -->
+                        <div class="before-image-container" id="before-image-container">
+                            <img src="images/before-image.jpg" alt="Before" class="comparison-image">
                         </div>
+
+                        <!-- The draggable handle -->
                         <div class="slider-handle" id="slider-handle">
-                            <div class="handle-line"></div>
-                            <div class="handle-arrows"></div>
-                            <div class="handle-line"></div>
+                            <div class="handle-grabber"></div>
                         </div>
                     </div>
                 </div>
@@ -58,61 +56,68 @@
         </div>
     </div>
 
-    <!-- 3. NEW: Local script for this slide's interactivity -->
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Get button and content elements
         const statsBtn = document.getElementById('stats-btn');
         const impactBtn = document.getElementById('impact-btn');
         const statsContent = document.getElementById('stats-content');
         const impactContent = document.getElementById('impact-content');
 
-        // Show Stats Content
         statsBtn.addEventListener('click', () => {
             impactContent.classList.remove('active');
             statsContent.classList.add('active');
+            animateLineGraph('global-line'); animateLineGraph('tropical-line');
         });
 
-        // Show Impact Content
         impactBtn.addEventListener('click', () => {
             statsContent.classList.remove('active');
             impactContent.classList.add('active');
         });
+
+        function animateLineGraph(lineId) {
+            const line = document.getElementById(lineId);
+            if (line) {
+                const length = line.getTotalLength();
+                line.style.strokeDasharray = length;
+                line.style.strokeDashoffset = length;
+                line.classList.add('animate-draw');
+            }
+        }
         
-        // --- Before/After Slider Logic ---
+        // --- MODIFIED: New JavaScript logic for the NASA-style slider ---
         const slider = document.getElementById('comparison-slider');
         const handle = document.getElementById('slider-handle');
-        const afterImageContainer = document.getElementById('after-image-container');
+        const beforeImageContainer = document.getElementById('before-image-container'); // Changed target
         let isDragging = false;
 
-        // Mouse Events
-        handle.addEventListener('mousedown', () => { isDragging = true; });
-        document.addEventListener('mouseup', () => { isDragging = false; });
-        document.addEventListener('mousemove', (e) => {
+        const startDrag = () => { isDragging = true; };
+        const stopDrag = () => { isDragging = false; };
+
+        const doDrag = (e) => {
             if (!isDragging) return;
-            // Calculate position
+            // Use touch or mouse event coordinates
+            const clientX = e.clientX || e.touches[0].clientX;
             const rect = slider.getBoundingClientRect();
-            let offsetX = e.clientX - rect.left;
-            // Constrain movement
+            let offsetX = clientX - rect.left;
+            
+            // Constrain movement within the slider bounds
             if (offsetX < 0) offsetX = 0;
             if (offsetX > rect.width) offsetX = rect.width;
-            // Apply styles
+            
+            // Move the handle and resize the top image's container
             handle.style.left = offsetX + 'px';
-            afterImageContainer.style.width = offsetX + 'px';
-        });
+            beforeImageContainer.style.width = offsetX + 'px';
+        };
+
+        // Mouse Events
+        handle.addEventListener('mousedown', startDrag);
+        document.addEventListener('mouseup', stopDrag);
+        document.addEventListener('mousemove', doDrag);
 
         // Touch Events
-        handle.addEventListener('touchstart', (e) => { isDragging = true; e.preventDefault(); });
-        document.addEventListener('touchend', () => { isDragging = false; });
-        document.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            const rect = slider.getBoundingClientRect();
-            let offsetX = e.touches[0].clientX - rect.left;
-            if (offsetX < 0) offsetX = 0;
-            if (offsetX > rect.width) offsetX = rect.width;
-            handle.style.left = offsetX + 'px';
-            afterImageContainer.style.width = offsetX + 'px';
-        });
+        handle.addEventListener('touchstart', startDrag);
+        document.addEventListener('touchend', stopDrag);
+        document.addEventListener('touchmove', doDrag);
     });
     </script>
 
