@@ -304,7 +304,7 @@ strong { font-weight: 700; } /* This will now work correctly */
 }
 
 /*
---- NEW: NASA-Style Comparison Slider ---
+--- CORRECTED: NASA-Style Comparison Slider ---
 */
 
 .comparison-slider {
@@ -312,33 +312,39 @@ strong { font-weight: 700; } /* This will now work correctly */
     width: 100%;
     aspect-ratio: 16 / 9;
     margin: 20px auto 0;
+    user-select: none; /* Prevents selecting text while dragging */
     overflow: hidden;
     border-radius: 10px;
-    user-select: none; /* Prevents text selection while dragging */
 }
 
-/* Base styling for both images */
+/* This is the container for EACH image */
+.comparison-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* This is key */
+}
+
+/* This class puts the "Before" image on top */
+.comparison-item.top {
+    z-index: 10;
+    width: 50%; /* Initial clipped state */
+}
+
+/* This rule ensures the images inside are ALWAYS full size and aligned */
 .comparison-image {
     position: absolute;
     width: 100%;
     height: 100%;
-    object-fit: cover;
     top: 0;
     left: 0;
+    object-fit: cover; /* CRITICAL: Prevents stretching/zooming */
+    object-position: left center; /* CRITICAL: Aligns the clipped image */
 }
 
-/* Container for the TOP image ('before') that acts as a clipping mask */
-.before-image-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%; /* Initial position */
-    height: 100%;
-    overflow: hidden;
-    z-index: 10;
-}
-
-/* The draggable handle */
+/* The draggable handle styling */
 .slider-handle {
     position: absolute;
     top: 0;
@@ -347,8 +353,8 @@ strong { font-weight: 700; } /* This will now work correctly */
     height: 100%;
     background: rgba(255, 255, 255, 0.9);
     cursor: ew-resize;
-    transform: translateX(-2px); /* Center the line on the cursor */
-    z-index: 20;
+    transform: translateX(-2px);
+    z-index: 20; /* Handle must be on top of everything */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -361,7 +367,6 @@ strong { font-weight: 700; } /* This will now work correctly */
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.9);
     border: 3px solid #333;
-    /* SVG arrows embedded directly in CSS for a clean look */
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23333'%3E%3Cpath d='M7.21 4.79L4 8l3.21 3.21a.75.75 0 11-1.06 1.06L2.39 8.53a.75.75 0 010-1.06l3.76-3.76a.75.75 0 011.06 1.06zm1.58 0a.75.75 0 011.06-1.06l3.76 3.76a.75.75 0 010 1.06L9.85 12.27a.75.75 0 11-1.06-1.06L12 8l-3.21-3.21z'%3E%3C/path%3E%3C/svg%3E");
     background-size: 50%;
     background-repeat: no-repeat;
