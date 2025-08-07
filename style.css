@@ -524,7 +524,7 @@ strong { font-weight: 700; } /* This will now work correctly */
     }
     to {
         transform: translateY(120vh) translateX(-15vw);
-        opacity: 0.8;
+        opacity: 0.9;
     }
 }
 
