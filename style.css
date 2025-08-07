@@ -362,27 +362,30 @@ strong { font-weight: 700; } /* This will now work correctly */
 .slider-handle {
     position: absolute;
     top: 0;
-    left: 50%; /* Initial position matches the clip-path */
-    width: 4px;
+    left: 50%;
+    width: 4px; /* This is the vertical line */
     height: 100%;
     background: rgba(255, 255, 255, 0.9);
     cursor: ew-resize;
     transform: translateX(-2px);
-    z-index: 20; /* Handle is on top of everything */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    z-index: 20;
+    /* REMOVED flex properties. This element is just the line. */
 }
 
-/* THIS IS THE NEW HANDLE STYLE */
+/* THE FIX: The handle grabber is now positioned absolutely */
 .handle-grabber {
+    position: absolute;
+    /* Center the grabber perfectly on the handle line */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
     width: 44px;
     height: 44px;
     border-radius: 50%;
     background-color: white;
     border: 2px solid #0b3d91; /* NASA blue */
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-    /* The new SVG for the chevrons */
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%230b3d91' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6.5 4.5l-3 3.5 3 3.5'/%3E%3Cpath d='M9.5 4.5l3 3.5 -3 3.5'/%3E%3C/svg%3E");
     background-size: 18px;
     background-repeat: no-repeat;
