@@ -54,7 +54,7 @@ strong {
 --- 1. INDEX PAGE STYLES ---
 */
 .index-page {
-    background-color: #84ebff;
+    background-color: #5ac12d;
 }
 
 .index-page .background-container {
@@ -93,7 +93,7 @@ strong {
 .index-page .layer-3 {
     background-image: url('images/index-bg-layer-3.png');
     z-index: 3;
-    animation: endlessSlide 35s linear infinite;
+    animation: endlessSlide 55s linear infinite;
     animation-delay: 1s; /* Delay it slightly so it appears after other layers */
     opacity: 0;
 }
