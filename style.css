@@ -579,7 +579,6 @@ strong { font-weight: 700; } /* This will now work correctly */
 
 .tbl-circle {
     position: absolute;
-    /* MODIFIED: Increased circle size for more overlap */
     width: 250px; 
     height: 250px;
     border-radius: 50%;
@@ -587,11 +586,8 @@ strong { font-weight: 700; } /* This will now work correctly */
     background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    display: flex;
+    display: flex; /* Keep flexbox, but we will override alignment per-circle */
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
     padding: 20px;
     box-sizing: border-box;
     cursor: pointer;
@@ -617,38 +613,52 @@ strong { font-weight: 700; } /* This will now work correctly */
     text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
-/* --- Positioning and colors for each circle --- */
+/* --- Positioning and Text Alignment for each circle --- */
 
+/* TOP circle (Environmental) - Text pushed to the TOP */
 #circle-env {
     background-color: rgba(50, 200, 50, 0.6);
-    /* MODIFIED: Adjusted position for overlap */
     top: 20px; 
-    left: calc(50% - 125px); /* Adjusted for 250px width */
+    left: calc(50% - 125px);
+    /* MODIFIED: Align text content to the top */
+    justify-content: flex-start;
+    padding-top: 40px;
+    text-align: center;
 }
 
+/* BOTTOM-LEFT circle (Social) - Text pushed to the LEFT */
 #circle-soc {
     background-color: rgba(255, 50, 50, 0.6);
-    /* MODIFIED: Adjusted position for overlap */
     bottom: 20px;
     left: 25%;
+    /* MODIFIED: Align text content to the left */
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+    padding-left: 25px;
 }
 
+/* BOTTOM-RIGHT circle (Economic) - Text pushed to the RIGHT */
 #circle-eco {
     background-color: rgba(0, 150, 255, 0.6);
-    /* MODIFIED: Adjusted position for overlap */
     bottom: 20px;
     right: 25%;
+    /* MODIFIED: Align text content to the right */
+    justify-content: center;
+    align-items: flex-end;
+    text-align: right;
+    padding-right: 25px;
 }
 
-/* NEW: Style for the central "Sostenibilidad" text */
+/* Central "Sostenibilidad" text */
 .tbl-center-text {
     position: absolute;
     color: white;
     font-size: 1rem;
-    font-weight: 700; /* Bold to stand out */
+    font-weight: 700;
     text-shadow: 0 1px 4px black;
-    z-index: 20; /* Ensure it's on top of the circles */
-    pointer-events: none; /* Make it unclickable so circles underneath still work */
+    z-index: 20;
+    pointer-events: none;
 }
 
 /* --- ADDED BACK: TBL Popup Styles --- */
