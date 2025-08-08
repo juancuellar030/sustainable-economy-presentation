@@ -372,6 +372,8 @@ strong { font-weight: 700; } /* This will now work correctly */
     bottom: 5px; /* Position text inside the bar at the bottom */
     left: 50%;
     transform: translateX(-50%);
+    color: black; /* The requested text color */
+    font-weight: 700; /* Make it bold */
     opacity: 0; /* Hidden by default */
 }
 
