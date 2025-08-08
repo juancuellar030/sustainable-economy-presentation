@@ -333,7 +333,7 @@ strong { font-weight: 700; } /* This will now work correctly */
 
 .bar {
     width: 100%;
-    background-color: #34c7c7;
+    background-color: #C2FF6E;
     color: white;
     font-weight: 700;
     position: relative;
@@ -342,7 +342,7 @@ strong { font-weight: 700; } /* This will now work correctly */
 }
 
 .bar.red {
-    background-color: #ff6b6b;
+    background-color: #C2FF6E;
 }
 
 /* This triggers the animations when the box is active */
