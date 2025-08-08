@@ -569,7 +569,8 @@ strong { font-weight: 700; } /* This will now work correctly */
 
 .tbl-graphic-container {
     position: relative;
-    min-height: 350px;
+    /* MODIFIED: Increased height to accommodate larger circles */
+    min-height: 380px; 
     margin-top: 30px;
     display: flex;
     justify-content: center;
@@ -578,17 +579,14 @@ strong { font-weight: 700; } /* This will now work correctly */
 
 .tbl-circle {
     position: absolute;
-    width: 220px;
-    height: 220px;
+    /* MODIFIED: Increased circle size for more overlap */
+    width: 250px; 
+    height: 250px;
     border-radius: 50%;
-    
-    /* MODIFIED: Switched to 'screen' for a better transparent blend on dark backgrounds */
     mix-blend-mode: screen; 
-    
-    background-color: rgba(255, 255, 255, 0.1); /* Base color for the glass effect */
+    background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -600,7 +598,6 @@ strong { font-weight: 700; } /* This will now work correctly */
     transition: transform 0.3s ease;
 }
 
-/* The hover now works for all circles because the positioning transform was removed */
 .tbl-circle:hover {
     transform: scale(1.05);
 }
@@ -622,26 +619,36 @@ strong { font-weight: 700; } /* This will now work correctly */
 
 /* --- Positioning and colors for each circle --- */
 
-/* TOP circle (Environmental) - GREEN */
 #circle-env {
     background-color: rgba(50, 200, 50, 0.6);
-    /* MODIFIED: Positioning without using 'transform' to avoid conflicts */
-    top: 0;
-    left: calc(50% - 110px); /* 50% of parent minus 50% of its own width */
+    /* MODIFIED: Adjusted position for overlap */
+    top: 20px; 
+    left: calc(50% - 125px); /* Adjusted for 250px width */
 }
 
-/* BOTTOM-LEFT circle (Social) - RED */
 #circle-soc {
     background-color: rgba(255, 50, 50, 0.6);
-    bottom: 0;
-    left: 20%;
+    /* MODIFIED: Adjusted position for overlap */
+    bottom: 20px;
+    left: 25%;
 }
 
-/* BOTTOM-RIGHT circle (Economic) - BLUE */
 #circle-eco {
     background-color: rgba(0, 150, 255, 0.6);
-    bottom: 0;
-    right: 20%;
+    /* MODIFIED: Adjusted position for overlap */
+    bottom: 20px;
+    right: 25%;
+}
+
+/* NEW: Style for the central "Sostenibilidad" text */
+.tbl-center-text {
+    position: absolute;
+    color: white;
+    font-size: 1rem;
+    font-weight: 700; /* Bold to stand out */
+    text-shadow: 0 1px 4px black;
+    z-index: 20; /* Ensure it's on top of the circles */
+    pointer-events: none; /* Make it unclickable so circles underneath still work */
 }
 
 /* --- ADDED BACK: TBL Popup Styles --- */
