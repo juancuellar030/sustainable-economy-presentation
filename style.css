@@ -190,6 +190,9 @@ strong {
     /* --- CHANGE THIS LINE --- */
     font-weight: 400; /* Changed from 700 to match the font's native weight */
     backdrop-filter: blur(10px);
+
+    text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .button:hover {
