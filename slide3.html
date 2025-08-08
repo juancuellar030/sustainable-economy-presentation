@@ -6,20 +6,92 @@
     <title>Comprendiendo la Economía Sostenible</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="background-container">
-        <div class="bg-layer layer-1"></div>
-        <div class="bg-layer layer-2"></div>
-        <div class="bg-layer layer-3"></div>
-        <div class="bg-layer layer-4"></div>
-    </div>
+<body class="content-page">
+
     <div class="slide-container">
         <div class="card">
-            <h2>Comprendiendo la Economía Sostenible: Más allá del Crecimiento Tradicional</h2>
-            <p>El desarrollo sostenible es más que crecimiento económico; se trata de satisfacer las necesidades actuales sin comprometer las de las generaciones futuras.</p>
-            <!-- Navigation and script were here, but are now removed. -->
+            <h2>Comprendiendo la Economía Sostenible</h2>
+            <p>El desarrollo sostenible se trata de satisfacer las necesidades actuales sin comprometer las de las generaciones futuras, balanceando tres pilares fundamentales.</p>
+            
+            <!-- TBL Graphic Container -->
+            <div class="tbl-graphic-container">
+                <div class="tbl-circle" id="circle-env">
+                    <h3>Pilar Ambiental / Ecológico</h3>
+                    <p class="keywords">Medio ambiente, conservación, biodiversidad, cambio climático.</p>
+                </div>
+                <div class="tbl-circle" id="circle-soc">
+                    <h3>Pilar Social</h3>
+                    <p class="keywords">Equidad social, bienestar, necesidades humanas, responsabilidad social.</p>
+                </div>
+                <div class="tbl-circle" id="circle-eco">
+                    <h3>Pilar Económico</h3>
+                    <p class="keywords">Crecimiento sostenible, consumo responsable, economía ecológica.</p>
+                </div>
+            </div>
         </div>
     </div>
-    <!-- The <script> tag is also removed. -->
+
+    <!-- Popup structure (hidden by default) -->
+    <div class="tbl-popup-overlay" id="tbl-popup-overlay">
+        <div class="tbl-popup-panel">
+            <button class="close-btn" id="close-popup-btn">&times;</button>
+            <h3 id="popup-title"></h3>
+            <p id="popup-description"></p>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Data for the popups ---
+        const tblData = {
+            'circle-env': {
+                title: 'Pilar Ambiental / Ecológico',
+                description: 'Este pilar se centra en la protección y conservación de recursos naturales como agua, aire, tierra y biodiversidad. Aborda problemas como la contaminación (aire, agua, suelo), deforestación, sobrepesca y pérdida de biodiversidad. Reconoce el cambio climático como una amenaza crítica y busca minimizar impactos negativos para la regeneración de ecosistemas.'
+            },
+            'circle-soc': {
+                title: 'Pilar Social',
+                description: 'Busca la equidad social y el bienestar humano, garantizando la satisfacción de necesidades básicas sin comprometer a futuras generaciones. Aborda la pobreza, malnutrición y desigualdad. Destaca la educación ambiental y la participación ciudadana para fomentar la conciencia y responsabilidad social.'
+            },
+            'circle-eco': {
+                title: 'Pilar Económico',
+                description: 'Se enfoca en la prosperidad económica sostenible y la asignación eficiente de recursos. Cuestiona el modelo de crecimiento ilimitado y la sobreexplotación de recursos, abogando por la producción y consumo responsable. Impulsa la ecoeficiencia y la internalización de costos ambientales. Incluye enfoques como la economía ambiental (valora la naturaleza monetariamente como externalidad) y la economía ecológica (ve la economía como un subsistema de la biosfera con límites físicos).'
+            }
+        };
+
+        // --- DOM Elements ---
+        const circles = document.querySelectorAll('.tbl-circle');
+        const popupOverlay = document.getElementById('tbl-popup-overlay');
+        const closeBtn = document.getElementById('close-popup-btn');
+        const popupTitle = document.getElementById('popup-title');
+        const popupDescription = document.getElementById('popup-description');
+
+        // --- Event Listeners ---
+        circles.forEach(circle => {
+            circle.addEventListener('click', () => {
+                const circleId = circle.id;
+                const data = tblData[circleId];
+
+                // Populate and show the popup
+                popupTitle.textContent = data.title;
+                popupDescription.textContent = data.description;
+                popupOverlay.classList.add('active');
+            });
+        });
+
+        // Function to close the popup
+        const closePopup = () => {
+            popupOverlay.classList.remove('active');
+        };
+
+        closeBtn.addEventListener('click', closePopup);
+        popupOverlay.addEventListener('click', (event) => {
+            // Close if the user clicks on the overlay itself, not the panel
+            if (event.target === popupOverlay) {
+                closePopup();
+            }
+        });
+    });
+    </script>
+
 </body>
 </html>
