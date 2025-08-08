@@ -523,6 +523,16 @@ strong { font-weight: 700; } /* This will now work correctly */
     animation-duration: 3.5s;
 }
 
+/* Leaf 4 */
+#leaf-3 {
+    left: 45%;
+    animation-duration: 13s;
+    animation-delay: 7s;
+}
+#leaf-3 .leaf-inner {
+    background-image: url('images/leaf-4.png');
+    animation-duration: 3.5s;
+}
 
 /* --- Keyframe Definitions (No changes needed here) --- */
 
