@@ -564,13 +564,13 @@ strong { font-weight: 700; } /* This will now work correctly */
 }
 
 /*
---- 10. TBL GRAPHIC (SLIDE 3) - ENLARGED & REFINED ---
+--- 10. TBL GRAPHIC (SLIDE 3) - SYMMETRICAL REFINEMENT ---
 */
 
 .tbl-graphic-container {
     position: relative;
-    /* MODIFIED: Increased height to accommodate the larger, repositioned circles */
-    min-height: 420px; 
+    /* Adjusted height for the new layout */
+    min-height: 400px; 
     margin-top: 30px;
     display: flex;
     justify-content: center;
@@ -579,14 +579,20 @@ strong { font-weight: 700; } /* This will now work correctly */
 
 .tbl-circle {
     position: absolute;
-    /* MODIFIED: Increased circle size for more space */
-    width: 280px; 
-    height: 280px;
+    /* A good size for balance */
+    width: 260px; 
+    height: 260px;
     border-radius: 50%;
     mix-blend-mode: screen; 
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     display: flex;
+    /* MODIFIED: Re-center the text content */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
     cursor: pointer;
     transition: transform 0.3s ease;
 }
@@ -595,55 +601,46 @@ strong { font-weight: 700; } /* This will now work correctly */
     transform: scale(1.05);
 }
 
-/* This wrapper constrains the text's width */
-.text-wrapper {
-    width: 60%; /* Adjusted width percentage for the larger circle */
-    box-sizing: border-box;
-}
-
+/* We no longer need the .text-wrapper, but we'll style the text directly */
 .tbl-circle h3 {
-    font-size: 1.2rem;
+    font-size: 1.3rem; /* Slightly larger for impact */
     margin: 0;
     color: white;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.6);
 }
 
-/* --- Positioning and Text Alignment for each circle --- */
+/* We don't have keywords anymore, so this rule can be removed or ignored */
+.tbl-circle .keywords {
+    display: none;
+}
 
+/* --- Symmetrical Positioning --- */
+
+/* TOP circle (Environmental) */
 #circle-env {
     background-color: rgba(50, 200, 50, 0.6);
-    /* MODIFIED: Moved the circle up */
-    top: -10; 
-    left: calc(50% - 140px); /* Adjusted for 280px width */
-    align-items: flex-start;
-    justify-content: center;
-    text-align: center;
-    /* MODIFIED: Increased padding to better position text in the larger circle */
-    padding-top: 50px;
+    /* Positioned from the top center */
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%); /* Perfect horizontal centering */
 }
 
+/* BOTTOM-LEFT circle (Social) */
 #circle-soc {
     background-color: rgba(255, 50, 50, 0.6);
-    bottom: 20px;
-    /* MODIFIED: Adjusted position to better fit the larger scale */
-    left: 22%;
-    align-items: center;
-    justify-content: flex-start;
-    text-align: left;
-    /* MODIFIED: Increased padding */
-    padding-left: 30px;
+    /* Positioned from the bottom, then pushed left and up */
+    bottom: 0;
+    left: 50%;
+    transform: translate(-100%, 20%); /* Move left by 100% of its width, and up by 20% */
 }
 
+/* BOTTOM-RIGHT circle (Economic) */
 #circle-eco {
     background-color: rgba(0, 150, 255, 0.6);
-    bottom: 20px;
-    /* MODIFIED: Adjusted position to better fit the larger scale */
-    right: 22%;
-    align-items: center;
-    justify-content: flex-end;
-    text-align: right;
-    /* MODIFIED: Increased padding */
-    padding-right: 30px;
+    /* Positioned from the bottom, then pushed right and up */
+    bottom: 0;
+    left: 50%;
+    transform: translate(0%, 20%); /* Move up by 20% */
 }
 
 /* Central "Sostenibilidad" text */
@@ -655,6 +652,8 @@ strong { font-weight: 700; } /* This will now work correctly */
     text-shadow: 0 1px 4px black;
     z-index: 20;
     pointer-events: none;
+    /* MODIFIED: Fine-tuned position for the new layout */
+    transform: translateY(30%);
 }
 
 /* --- ADDED BACK: TBL Popup Styles --- */
