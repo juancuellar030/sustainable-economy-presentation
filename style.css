@@ -564,7 +564,7 @@ strong { font-weight: 700; } /* This will now work correctly */
 }
 
 /*
---- 10. TBL GRAPHIC (SLIDE 3) - DEFINITIVE TEXT PLACEMENT ---
+--- 10. TBL GRAPHIC (SLIDE 3) - ABSOLUTE POSITIONING FIX ---
 */
 
 .tbl-graphic-container {
@@ -584,20 +584,20 @@ strong { font-weight: 700; } /* This will now work correctly */
     mix-blend-mode: screen; 
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    display: flex;
     cursor: pointer;
     transition: transform 0.3s ease;
+    /* REMOVED 'display: flex'. This is crucial to prevent deformation. */
 }
 
 .tbl-circle:hover {
     transform: scale(1.05);
 }
 
-/* This wrapper acts as an invisible container for the text */
+/* MODIFIED: The text wrapper is now positioned absolutely */
 .text-wrapper {
-    /* MODIFIED: This width is the key to preventing overlap */
-    width: 50%; 
-    box-sizing: border-box;
+    position: absolute;
+    width: 60%; /* Constrain the width */
+    text-align: center;
 }
 
 .tbl-circle h3 {
@@ -607,38 +607,46 @@ strong { font-weight: 700; } /* This will now work correctly */
     text-shadow: 0 1px 4px rgba(0,0,0,0.6);
 }
 
-/* --- Positioning and Text Alignment --- */
+/* --- Positioning and Text Alignment for each circle --- */
 
+/* TOP circle (Environmental) */
 #circle-env {
     background-color: rgba(50, 200, 50, 0.7);
     top: 0;
     left: calc(50% - 145px);
-    /* Push the text wrapper to the top */
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 60px;
-    text-align: center;
+}
+/* Position its text wrapper at the top */
+#circle-env .text-wrapper {
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
+/* BOTTOM-LEFT circle (Social) */
 #circle-soc {
     background-color: rgba(220, 50, 50, 0.7);
     bottom: 0;
     left: 20%;
-    /* Push the text wrapper to the left */
-    justify-content: flex-start;
-    align-items: center;
-    padding-left: 45px;
+}
+/* Position its text wrapper to the left */
+#circle-soc .text-wrapper {
+    left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
     text-align: left;
 }
 
+/* BOTTOM-RIGHT circle (Economic) */
 #circle-eco {
     background-color: rgba(0, 150, 255, 0.7);
     bottom: 0;
     right: 20%;
-    /* Push the text wrapper to the right */
-    justify-content: flex-end;
-    align-items: center;
-    padding-right: 45px;
+}
+/* Position its text wrapper to the right */
+#circle-eco .text-wrapper {
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
     text-align: right;
 }
 
