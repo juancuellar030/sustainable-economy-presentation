@@ -1,0 +1,922 @@
+/* Using the correct import for the new font */
+@import url('https://fonts.googleapis.com/css2?family=Parkinsans&display=swap');
+
+/* --- General Body & Font Styles --- */
+html, body {
+    height: 100%;
+}
+
+/* --- General Body & Font Styles --- */
+body {
+    /* REPLACE 'Walkway' with 'Parkinsans' */
+    font-family: 'Parkinsans', sans-serif; /* Keep a fallback font */
+    margin: 0;
+    overflow: hidden;
+}
+
+/* --- FONT & TYPOGRAPHY --- */
+h1 {
+    font-size: 2.6rem;
+    font-weight: 400; /* Use the font's normal weight */
+    line-height: 1.3;
+    margin-bottom: 25px;
+}
+.light-title {
+    font-weight: 400; /* There's no lighter version, so keep it normal */
+}
+h2 {
+    font-size: 2.2rem;
+    font-weight: 400; /* Use the font's normal weight */
+    margin-bottom: 25px;
+}
+.highlight-green {
+    color: #C2FF6E; /* A pleasant, not-too-dark green */
+}
+p, li {
+    font-size: 1.1rem;
+    font-weight: 400; /* Use the font's normal weight */
+    line-height: 1.7;
+}
+.card > p {
+    text-align: center;
+}
+ul {
+    padding-left: 30px;
+    margin-top: 20px;
+    text-align: left;
+}
+li {
+    margin-bottom: 15px;
+}
+strong {
+    /* Let the browser create its own bold effect */
+    font-weight: bold;
+}
+
+/*
+--- 1. INDEX PAGE STYLES ---
+*/
+.index-page {
+    background-color: #5ac12d;
+}
+
+.index-page .background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden; /* Prevents scrollbars from the moving car */
+}
+
+.index-page .bg-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    opacity: 0; /* All layers start invisible */
+}
+
+/* --- Layer-Specific Animations --- */
+.index-page .layer-1 {
+    background-image: url('images/index-bg-layer-1.png');
+    z-index: 1;
+    animation: slideInFromBottom 1s ease-out 0s forwards;
+}
+
+.index-page .layer-2 {
+    background-image: url('images/index-bg-layer-2.png');
+    z-index: 2;
+    animation: slideInFromBottom 1s ease-out 0.4s forwards;
+}
+
+.index-page .layer-3 {
+    background-image: url('images/index-bg-layer-3.png');
+    z-index: 3;
+    animation: endlessSlide 55s linear infinite;
+    animation-delay: 1s; /* Delay it slightly so it appears after other layers */
+    opacity: 0;
+}
+
+.index-page .layer-4 {
+    background-image: url('images/index-bg-layer-4.png');
+    z-index: 6;
+    animation: slideInFromBottom 1s ease-out 0.8s forwards;
+}
+
+.index-page .layer-5 {
+    background-image: url('images/index-bg-layer-5.png');
+    z-index: 5;
+    background-size: contain;
+    background-position: left bottom;
+    /* This animation now correctly targets an existing element */
+    animation: endlessSlide 15s linear infinite;
+    animation-delay: 2s; /* Delay it slightly so it appears after other layers */
+    opacity: 0; /* Set opacity to 1 so it's visible for its animation */
+}
+
+/* NEW: Style rules for the bike layer */
+.index-page .layer-6 {
+    background-image: url('images/bike-layer.png');
+    /* MODIFIED: Bike is in front of the car */
+    z-index: 4;
+    background-size: contain;
+    background-position: right bottom;
+    animation: endlessSlideReverse 25s linear infinite;
+    /* MODIFIED: Staggered the delay to start slightly after the car */
+    animation-delay: 2.2s;
+    opacity: 0;
+}
+
+/* --- Card styling for the Index Page --- */
+.index-page .card {
+    opacity: 0;
+    animation: card-enter 1s ease-out 1.8s forwards;
+}
+
+
+/*
+/* --- 2. CONTENT PAGE STYLES --- */
+.content-page {
+    /* MODIFIED: This allows the main index animation to show through the iframe */
+    background: transparent;
+    /* The old background-image rule is removed */
+}
+
+.content-page .card {
+    animation: card-enter 1s ease-out forwards;
+}
+
+/* --- 3. SHARED STYLES --- */
+.slide-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* THE FIX: Change vh to % for correct iframe rendering */
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box; /* Add this for better layout consistency */
+}
+
+.card {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(20px);
+    border-radius: 15px;
+    padding: 40px;
+    color: white;
+    max-width: 800px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 10;
+}
+
+.button {
+    display: inline-block;
+    padding: 12px 35px;
+    background-color: rgba(255, 255, 255, 0.25);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    margin-top: 30px;
+    transition: all 0.3s;
+    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* --- ADD THIS LINE --- */
+    font-family: 'Parkinsans', sans-serif;
+
+    /* --- CHANGE THIS LINE --- */
+    font-weight: 400; /* Changed from 700 to match the font's native weight */
+    backdrop-filter: blur(10px);
+
+    text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* ADD THIS NEW RULE to target only the main navigation buttons */
+#nav-container .button {
+    color: black;
+    text-shadow: none; /* Black text doesn't need a shadow */
+}
+
+.button:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
+}
+
+/* NEW: Add this rule specifically for the start button's hover state */
+#start-btn:hover {
+    background-color: rgba(140, 255, 130, 0.5); /* Translucent green */
+    border-color: rgba(140, 255, 130, 0.7); /* A slightly more solid green border */
+}
+
+/* --- FONT & TYPOGRAPHY --- */
+h1 { font-size: 2.6rem; font-weight: 700; line-height: 1.3; margin-bottom: 25px; }
+.light-title { font-weight: 400; }
+h2 { font-size: 2.2rem; font-weight: 700; margin-bottom: 25px; }
+p, li { font-size: 1.1rem; font-weight: 400; line-height: 1.7; }
+.card > p { text-align: center; }
+ul { padding-left: 30px; margin-top: 20px; text-align: left; }
+li { margin-bottom: 15px; }
+strong { font-weight: 700; } /* This will now work correctly */
+
+/*
+--- 4. ALL KEYFRAME ANIMATIONS ---
+*/
+@keyframes card-enter {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* MODIFIED: Fixed all keyframes to start with opacity: 0 */
+@keyframes slideInFromTop {
+    from { opacity: 1; transform: translateY(-100%); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInFromLeft {
+    from { opacity: 0; transform: translateX(-100%); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInFromBottom {
+    from { opacity: 1; transform: translateY(100%); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* MODIFIED: The animation now controls the opacity, making the car appear */
+@keyframes endlessSlide {
+    0% {
+        transform: translateX(-100%);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100vw);
+        opacity: 1;
+    }
+}
+
+/* NEW: Keyframe animation for the bike moving from right to left */
+@keyframes endlessSlideReverse {
+    0% { transform: translateX(100vw); opacity: 1; }
+    100% { transform: translateX(-100%); opacity: 1; } /* Changed to -100% so it crosses the whole screen */
+}
+
+/*
+--- 6. SLIDE 2 INTERACTIVE ELEMENTS ---
+*/
+
+/* Container for the two new buttons */
+.interactive-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Make sure buttons inside the card don't have excessive top margin */
+.interactive-btn {
+    margin-top: 0;
+}
+
+/* Container that holds the hidden/revealed content */
+.info-box-container {
+    margin-top: 25px;
+    min-height: 250px; /* Reserve space to prevent layout jumps */
+}
+
+/* The content boxes themselves, hidden by default */
+.info-box {
+    display: none;
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* This class is added by JS to show the content */
+.info-box.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/*
+--- SLIDE 2: Shrinking Bar Chart ---
+*/
+
+.chart-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding: 20px 0;
+    height: 150px; /* Give the container a fixed height */
+}
+
+.chart-bar-group {
+    text-align: center;
+    width: 35%;
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse; /* Flips order so label is on bottom */
+}
+
+.bar-wrapper {
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.bar {
+    width: 100%;
+    background-color: #C2FF6E;
+    color: white;
+    font-weight: 700;
+    position: relative;
+    /* This is the initial state before animation */
+    height: 100%;
+}
+
+.bar.red {
+    background-color: #C2FF6E;
+}
+
+/* This triggers the animations when the box is active */
+.info-box.active #bar-global {
+    animation: shrinkTo70 1.5s ease-out forwards;
+}
+
+.info-box.active #bar-tropical {
+    animation: shrinkTo40 1.5s ease-out forwards;
+}
+
+.bar-label {
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+.chart-caption {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-top: 15px;
+    text-align: justify;
+}
+
+/* The percentage value display */
+.bar span {
+    position: absolute;
+    bottom: 5px; /* Position text inside the bar at the bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    color: black; /* The requested text color */
+    font-weight: 700; /* Make it bold */
+    opacity: 0; /* Hidden by default */
+}
+
+/* Fade in the text after the bar has shrunk */
+.info-box.active .bar span {
+    animation: fadeIn 0.5s 1.5s ease-out forwards;
+}
+
+/* Keyframe Animations for Shrinking */
+@keyframes shrinkTo70 {
+    from { height: 100%; }
+    to { height: 70%; }
+}
+
+@keyframes shrinkTo40 {
+    from { height: 100%; }
+    to { height: 40%; }
+}
+
+/*
+--- DEFINITIVE FIX: NASA-Style Comparison Slider using clip-path ---
+*/
+
+.comparison-slider {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin: 20px auto 0;
+    user-select: none;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+/* This rule applies to BOTH images */
+.comparison-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Guarantees they fill the space without distortion */
+}
+
+/* This is the key: The "before" image is stacked on top and clipped */
+#before-image {
+    z-index: 10;
+    /* This creates a rectangle covering the left 50% of the image */
+    clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+}
+
+/* The draggable handle styling */
+.slider-handle {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 4px; /* This is the vertical line */
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    cursor: ew-resize;
+    transform: translateX(-2px);
+    z-index: 20;
+    /* REMOVED flex properties. This element is just the line. */
+}
+
+/* THE FIX: The handle grabber is now positioned absolutely */
+.handle-grabber {
+    position: absolute;
+    /* Center the grabber perfectly on the handle line */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: white;
+    border: 2px solid #0b3d91; /* NASA blue */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%230b3d91' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6.5 4.5l-3 3.5 3 3.5'/%3E%3Cpath d='M9.5 4.5l3 3.5 -3 3.5'/%3E%3C/svg%3E");
+    background-size: 18px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/*
+--- Image Label for Comparison Slider ---
+*/
+
+.image-label {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    padding: 5px 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 13px; /* Small and readable */
+    font-weight: 400;
+    border-radius: 5px;
+    z-index: 25; /* Ensures it's above the images but below the handle's grabber if needed */
+    pointer-events: none; /* Prevents the label from interfering with mouse dragging */
+}
+
+/*
+--- 9. FALLING LEAVES ANIMATION (CORRECTED) ---
+*/
+
+/* This parent element handles the FALLING and DRIFTING */
+.falling-leaf {
+    position: absolute;
+    top: -10%;
+    width: 100px;
+    height: 100px;
+    z-index: 7;
+    animation: fall-and-drift linear infinite;
+}
+
+/* This nested element handles the SPINNING and the IMAGE */
+.leaf-inner {
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: spin 4s ease-in-out infinite alternate; /* The spin is now isolated */
+}
+
+/* --- Individual Leaf Properties for Randomness --- */
+
+/* Leaf 1 */
+#leaf-1 {
+    left: 20%;
+    animation-duration: 12s; /* Fall duration */
+    animation-delay: 0s;
+}
+#leaf-1 .leaf-inner {
+    background-image: url('images/leaf-1.png');
+    animation-duration: 4s; /* Spin duration */
+}
+
+/* Leaf 2 */
+#leaf-2 {
+    left: 60%;
+    animation-duration: 15s;
+    animation-delay: 5s;
+}
+#leaf-2 .leaf-inner {
+    background-image: url('images/leaf-2.png');
+    animation-duration: 5s;
+}
+
+/* Leaf 3 */
+#leaf-3 {
+    left: 85%;
+    animation-duration: 10s;
+    animation-delay: 9s;
+}
+#leaf-3 .leaf-inner {
+    background-image: url('images/leaf-3.png');
+    animation-duration: 3.5s;
+}
+
+/* Leaf 4 */
+#leaf-3 {
+    left: 45%;
+    animation-duration: 13s;
+    animation-delay: 7s;
+}
+#leaf-3 .leaf-inner {
+    background-image: url('images/leaf-4.png');
+    animation-duration: 3.5s;
+}
+
+/* --- Keyframe Definitions (No changes needed here) --- */
+
+@keyframes fall-and-drift {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(120vh) translateX(-15vw);
+        opacity: 0.9;
+    }
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(25deg); }
+}
+
+/*
+--- 10. TBL GRAPHIC (SLIDE 3) - ABSOLUTE POSITIONING FIX ---
+*/
+
+.tbl-graphic-container {
+    position: relative;
+    min-height: 450px; 
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tbl-circle {
+    position: absolute;
+    width: 290px; 
+    height: 290px;
+    border-radius: 50%;
+    mix-blend-mode: screen; 
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    /* REMOVED 'display: flex'. This is crucial to prevent deformation. */
+}
+
+.tbl-circle:hover {
+    transform: scale(1.05);
+}
+
+/* MODIFIED: The text wrapper is now positioned absolutely */
+.text-wrapper {
+    position: absolute;
+    width: 60%; /* Constrain the width */
+    text-align: center;
+}
+
+.tbl-circle h3 {
+    font-size: 1.2rem;
+    margin: 0;
+    color: white;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+}
+
+/* --- Positioning and Text Alignment for each circle --- */
+
+/* TOP circle (Environmental) */
+#circle-env {
+    background-color: rgba(131, 212, 57, 0.7);
+    top: 0;
+    left: calc(50% - 145px);
+}
+/* Position its text wrapper at the top */
+#circle-env .text-wrapper {
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* BOTTOM-LEFT circle (Social) */
+#circle-soc {
+    background-color: rgba(57, 209, 212, 0.7);
+    bottom: 0;
+    left: 21%;
+}
+/* Position its text wrapper to the left */
+#circle-soc .text-wrapper {
+    left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: left;
+}
+
+/* BOTTOM-RIGHT circle (Economic) */
+#circle-eco {
+    background-color: rgba(137, 57, 212, 0.7);
+    bottom: 0;
+    right: 21%;
+}
+/* Position its text wrapper to the right */
+#circle-eco .text-wrapper {
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: right;
+}
+
+/* Central "Sostenibilidad" text */
+.tbl-center-text {
+    position: absolute;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-shadow: 0 1px 4px black;
+    z-index: 20;
+    pointer-events: none;
+    /* MODIFIED: Repositioned for the new layout */
+    transform: translateY(40%);
+}
+
+/* --- TBL Popup Styles --- */
+
+.tbl-popup-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.tbl-popup-overlay.active { 
+    display: flex; 
+}
+
+.tbl-popup-panel {
+    /* MODIFIED: Changed background to a light, translucent color */
+    background: rgba(245, 245, 245, 0.95); 
+    border: 1px solid rgba(0, 0, 0, 0.1); /* A subtle dark border */
+    border-radius: 15px;
+    max-width: 600px;
+    padding: 40px;
+    position: relative;
+    /* MODIFIED: Changed main text color to black */
+    color: black; 
+    text-align: left;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2); /* Add a shadow to lift it off the page */
+}
+
+.tbl-popup-panel h3 {
+    margin-top: 0;
+    font-size: 1.8rem;
+    /* The color will be inherited from the parent panel, so it will be black */
+}
+
+.tbl-popup-panel p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    text-align: justify;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    /* MODIFIED: Changed the 'x' color to black */
+    color: black; 
+    font-size: 2.5rem;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0.5; /* Adjusted opacity for a softer look on a light background */
+    transition: opacity 0.3s;
+}
+
+.close-btn:hover {
+    opacity: 1;
+}
+
+/*
+--- 11. TOGGLE SWITCH (SLIDE 4) - FINAL VERSION ---
+*/
+
+.toggle-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch; /* Make options same height */
+    gap: 10px;
+    margin-top: 30px;
+    user-select: none;
+    background: rgba(0,0,0,0.3);
+    border-radius: 50px;
+    padding: 8px;
+}
+
+.toggle-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.toggle-label {
+    font-weight: 400;
+    color: rgba(255,255,255,0.5); /* Inactive text is faded */
+    transition: color 0.4s ease;
+}
+
+.toggle-icon {
+    width: 24px;
+    height: 24px;
+    background-color: rgba(255,255,255,0.5); /* Inactive icon is faded */
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    transition: background-color 0.4s ease;
+}
+
+/* --- Icon Definitions --- */
+
+.icon-ambiental {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M21.28 6.36l-1.12-1.12a1 1 0 00-1.41 0L12 12V3a1 1 0 00-2 0v9L3.25 5.25a1 1 0 00-1.41 1.41l7.33 7.33a3 3 0 004.24 0z'/%3E%3Cpath d='M21 16H3a1 1 0 000 2h18a1 1 0 000-2z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M21.28 6.36l-1.12-1.12a1 1 0 00-1.41 0L12 12V3a1 1 0 00-2 0v9L3.25 5.25a1 1 0 00-1.41 1.41l7.33 7.33a3 3 0 004.24 0z'/%3E%3Cpath d='M21 16H3a1 1 0 000 2h18a1 1 0 000-2z'/%3E%3C/svg%3E");
+}
+
+.icon-ecologica {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20.39 8.28a1 1 0 00-1.41.09 7.42 7.42 0 01-2.92 2.92 1 1 0 00-.09 1.41 1 1 0 00.7.29 1 1 0 00.71-.3 9.42 9.42 0 003.71-3.71 1 1 0 00-.7-1.7zm-6.06-6.07a1 1 0 00-1.41-.09A7.42 7.42 0 0010 5.04a1 1 0 00.09 1.41 1 1 0 001.41-.09 9.42 9.42 0 013.71-3.71 1 1 0 00-.08-1.71zM3.61 15.72a1 1 0 001.41-.09 7.42 7.42 0 012.92-2.92 1 1 0 10-1.32-1.5 9.42 9.42 0 00-3.71 3.71 1 1 0 00.7 1.7z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20.39 8.28a1 1 0 00-1.41.09 7.42 7.42 0 01-2.92 2.92 1 1 0 00-.09 1.41 1 1 0 00.7.29 1 1 0 00.71-.3 9.42 9.42 0 003.71-3.71 1 1 0 00-.7-1.7zm-6.06-6.07a1 1 0 00-1.41-.09A7.42 7.42 0 0010 5.04a1 1 0 00.09 1.41 1 1 0 001.41-.09 9.42 9.42 0 013.71-3.71 1 1 0 00-.08-1.71zM3.61 15.72a1 1 0 001.41-.09 7.42 7.42 0 012.92-2.92 1 1 0 10-1.32-1.5 9.42 9.42 0 00-3.71 3.71 1 1 0 00.7 1.7z'/%3E%3C/svg%3E");
+}
+
+
+/* --- Active State --- */
+.toggle-option.active {
+    background: rgba(255,255,255,0.2);
+}
+.toggle-option.active .toggle-label {
+    color: white;
+}
+.toggle-option.active .toggle-icon {
+    background-color: #a5ff9b; /* Bright green highlight color */
+}
+
+
+/* --- Content Panel Styles --- */
+.toggle-content-container { margin-top: 25px; min-height: 200px; }
+.toggle-content { display: none; animation: fadeIn 0.5s ease-out forwards; }
+.toggle-content.active { display: block; }
+.toggle-content ul { text-align: left; max-width: 90%; margin: auto; }
+
+/*
+--- 12. STRATEGY TABS (SLIDE 6) ---
+*/
+
+.strategy-tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    margin-top: 30px;
+}
+
+.tab-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 20px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent; /* Placeholder for active indicator */
+    margin-bottom: -2px; /* Aligns the border with the container's border */
+    transition: all 0.3s ease;
+    color: rgba(255, 255, 255, 0.6); /* Faded color for inactive tabs */
+}
+
+.tab-icon {
+    width: 22px;
+    height: 22px;
+    background-color: rgba(255, 255, 255, 0.6); /* Faded color */
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    transition: background-color 0.3s ease;
+}
+
+/* --- Icon Definitions --- */
+.icon-policy {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 2H5a2 2 0 00-2 2v16a2 2 0 002 2h14a2 2 0 002-2V4a2 2 0 00-2-2zm-1 18H6V4h12v16z'/%3E%3Cpath d='M8 6h8v2H8zm0 4h8v2H8zm0 4h5v2H8z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 2H5a2 2 0 00-2 2v16a2 2 0 002 2h14a2 2 0 002-2V4a2 2 0 00-2-2zm-1 18H6V4h12v16z'/%3E%3Cpath d='M8 6h8v2H8zm0 4h8v2H8zm0 4h5v2H8z'/%3E%3C/svg%3E");
+}
+.icon-education {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a5 5 0 00-5 5c0 2.4 1.79 4.41 4 4.89V13a1 1 0 001 1h2a1 1 0 001-1v-1.11a5 5 0 000-9.78zM12 10a3 3 0 113-3 3 3 0 01-3 3z'/%3E%3Cpath d='M18.82 14.12A1 1 0 0018 14H6a1 1 0 00-.82.12A9 9 0 003 21a1 1 0 001 1h16a1 1 0 001-1 9 9 0 00-2.18-6.88z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a5 5 0 00-5 5c0 2.4 1.79 4.41 4 4.89V13a1 1 0 001 1h2a1 1 0 001-1v-1.11a5 5 0 000-9.78zM12 10a3 3 0 113-3 3 3 0 01-3 3z'/%3E%3Cpath d='M18.82 14.12A1 1 0 0018 14H6a1 1 0 00-.82.12A9 9 0 003 21a1 1 0 001 1h16a1 1 0 001-1 9 9 0 00-2.18-6.88z'/%3E%3C/svg%3E");
+}
+.icon-tech {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 1010 10A10 10 0 0012 2zm1 14.59V18a1 1 0 01-2 0v-1.41a6 6 0 110-9.18V6a1 1 0 012 0v1.41a6 6 0 110 9.18z'/%3E%3Cpath d='M12 15a3 3 0 10-3-3 3 3 0 003 3z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 1010 10A10 10 0 0012 2zm1 14.59V18a1 1 0 01-2 0v-1.41a6 6 0 110-9.18V6a1 1 0 012 0v1.41a6 6 0 110 9.18z'/%3E%3Cpath d='M12 15a3 3 0 10-3-3 3 3 0 003 3z'/%3E%3C/svg%3E");
+}
+
+/* --- Active State for Tabs --- */
+.tab-item.active {
+    color: white;
+    border-bottom-color: #a5ff9b; /* Bright green highlight */
+}
+.tab-item.active .tab-icon {
+    background-color: #a5ff9b;
+}
+
+/* --- Content Panel Styles --- */
+.strategy-content-container {
+    margin-top: 25px;
+    min-height: 250px; /* Reserve space for content */
+}
+.strategy-content {
+    display: none;
+    animation: fadeIn 0.5s ease-out forwards;
+}
+.strategy-content.active {
+    display: block;
+}
+.strategy-content ul {
+    text-align: left;
+    max-width: 90%;
+    margin: auto;
+    padding-left: 20px; /* Adjust padding */
+}
+/* Custom bullet points for a clean look */
+.strategy-content li {
+    padding-left: 10px;
+    position: relative;
+}
+.strategy-content li::before {
+    content: '▪';
+    position: absolute;
+    left: -10px;
+    color: #a5ff9b;
+}
+
+/*
+--- 13. CUSTOM CURSORS ---
+*/
+
+/* 1. Default Cursor (The Arrow) */
+/* This applies to the whole page unless overridden */
+html {
+    /* url('path/to/cursor.svg') x-offset y-offset, fallback-cursor */
+    cursor: url('cursors/arrow.svg') 4 4, auto;
+}
+
+/* 2. Pointer Cursor (The Hand) */
+/* This applies to all links, buttons, and other clickable elements */
+a,
+button,
+.button,
+.interactive-btn,
+.tab-item,
+.tbl-circle,
+.close-btn {
+    cursor: url('cursors/hand.svg') 12 4, pointer;
+}
+
+/* 3. Resize Cursor */
+/* This applies specifically to the image slider handle */
+.slider-handle {
+    cursor: url('cursors/resize-ew.svg') 16 16, ew-resize;
+}
