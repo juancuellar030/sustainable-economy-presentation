@@ -601,7 +601,7 @@ strong { font-weight: 700; } /* This will now work correctly */
 }
 
 .tbl-circle h3 {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     margin: 0;
     color: white;
     text-shadow: 0 1px 4px rgba(0,0,0,0.6);
