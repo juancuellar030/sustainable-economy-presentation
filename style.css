@@ -621,7 +621,7 @@ strong { font-weight: 700; } /* This will now work correctly */
 #circle-env {
     background-color: rgba(50, 200, 50, 0.6);
     /* MODIFIED: Moved the circle up */
-    top: 0; 
+    top: 10; 
     left: calc(50% - 140px); /* Adjusted for 280px width */
     align-items: flex-start;
     justify-content: center;
