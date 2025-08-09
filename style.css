@@ -879,7 +879,9 @@ strong { font-weight: 700; } /* This will now work correctly */
     text-align: left;
     max-width: 90%;
     margin: auto;
-    padding-left: 20px; /* Adjust padding */
+    padding-left: 20px;
+    /* FIXED: Remove the browser's default bullet point */
+    list-style-type: none;
 }
 /* Custom bullet points for a clean look */
 .strategy-content li {
