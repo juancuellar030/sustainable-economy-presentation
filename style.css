@@ -564,12 +564,11 @@ strong { font-weight: 700; } /* This will now work correctly */
 }
 
 /*
---- 10. TBL GRAPHIC (SLIDE 3) - CORRECTED ---
+--- 10. TBL GRAPHIC (SLIDE 3) - FINAL WRAPPER FIX ---
 */
 
 .tbl-graphic-container {
     position: relative;
-    /* MODIFIED: Increased height to accommodate larger circles */
     min-height: 380px; 
     margin-top: 30px;
     display: flex;
@@ -583,19 +582,21 @@ strong { font-weight: 700; } /* This will now work correctly */
     height: 250px;
     border-radius: 50%;
     mix-blend-mode: screen; 
-    background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    display: flex; /* Keep flexbox, but we will override alignment per-circle */
-    flex-direction: column;
-    padding: 20px;
-    box-sizing: border-box;
+    display: flex; /* This is now used to position the inner wrapper */
     cursor: pointer;
     transition: transform 0.3s ease;
 }
 
 .tbl-circle:hover {
     transform: scale(1.05);
+}
+
+/* NEW: This wrapper constrains the text's width */
+.text-wrapper {
+    width: 65%; /* Force text to wrap within this width */
+    box-sizing: border-box;
 }
 
 .tbl-circle h3 {
@@ -615,39 +616,37 @@ strong { font-weight: 700; } /* This will now work correctly */
 
 /* --- Positioning and Text Alignment for each circle --- */
 
-/* TOP circle (Environmental) - Text pushed to the TOP */
 #circle-env {
     background-color: rgba(50, 200, 50, 0.6);
     top: 20px; 
     left: calc(50% - 125px);
-    /* MODIFIED: Align text content to the top */
-    justify-content: flex-start;
-    padding-top: 40px;
+    /* Push the wrapper to the top */
+    align-items: flex-start;
+    justify-content: center;
     text-align: center;
+    padding-top: 30px;
 }
 
-/* BOTTOM-LEFT circle (Social) - Text pushed to the LEFT */
 #circle-soc {
     background-color: rgba(255, 50, 50, 0.6);
     bottom: 20px;
     left: 25%;
-    /* MODIFIED: Align text content to the left */
-    justify-content: center;
-    align-items: flex-start;
+    /* Push the wrapper to the left */
+    align-items: center;
+    justify-content: flex-start;
     text-align: left;
-    padding-left: 25px;
+    padding-left: 20px;
 }
 
-/* BOTTOM-RIGHT circle (Economic) - Text pushed to the RIGHT */
 #circle-eco {
     background-color: rgba(0, 150, 255, 0.6);
     bottom: 20px;
     right: 25%;
-    /* MODIFIED: Align text content to the right */
-    justify-content: center;
-    align-items: flex-end;
+    /* Push the wrapper to the right */
+    align-items: center;
+    justify-content: flex-end;
     text-align: right;
-    padding-right: 25px;
+    padding-right: 20px;
 }
 
 /* Central "Sostenibilidad" text */
