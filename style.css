@@ -921,33 +921,3 @@ button,
 .slider-handle {
     cursor: url('cursors/resize-ew.svg') 16 16, ew-resize;
 }
-
-/*
---- 14. RIPPLE CLICK EFFECT ---
-*/
-
-/* Make sure our buttons can contain the ripple */
-.button, .tbl-circle, .tab-item {
-    position: relative; /* Essential for positioning the ripple inside */
-    overflow: hidden;   /* Hides the parts of the ripple that go outside the button */
-}
-
-/* The ripple element itself (the <span> we create with JS) */
-.ripple {
-    position: absolute;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.7);
-    
-    /* Center the ripple on its own coordinates */
-    transform: scale(0);
-    
-    /* The animation that makes it grow and fade */
-    animation: ripple-effect 0.6s linear;
-}
-
-@keyframes ripple-effect {
-    to {
-        transform: scale(4);
-        opacity: 0;
-    }
-}
