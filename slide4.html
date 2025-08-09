@@ -6,24 +6,68 @@
     <title>Dos Enfoques Económicos</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="background-container">
-        <div class="bg-layer layer-1"></div>
-        <div class="bg-layer layer-2"></div>
-        <div class="bg-layer layer-3"></div>
-        <div class="bg-layer layer-4"></div>
-    </div>
+<body class="content-page">
+
     <div class="slide-container">
         <div class="card">
-            <h2>Dos Enfoques Económicos: Economía Ambiental vs. Economía Ecológica</h2>
+            <h2>Dos Enfoques Económicos: Ambiental vs. Ecológica</h2>
             <p>Diferentes escuelas económicas ofrecen enfoques distintos para integrar las preocupaciones ambientales.</p>
-            <ul>
-                <li><strong>Economía Ambiental (Enfoque Neoclásico):</strong> Ve los problemas de gestión de la naturaleza como externalidades que deben ser valoradas e integradas en el mercado mediante precios (ej., impuestos, subsidios). Asume una sustituibilidad perfecta entre el capital natural y el manufacturado. Limitación: A menudo es cortoplacista, antropocéntrica, y puede no capturar los valores intrínsecos del medio ambiente.</li>
-                <li><strong>Economía Ecológica (Enfoque Holístico):</strong> Considera la economía como un subsistema del ecosistema global finito. Enfatiza los límites biofísicos (ej., leyes de la termodinámica sobre la conservación y degradación de materia/energía). Se centra en la distribución justa, la escala sostenible y la asignación eficiente de los recursos. Valora los recursos naturales intrínsecamente y complementa la valoración monetaria con indicadores biofísicos.</li>
-            </ul>
-            <!-- Navigation and script were here, but are now removed. -->
+            
+            <!-- NEW: Toggle Switch -->
+            <div class="toggle-container ambiental-active" id="enfoque-toggle">
+                <div class="toggle-label" id="label-ambiental">Economía Ambiental</div>
+                <div class="toggle-track">
+                    <div class="toggle-knob"></div>
+                </div>
+                <div class="toggle-label" id="label-ecologica">Economía Ecológica</div>
+            </div>
+
+            <!-- NEW: Container for the content that will change -->
+            <div class="toggle-content-container">
+                <!-- Content for Ambiental -->
+                <div class="toggle-content active" id="content-ambiental">
+                    <ul>
+                        <li><strong>Enfoque Neoclásico:</strong> Ve los problemas como externalidades a ser valoradas e integradas en el mercado mediante precios (impuestos, subsidios).</li>
+                        <li><strong>Sustituibilidad Perfecta:</strong> Asume que el capital manufacturado puede reemplazar perfectamente al capital natural.</li>
+                        <li><strong>Limitación:</strong> A menudo es cortoplacista, antropocéntrica, y puede no capturar los valores intrínsecos del medio ambiente.</li>
+                    </ul>
+                </div>
+                <!-- Content for Ecológica -->
+                <div class="toggle-content" id="content-ecologica">
+                     <ul>
+                        <li><strong>Enfoque Holístico:</strong> Considera la economía como un subsistema del ecosistema global finito.</li>
+                        <li><strong>Límites Biofísicos:</strong> Enfatiza los límites físicos del planeta (ej., leyes de la termodinámica).</li>
+                        <li><strong>Foco Principal:</strong> Se centra en la distribución justa, la escala sostenible y la asignación eficiente de los recursos.</li>
+                        <li><strong>Valoración:</strong> Valora los recursos naturales intrínsecamente y complementa la valoración monetaria con indicadores biofísicos.</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-    <!-- The <script> tag is also removed. -->
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggle = document.getElementById('enfoque-toggle');
+        const labelAmbiental = document.getElementById('label-ambiental');
+        const labelEcologica = document.getElementById('label-ecologica');
+        const contentAmbiental = document.getElementById('content-ambiental');
+        const contentEcologica = document.getElementById('content-ecologica');
+
+        labelAmbiental.addEventListener('click', () => {
+            toggle.classList.add('ambiental-active');
+            toggle.classList.remove('ecologica-active');
+            contentEcologica.classList.remove('active');
+            contentAmbiental.classList.add('active');
+        });
+
+        labelEcologica.addEventListener('click', () => {
+            toggle.classList.remove('ambiental-active');
+            toggle.classList.add('ecologica-active');
+            contentAmbiental.classList.remove('active');
+            contentEcologica.classList.add('active');
+        });
+    });
+    </script>
+
 </body>
 </html>
