@@ -627,7 +627,7 @@ strong { font-weight: 700; } /* This will now work correctly */
     background-color: rgba(255, 50, 50, 0.6);
     /* MODIFIED: Positioned from bottom and pushed inward to overlap */
     bottom: 0;
-    left: 20%;
+    left: 23%;
 }
 
 /* BOTTOM-RIGHT circle (Economic) */
@@ -635,7 +635,7 @@ strong { font-weight: 700; } /* This will now work correctly */
     background-color: rgba(0, 150, 255, 0.6);
     /* MODIFIED: Positioned from bottom and pushed inward to overlap */
     bottom: 0;
-    right: 20%;
+    right: 23%;
 }
 
 /* Central "Sostenibilidad" text */
@@ -648,7 +648,7 @@ strong { font-weight: 700; } /* This will now work correctly */
     z-index: 20;
     pointer-events: none;
     /* MODIFIED: Repositioned for the new layout */
-    transform: translateY(20%);
+    transform: translateY(24%);
 }
 
 /* --- ADDED BACK: TBL Popup Styles --- */
