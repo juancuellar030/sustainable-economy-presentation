@@ -911,7 +911,8 @@ button,
 .interactive-btn,
 .tab-item,
 .tbl-circle,
-.close-btn {
+.close-btn
+.toggle-option {
     cursor: url('cursors/hand.svg') 12 4, pointer;
 }
 
