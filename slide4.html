@@ -13,13 +13,18 @@
             <h2>Dos Enfoques Económicos: Ambiental vs. Ecológica</h2>
             <p>Diferentes escuelas económicas ofrecen enfoques distintos para integrar las preocupaciones ambientales.</p>
             
-            <!-- NEW: Toggle Switch -->
-            <div class="toggle-container ambiental-active" id="enfoque-toggle">
-                <div class="toggle-label" id="label-ambiental">Economía Ambiental</div>
-                <div class="toggle-track">
-                    <div class="toggle-knob"></div>
+           <!-- FINAL, CORRECTED Toggle Switch -->
+            <div class="toggle-container" id="enfoque-toggle">
+                <!-- Left Side (Ambiental) -->
+                <div class="toggle-option active" id="option-ambiental">
+                    <div class="toggle-icon icon-ambiental"></div>
+                    <div class="toggle-label">Economía Ambiental</div>
                 </div>
-                <div class="toggle-label" id="label-ecologica">Economía Ecológica</div>
+                <!-- Right Side (Ecológica) -->
+                <div class="toggle-option" id="option-ecologica">
+                    <div class="toggle-label">Economía Ecológica</div>
+                    <div class="toggle-icon icon-ecologica"></div>
+                </div>
             </div>
 
             <!-- NEW: Container for the content that will change -->
@@ -45,32 +50,33 @@
         </div>
     </div>
 
-    <script>
+   <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const toggle = document.getElementById('enfoque-toggle');
+        const optionAmbiental = document.getElementById('option-ambiental');
+        const optionEcologica = document.getElementById('option-ecologica');
         const contentAmbiental = document.getElementById('content-ambiental');
         const contentEcologica = document.getElementById('content-ecologica');
     
-        // NEW, SIMPLIFIED LOGIC:
-        // A single click listener on the entire toggle component.
-        toggle.addEventListener('click', () => {
-            // Check which state it's in, then flip to the other.
-            if (toggle.classList.contains('ambiental-active')) {
-                // Switch to Ecológica
-                toggle.classList.remove('ambiental-active');
-                toggle.classList.add('ecologica-active');
-                contentAmbiental.classList.remove('active');
-                contentEcologica.classList.add('active');
-            } else {
-                // Switch back to Ambiental
-                toggle.classList.add('ambiental-active');
-                toggle.classList.remove('ecologica-active');
+        // Listener for the Ambiental side
+        optionAmbiental.addEventListener('click', () => {
+            if (!optionAmbiental.classList.contains('active')) {
+                optionAmbiental.classList.add('active');
+                optionEcologica.classList.remove('active');
                 contentEcologica.classList.remove('active');
                 contentAmbiental.classList.add('active');
             }
         });
+    
+        // Listener for the Ecológica side
+        optionEcologica.addEventListener('click', () => {
+            if (!optionEcologica.classList.contains('active')) {
+                optionEcologica.classList.add('active');
+                optionAmbiental.classList.remove('active');
+                contentAmbiental.classList.remove('active');
+                contentEcologica.classList.add('active');
+            }
+        });
     });
     </script>
-
 </body>
 </html>
