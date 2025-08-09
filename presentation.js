@@ -53,22 +53,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function updateViewState() {
         if (currentIndex === -1) {
-            // STATE: Show Intro
             introContainer.style.display = 'flex';
             navContainer.style.display = 'none';
             if (iframe) {
                 iframe.style.display = 'none';
-                iframe.src = 'about:blank'; // Clear the iframe to stop animations/sound
+                iframe.src = 'about:blank';
             }
             exitFullscreen();
         } else {
-            // STATE: Show Slide
             introContainer.style.display = 'none';
             navContainer.style.display = 'flex';
             iframe.style.display = 'block';
             iframe.src = slides[currentIndex];
+            
+            // --- MODIFIED PART ---
+            // When the iframe finishes loading a new slide, apply the ripple effect to its content
+            iframe.onload = function() {
+                const iframeDoc = iframe.contentWindow.document;
+                const interactiveElements = iframeDoc.querySelectorAll('.button, .tbl-circle, .tab-item, .toggle-option');
+                interactiveElements.forEach(elem => {
+                    elem.addEventListener('click', createRipple);
+                });
+            };
 
-            // THE FIX: "Anterior" button is now always visible when a slide is active.
             prevBtn.style.display = 'inline-block';
 
             if (currentIndex >= slides.length - 1) {
@@ -95,4 +102,40 @@ document.addEventListener("DOMContentLoaded", function() {
             else if (document.msExitFullscreen) document.msExitFullscreen();
         }
     }
+
+        // --- NEW: Ripple Effect Function ---
+    function createRipple(event) {
+        const element = event.currentTarget;
+
+        const circle = document.createElement("span");
+        const diameter = Math.max(element.clientWidth, element.clientHeight);
+        const radius = diameter / 2;
+
+        circle.style.width = circle.style.height = `${diameter}px`;
+        
+        const rect = element.getBoundingClientRect();
+        circle.style.left = `${event.clientX - rect.left - radius}px`;
+        circle.style.top = `${event.clientY - rect.top - radius}px`;
+        
+        circle.classList.add("ripple");
+        
+        const existingRipple = element.querySelector(".ripple");
+        if (existingRipple) {
+            existingRipple.remove();
+        }
+        
+        element.appendChild(circle);
+
+        // Clean up the ripple element after the animation ends
+        setTimeout(() => {
+            if (circle) circle.remove();
+        }, 600); // Must match the animation duration in CSS
+    }
+
+    // Apply the effect to the main page buttons
+    const mainPageButtons = document.querySelectorAll('#start-btn, #prev-btn, #next-btn');
+    mainPageButtons.forEach(button => {
+        button.addEventListener("click", createRipple);
+    });
+    
 });
