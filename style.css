@@ -564,13 +564,13 @@ strong { font-weight: 700; } /* This will now work correctly */
 }
 
 /*
---- 10. TBL GRAPHIC (SLIDE 3) - SYMMETRICAL REFINEMENT ---
+--- 10. TBL GRAPHIC (SLIDE 3) - DEFINITIVE SYMMETRY FIX ---
 */
 
 .tbl-graphic-container {
     position: relative;
-    /* Adjusted height for the new layout */
-    min-height: 400px; 
+    /* MODIFIED: Increased height to contain the full diagram */
+    min-height: 450px; 
     margin-top: 30px;
     display: flex;
     justify-content: center;
@@ -579,68 +579,63 @@ strong { font-weight: 700; } /* This will now work correctly */
 
 .tbl-circle {
     position: absolute;
-    /* A good size for balance */
-    width: 260px; 
-    height: 260px;
+    /* MODIFIED: Final size adjustment for perfect overlap */
+    width: 290px; 
+    height: 290px;
     border-radius: 50%;
     mix-blend-mode: screen; 
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     display: flex;
-    /* MODIFIED: Re-center the text content */
     justify-content: center;
     align-items: center;
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease; /* This will now work! */
 }
 
+/* The hover animation now works because 'transform' is no longer used for positioning */
 .tbl-circle:hover {
     transform: scale(1.05);
 }
 
-/* We no longer need the .text-wrapper, but we'll style the text directly */
 .tbl-circle h3 {
-    font-size: 1.3rem; /* Slightly larger for impact */
+    font-size: 1.3rem;
     margin: 0;
     color: white;
     text-shadow: 0 1px 4px rgba(0,0,0,0.6);
 }
 
-/* We don't have keywords anymore, so this rule can be removed or ignored */
 .tbl-circle .keywords {
-    display: none;
+    display: none; /* Keywords are not used */
 }
 
-/* --- Symmetrical Positioning --- */
+/* --- Positioning and Text Alignment for each circle --- */
 
 /* TOP circle (Environmental) */
 #circle-env {
     background-color: rgba(50, 200, 50, 0.6);
-    /* Positioned from the top center */
+    /* MODIFIED: No transform needed */
     top: 0;
-    left: 50%;
-    transform: translateX(-50%); /* Perfect horizontal centering */
+    left: calc(50% - 145px); /* Center based on 290px width */
 }
 
 /* BOTTOM-LEFT circle (Social) */
 #circle-soc {
     background-color: rgba(255, 50, 50, 0.6);
-    /* Positioned from the bottom, then pushed left and up */
+    /* MODIFIED: Positioned from bottom and pushed inward to overlap */
     bottom: 0;
-    left: 50%;
-    transform: translate(-100%, 20%); /* Move left by 100% of its width, and up by 20% */
+    left: 15%;
 }
 
 /* BOTTOM-RIGHT circle (Economic) */
 #circle-eco {
     background-color: rgba(0, 150, 255, 0.6);
-    /* Positioned from the bottom, then pushed right and up */
+    /* MODIFIED: Positioned from bottom and pushed inward to overlap */
     bottom: 0;
-    left: 50%;
-    transform: translate(0%, 20%); /* Move up by 20% */
+    right: 15%;
 }
 
 /* Central "Sostenibilidad" text */
@@ -652,8 +647,8 @@ strong { font-weight: 700; } /* This will now work correctly */
     text-shadow: 0 1px 4px black;
     z-index: 20;
     pointer-events: none;
-    /* MODIFIED: Fine-tuned position for the new layout */
-    transform: translateY(30%);
+    /* MODIFIED: Repositioned for the new layout */
+    transform: translateY(15%);
 }
 
 /* --- ADDED BACK: TBL Popup Styles --- */
