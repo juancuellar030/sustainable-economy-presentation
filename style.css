@@ -608,20 +608,12 @@ strong { font-weight: 700; } /* This will now work correctly */
     text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
-.tbl-circle .keywords {
-    font-size: 0.8rem;
-    margin-top: 8px;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.9);
-    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-}
-
 /* --- Positioning and Text Alignment for each circle --- */
 
 #circle-env {
     background-color: rgba(50, 200, 50, 0.6);
     /* MODIFIED: Moved the circle up */
-    top: 10; 
+    top: -10; 
     left: calc(50% - 140px); /* Adjusted for 280px width */
     align-items: flex-start;
     justify-content: center;
