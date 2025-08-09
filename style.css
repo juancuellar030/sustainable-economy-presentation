@@ -891,3 +891,32 @@ strong { font-weight: 700; } /* This will now work correctly */
     left: -10px;
     color: #a5ff9b;
 }
+
+/*
+--- 13. CUSTOM CURSORS ---
+*/
+
+/* 1. Default Cursor (The Arrow) */
+/* This applies to the whole page unless overridden */
+html {
+    /* url('path/to/cursor.svg') x-offset y-offset, fallback-cursor */
+    cursor: url('cursors/arrow.svg') 4 4, auto;
+}
+
+/* 2. Pointer Cursor (The Hand) */
+/* This applies to all links, buttons, and other clickable elements */
+a,
+button,
+.button,
+.interactive-btn,
+.tab-item,
+.tbl-circle,
+.close-btn {
+    cursor: url('cursors/hand.svg') 12 4, pointer;
+}
+
+/* 3. Resize Cursor */
+/* This applies specifically to the image slider handle */
+.slider-handle {
+    cursor: url('cursors/resize-ew.svg') 16 16, ew-resize;
+}
