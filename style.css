@@ -904,14 +904,13 @@ html {
 }
 
 /* 2. Pointer Cursor (The Hand) */
-/* This applies to all links, buttons, and other clickable elements */
 a,
 button,
 .button,
 .interactive-btn,
 .tab-item,
 .tbl-circle,
-.close-btn
+.close-btn, /* <-- CORRECTED: Added a comma here */
 .toggle-option {
     cursor: url('cursors/hand.svg') 12 4, pointer;
 }
