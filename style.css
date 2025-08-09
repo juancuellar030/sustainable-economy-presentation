@@ -601,7 +601,7 @@ strong { font-weight: 700; } /* This will now work correctly */
 }
 
 .tbl-circle h3 {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     margin: 0;
     color: white;
     text-shadow: 0 1px 4px rgba(0,0,0,0.6);
@@ -626,7 +626,7 @@ strong { font-weight: 700; } /* This will now work correctly */
 #circle-soc {
     background-color: rgba(57, 209, 212, 0.7);
     bottom: 0;
-    left: 20%;
+    left: 21%;
 }
 /* Position its text wrapper to the left */
 #circle-soc .text-wrapper {
@@ -640,7 +640,7 @@ strong { font-weight: 700; } /* This will now work correctly */
 #circle-eco {
     background-color: rgba(137, 57, 212, 0.7);
     bottom: 0;
-    right: 20%;
+    right: 21%;
 }
 /* Position its text wrapper to the right */
 #circle-eco .text-wrapper {
@@ -660,7 +660,7 @@ strong { font-weight: 700; } /* This will now work correctly */
     z-index: 20;
     pointer-events: none;
     /* MODIFIED: Repositioned for the new layout */
-    transform: translateY(30%);
+    transform: translateY(35%);
 }
 
 /* --- ADDED BACK: TBL Popup Styles --- */
