@@ -611,7 +611,7 @@ strong { font-weight: 700; } /* This will now work correctly */
 
 /* TOP circle (Environmental) */
 #circle-env {
-    background-color: rgba(50, 200, 50, 0.7);
+    background-color: rgba(131, 212, 57, 0.7);
     top: 0;
     left: calc(50% - 145px);
 }
@@ -624,7 +624,7 @@ strong { font-weight: 700; } /* This will now work correctly */
 
 /* BOTTOM-LEFT circle (Social) */
 #circle-soc {
-    background-color: rgba(220, 50, 50, 0.7);
+    background-color: rgba(57, 209, 212, 0.7);
     bottom: 0;
     left: 20%;
 }
@@ -638,7 +638,7 @@ strong { font-weight: 700; } /* This will now work correctly */
 
 /* BOTTOM-RIGHT circle (Economic) */
 #circle-eco {
-    background-color: rgba(0, 150, 255, 0.7);
+    background-color: rgba(137, 57, 212, 0.7);
     bottom: 0;
     right: 20%;
 }
@@ -654,13 +654,13 @@ strong { font-weight: 700; } /* This will now work correctly */
 .tbl-center-text {
     position: absolute;
     color: white;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 700;
     text-shadow: 0 1px 4px black;
     z-index: 20;
     pointer-events: none;
     /* MODIFIED: Repositioned for the new layout */
-    transform: translateY(25%);
+    transform: translateY(30%);
 }
 
 /* --- ADDED BACK: TBL Popup Styles --- */
