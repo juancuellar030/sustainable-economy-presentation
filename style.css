@@ -728,7 +728,7 @@ strong { font-weight: 700; } /* This will now work correctly */
 }
 
 /*
---- 11. TOGGLE SWITCH (SLIDE 4) ---
+--- 11. TOGGLE SWITCH (SLIDE 4) - CORRECTED ---
 */
 
 .toggle-container {
@@ -737,12 +737,12 @@ strong { font-weight: 700; } /* This will now work correctly */
     align-items: center;
     gap: 15px;
     margin-top: 30px;
-    user-select: none; /* Prevents text selection on click */
+    user-select: none;
+    cursor: pointer; /* The whole container is now clickable */
 }
 
 .toggle-label {
-    font-weight: 700;
-    cursor: pointer;
+    font-weight: 400; /* CORRECTED: Use the font's native weight */
     transition: color 0.3s ease;
 }
 
@@ -753,6 +753,7 @@ strong { font-weight: 700; } /* This will now work correctly */
     border-radius: 50px;
     padding: 4px;
     box-sizing: border-box;
+    pointer-events: none; /* Prevents the track from interfering with the main click */
 }
 
 .toggle-knob {
@@ -761,55 +762,42 @@ strong { font-weight: 700; } /* This will now work correctly */
     background: white;
     border-radius: 50%;
     position: relative;
-    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth slide */
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* The Icons */
 .toggle-knob::before {
     content: '';
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 60%;
+    background-size: 65%; /* Slightly larger icon */
     transition: background-image 0.3s ease;
 }
 
 /* --- Toggle States --- */
 
 /* State 1: Ambiental is Active */
-.toggle-container.ambiental-active .toggle-label#label-ambiental { color: #8cffa1; /* Green highlight */ }
+.toggle-container.ambiental-active .toggle-label#label-ambiental { color: #a5ff9b; }
 .toggle-container.ambiental-active .toggle-label#label-ecologica { color: rgba(255,255,255,0.5); }
 .toggle-container.ambiental-active .toggle-knob { transform: translateX(0); }
 .toggle-container.ambiental-active .toggle-knob::before {
-    /* SVG for the 'Scale' Icon */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M20.25 6.75a.75.75 0 00-1.5 0v1.5H5.25v-1.5a.75.75 0 00-1.5 0v1.5H3a.75.75 0 000 1.5h.75v1.5H3a.75.75 0 000 1.5h.75v1.5H3a.75.75 0 000 1.5h18a.75.75 0 000-1.5h-.75v-1.5h.75a.75.75 0 000-1.5h-.75v-1.5h.75a.75.75 0 000-1.5h-.75V6.75zM12 18a.75.75 0 00-.75-.75h-1.5a.75.75 0 000 1.5h1.5A.75.75 0 0012 18zm3 0a.75.75 0 00-.75-.75h-1.5a.75.75 0 000 1.5h1.5A.75.75 0 0015 18zM9 18a.75.75 0 00-.75-.75H6.75a.75.75 0 000 1.5h1.5A.75.75 0 009 18zm-3-3a.75.75 0 00-.75-.75H3.75a.75.75 0 000 1.5h1.5A.75.75 0 006 15zm3 0a.75.75 0 00-.75-.75H6.75a.75.75 0 000 1.5h1.5A.75.75 0 009 15zm3 0a.75.75 0 00-.75-.75H9.75a.75.75 0 000 1.5h1.5a.75.75 0 00.75-.75zm3 0a.75.75 0 00-.75-.75h-1.5a.75.75 0 000 1.5h1.5a.75.75 0 00.75-.75zm3 0a.75.75 0 00-.75-.75h-1.5a.75.75 0 000 1.5h1.5a.75.75 0 00.75-.75zm3 0a.75.75 0 00-.75-.75h-1.5a.75.75 0 000 1.5h1.5a.75.75 0 00.75-.75z'/%3E%3C/svg%3E");
+    /* CORRECTED: Simpler, more reliable 'Scale' Icon SVG */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M21.28 6.36l-1.12-1.12a1 1 0 00-1.41 0L12 12V3a1 1 0 00-2 0v9L3.25 5.25a1 1 0 00-1.41 1.41l7.33 7.33a3 3 0 004.24 0z'/%3E%3Cpath d='M21 16H3a1 1 0 000 2h18a1 1 0 000-2z'/%3E%3C/svg%3E");
 }
 
 /* State 2: Ecológica is Active */
-.toggle-container.ecologica-active .toggle-label#label-ecologica { color: #8cffa1; /* Green highlight */ }
+.toggle-container.ecologica-active .toggle-label#label-ecologica { color: #a5ff9b; }
 .toggle-container.ecologica-active .toggle-label#label-ambiental { color: rgba(255,255,255,0.5); }
-.toggle-container.ecologica-active .toggle-knob { transform: translateX(28px); } /* 60px track - 32px knob = 28px movement */
+.toggle-container.ecologica-active .toggle-knob { transform: translateX(28px); }
 .toggle-container.ecologica-active .toggle-knob::before {
-    /* SVG for the 'Leaf' Icon */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 2a9.94 9.94 0 00-7.07 17.07A10 10 0 1012 2zm0 18a8 8 0 118-8 8 8 0 01-8 8z'/%3E%3Cpath d='M12 5a7 7 0 107 7 7 7 0 00-7-7zm0 12a5 5 0 115-5 5 5 0 01-5 5z'/%3E%3C/svg%3E");
+    /* CORRECTED: Simpler, more reliable 'Leaf' Icon SVG */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M20.39 8.28a1 1 0 00-1.41.09 7.42 7.42 0 01-2.92 2.92 1 1 0 00-.09 1.41 1 1 0 00.7.29 1 1 0 00.71-.3 9.42 9.42 0 003.71-3.71 1 1 0 00-.7-1.7zm-6.06-6.07a1 1 0 00-1.41-.09A7.42 7.42 0 0010 5.04a1 1 0 00.09 1.41 1 1 0 001.41-.09 9.42 9.42 0 013.71-3.71 1 1 0 00-.08-1.71zM3.61 15.72a1 1 0 001.41-.09 7.42 7.42 0 012.92-2.92 1 1 0 10-1.32-1.5 9.42 9.42 0 00-3.71 3.71 1 1 0 00.7 1.7z'/%3E%3C/svg%3E");
 }
 
 /* --- Content Panel Styles --- */
-.toggle-content-container {
-    margin-top: 25px;
-    min-height: 200px; /* Reserve space to prevent layout jumps */
-}
-.toggle-content {
-    display: none;
-    animation: fadeIn 0.5s ease-out forwards;
-}
-.toggle-content.active {
-    display: block;
-}
-.toggle-content ul {
-    text-align: left;
-    max-width: 90%;
-    margin: auto;
-}
+.toggle-content-container { margin-top: 25px; min-height: 200px; }
+.toggle-content { display: none; animation: fadeIn 0.5s ease-out forwards; }
+.toggle-content.active { display: block; }
+.toggle-content ul { text-align: left; max-width: 90%; margin: auto; }
