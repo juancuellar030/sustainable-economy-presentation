@@ -83,65 +83,23 @@
         dirLight.position.set(5, 5, 5);
         scene.add(dirLight);
 
-        // --- GLTF Model Loader ---
-        const loader = new GLTFLoader();
-        loader.load('models/earth.glb', function (gltf) {
-            const earth = gltf.scene;
-            earth.scale.set(1.2, 1.2, 1.2); // Adjust scale if needed
-            scene.add(earth);
-
-            // --- THE FIX for Floating Icons ---
-            // NOTE: You will likely need to adjust these X, Y, Z values to place the 
-            // icons perfectly on the continents of YOUR specific 3D model.
-            // A good way to find coordinates is to experiment with values between -1.3 and 1.3.
-            const iconPositions = {
-                recursos: new THREE.Vector3(-0.8, 0.7, 0.8),   // Approx. North America
-                eficiencia: new THREE.Vector3(-0.3, -0.3, 1.3), // Approx. South America
-                economia: new THREE.Vector3(1.2, 0.2, -0.5)      // Approx. Europe/Asia
-            };
-
-            for (const key in iconPositions) {
-                const div = document.createElement('div');
-                div.className = 'hotspot-icon';
-                div.id = key;
-                const label = new CSS2DObject(div);
-                label.position.copy(iconPositions[key]);
-                earth.add(label);
-            }
-            
-            addClickListeners();
-
-        }, undefined, function (error) {
-            console.error(error);
-        });
-
-        // --- Animation Loop ---
-        function animate() {
-            requestAnimationFrame(animate);
-            controls.update(); // For smooth damping
-            renderer.render(scene, camera);
-            labelRenderer.render(scene, camera);
-        }
-        animate();
-
-        // --- Popup and Sound Logic ---
+        // --- Popup Logic (moved up so it's available immediately) ---
         const popupOverlay = document.getElementById('model-popup-overlay');
         const closeBtn = document.getElementById('close-model-popup-btn');
         const popupTitle = document.getElementById('model-popup-title');
         const popupDescription = document.getElementById('model-popup-description');
 
-        function addClickListeners() {
-            document.querySelectorAll('.hotspot-icon').forEach(icon => {
-                icon.addEventListener('click', () => {
-                    const data = benefitsData[icon.id];
-                    popupTitle.textContent = data.title;
-                    popupDescription.textContent = data.description;
-                    popupOverlay.classList.add('active');
-                    if (window.parent && typeof window.parent.playClickSound === 'function') {
-                        window.parent.playClickSound();
-                    }
-                });
-            });
+        function showPopup(hotspotId) {
+            console.log('Showing popup for:', hotspotId); // Debug log
+            const data = benefitsData[hotspotId];
+            if (data) {
+                popupTitle.textContent = data.title;
+                popupDescription.textContent = data.description;
+                popupOverlay.classList.add('active');
+                if (window.parent && typeof window.parent.playClickSound === 'function') {
+                    window.parent.playClickSound();
+                }
+            }
         }
         
         const closePopup = () => {
@@ -153,6 +111,127 @@
 
         closeBtn.addEventListener('click', closePopup);
         popupOverlay.addEventListener('click', e => { if (e.target === popupOverlay) closePopup(); });
+
+        // --- GLTF Model Loader with Fallback ---
+        const loader = new GLTFLoader();
+        
+        loader.load(
+            'models/earth.glb', 
+            
+            // Success callback
+            function (gltf) {
+                console.log('✅ GLB model loaded successfully');
+                const earth = gltf.scene;
+                earth.scale.set(1.2, 1.2, 1.2);
+                scene.add(earth);
+                createHotspots(earth);
+            }, 
+            
+            // Progress callback
+            function (progress) {
+                console.log('Loading progress:', Math.round(progress.loaded / progress.total * 100) + '%');
+            },
+            
+            // Error callback - create fallback
+            function (error) {
+                console.warn('❌ GLB model failed to load:', error.message);
+                console.log('🔄 Creating fallback Earth...');
+                createFallbackEarth();
+            }
+        );
+
+        // Create fallback Earth when GLB fails
+        function createFallbackEarth() {
+            const earthGeometry = new THREE.SphereGeometry(1.2, 64, 64);
+            
+            // Create a simple Earth-like texture
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 256;
+            const context = canvas.getContext('2d');
+            
+            // Ocean blue
+            context.fillStyle = '#1e4d72';
+            context.fillRect(0, 0, 512, 256);
+            
+            // Continents in green
+            context.fillStyle = '#2d5a2d';
+            // North America
+            context.fillRect(80, 60, 60, 40);
+            // Europe/Africa
+            context.fillRect(200, 50, 80, 80);
+            // Asia
+            context.fillRect(320, 40, 100, 60);
+            // South America
+            context.fillRect(120, 120, 40, 80);
+            // Australia
+            context.fillRect(380, 140, 30, 20);
+            
+            const texture = new THREE.CanvasTexture(canvas);
+            const earthMaterial = new THREE.MeshPhongMaterial({ map: texture });
+            const earth = new THREE.Mesh(earthGeometry, earthMaterial);
+            scene.add(earth);
+            
+            createHotspots(earth);
+        }
+
+        function createHotspots(earthObject) {
+            console.log('Creating hotspots...');
+            
+            const iconPositions = {
+                recursos: new THREE.Vector3(-0.8, 0.7, 0.8),   // North America
+                eficiencia: new THREE.Vector3(-0.3, -0.3, 1.3), // South America
+                economia: new THREE.Vector3(1.2, 0.2, -0.5)      // Europe/Asia
+            };
+
+            for (const key in iconPositions) {
+                // Create the DOM element
+                const div = document.createElement('div');
+                div.className = 'hotspot-icon';
+                div.id = key;
+                
+                // Add click handler directly to the element
+                div.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Hotspot clicked:', key); // Debug log
+                    showPopup(key);
+                });
+                
+                // Add visual feedback on hover
+                div.addEventListener('mouseenter', function() {
+                    div.style.transform = 'scale(1.2)';
+                });
+                
+                div.addEventListener('mouseleave', function() {
+                    div.style.transform = 'scale(1)';
+                });
+                
+                // Create Three.js label object
+                const label = new CSS2DObject(div);
+                label.position.copy(iconPositions[key]);
+                earthObject.add(label);
+                
+                console.log('Created hotspot:', key, 'at position:', iconPositions[key]);
+            }
+        }
+
+        // --- Animation Loop ---
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update(); // For smooth damping
+            renderer.render(scene, camera);
+            labelRenderer.render(scene, camera);
+        }
+        animate();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            labelRenderer.setSize(container.clientWidth, container.clientHeight);
+        });
         
     </script>
 
