@@ -95,4 +95,21 @@ document.addEventListener("DOMContentLoaded", function() {
             else if (document.msExitFullscreen) document.msExitFullscreen();
         }
     }
+
+    // --- Sound Effect Logic ---
+    function playClickSound() {
+        const clickSound = document.getElementById('audio-click');
+        if (clickSound) {
+            clickSound.currentTime = 0; // Rewind to the start
+            clickSound.play();
+        }
+    }
+    
+    function playCloseSound() {
+        const closeSound = document.getElementById('audio-close');
+        if (closeSound) {
+            closeSound.currentTime = 0; // Rewind to the start
+            closeSound.play();
+        }
+    }
 });
