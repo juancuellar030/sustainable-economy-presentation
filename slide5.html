@@ -49,7 +49,13 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const mazeData = { /* ... your data from before ... */ };
+        const mazeData = {
+            'hotspot-start': { title: 'Punto de Partida: La "Economía Tradicional"', description: 'Este punto representa un universo económico aislado del mundo físico. Mide la producción con el "valor añadido", sin considerar el contenido físico, asumiendo que los recursos naturales son inagotables y los desechos irrelevantes.' },
+            'hotspot-e': { title: 'Parada 1: "Eficiencia (E)"', description: 'Este pilar se basa en las preferencias individuales y se mide por la disposición a pagar. Busca la asignación de recursos según la capacidad de pago, siendo clave para el desarrollo sostenible.' },
+            'hotspot-f': { title: 'Parada 2: "Justicia (F)"', description: 'Busca el consenso sobre valores justos para todos, incluyendo otras especies y generaciones futuras. Aborda la necesidad de una distribución equitativa de recursos y requiere políticas de transferencias para el beneficio social.' },
+            'hotspot-s': { title: 'Parada 3: "Sostenibilidad (S)"', description: 'Es un principio ético que busca la perpetuación de la vida humana. Se define como el desarrollo que satisface las necesidades del presente sin comprometer la capacidad de las generaciones futuras de satisfacer las propias.' },
+            'hotspot-end': { title: 'Destino Final: "Ecología y Patrimonio Natural"', description: 'Este destino representa la integración de la economía con la realidad biofisica. Busca un enfoque "ecointegrador" para reconciliar la utilidad económica con la estabilidad ecológica, promoviendo la conciencia colectiva y estilos de vida sostenibles.' }
+        };
         
         const hotspots = Array.from(document.querySelectorAll('.maze-hotspot'));
         const popupOverlay = document.getElementById('maze-popup-overlay');
