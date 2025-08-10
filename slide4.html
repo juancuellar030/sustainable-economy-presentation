@@ -65,20 +65,24 @@
             highlighter.style.transform = `translateX(${targetElement.offsetLeft}px)`;
         };
     
-        // This function sets the initial state correctly.
         const initializeToggle = () => {
             const activeOption = document.querySelector('.toggle-option.active');
+            // Disable transition for the initial placement to prevent the slide-in glitch
+            highlighter.style.transition = 'none';
             moveHighlighter(activeOption || optionAmbiental);
+            // Re-enable the transition after a tiny delay
+            setTimeout(() => {
+                highlighter.style.transition = 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            }, 50);
         };
 
-        // THE FIX: Use the Font Loading API.
-        // This promise only resolves after all custom fonts on the page are loaded and rendered.
-        document.fonts.ready.then(() => {
+        // THE FIX: Wait for the card's 1-second animation to finish before calculating.
+        // We add a small buffer (100ms) to be safe.
+        setTimeout(() => {
             initializeToggle();
-        });
+        }, 1100); 
 
-        // THE SECOND FIX: Add a resize listener to handle window size changes,
-        // which can also cause misalignments.
+        // Also recalculate on window resize to be fully robust.
         window.addEventListener('resize', initializeToggle);
     
         optionAmbiental.addEventListener('click', () => {
