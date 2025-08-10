@@ -8,18 +8,13 @@
 
     <!-- THE FIX: This local style ensures the slide is always transparent to clicks -->
     <style>
-        body.content-page, #scene-container > canvas {
-            pointer-events: none; /* Disable clicks on the body and the 3D canvas */
-        }
-        /* Re-enable clicks for the card and the HTML icons */
-        .card, #scene-container > div {
-            pointer-events: auto;
-        }
-        /* When the popup is active, disable clicks on everything EXCEPT the popup */
-        body.popup-active .slide-container {
+        /* This rule targets the DIV created by the CSS2DRenderer */
+        #scene-container > div:first-of-type {
+            /* This makes the main control layer invisible to the mouse */
             pointer-events: none;
         }
-        body.popup-active .model-popup-overlay {
+        /* This rule re-enables mouse events ONLY for our hotspots */
+        #scene-container .hotspot-icon {
             pointer-events: auto;
         }
     </style>
