@@ -60,12 +60,16 @@
         const highlighter = document.querySelector('.toggle-highlighter');
     
         const moveHighlighter = (targetElement) => {
+            if (!targetElement) return;
             highlighter.style.width = `${targetElement.offsetWidth}px`;
             highlighter.style.transform = `translateX(${targetElement.offsetLeft}px)`;
         };
     
-        // Set initial position of the highlighter on a slight delay to ensure render
-        setTimeout(() => moveHighlighter(optionAmbiental), 50);
+        // THE FIX IS HERE: Delay the initial calculation to ensure the layout is stable.
+        setTimeout(() => {
+            const activeOption = document.querySelector('.toggle-option.active');
+            moveHighlighter(activeOption);
+        }, 50);
     
         optionAmbiental.addEventListener('click', () => {
             if (!optionAmbiental.classList.contains('active')) {
