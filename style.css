@@ -967,26 +967,28 @@ button,
     pointer-events: none;
     transition: opacity 0.5s ease;
     cursor: pointer;
+    /* This will be the base outline for all revealed hotspots */
+    border: 3px solid transparent; 
 }
 .maze-hotspot.revealed {
     opacity: 1;
     pointer-events: auto;
+    border-color: rgba(165, 255, 155, 0.4); /* A faint outline for inactive hotspots */
 }
-/* THE FIX: The active hotspot now has BOTH a border AND the pulse animation */
+/* THE FIX: The active hotspot now has BOTH a solid border AND the pulse animation */
 .maze-hotspot.active {
-    border: 3px solid rgba(165, 255, 155, 0.9);
+    border-color: rgba(165, 255, 155, 0.9); /* A bright, solid outline */
     animation: pulse 1.5s infinite;
 }
 
+/* THE FIX: This keyframe rule was missing */
 @keyframes pulse {
-    to { box-shadow: 0 0 0 20px rgba(165, 255, 155, 0); }
-}
-
-/* Optional: Debug mode to see hotspots */
-.maze-container.debug-mode .maze-hotspot {
-    opacity: 1;
-    background: rgba(0, 255, 255, 0.4);
-    border: 2px dashed cyan;
+    from {
+        box-shadow: 0 0 0 0 rgba(165, 255, 155, 0.7);
+    }
+    to {
+        box-shadow: 0 0 0 20px rgba(165, 255, 155, 0);
+    }
 }
 
 /* The popup panel styles */
