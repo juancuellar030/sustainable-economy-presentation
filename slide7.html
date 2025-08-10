@@ -9,24 +9,31 @@
     <!-- THE FIX: This local style ensures the slide is always transparent to clicks -->
     <style>
         /*
-         Step 1: Make the HTML overlay (which holds the hotspots)
-         transparent to mouse events by default. This lets you click
-         and drag the 3D canvas underneath it.
+         Step 1 (THE OVERRIDE): Forcefully re-enable pointer events on the 3D canvas.
+         This cancels out the conflicting rule from style.css and allows the
+         OrbitControls to receive mouse drags for rotation.
+        */
+        #scene-container > canvas {
+            pointer-events: auto !important;
+        }
+    
+        /*
+         Step 2: Make the HTML overlay (where hotspots live) transparent to the mouse
+         by default. This allows drag events to "pass through" to the canvas below.
         */
         #scene-container > div {
             pointer-events: none;
         }
-
+    
         /*
-         Step 2: Now, re-enable mouse events for ONLY the hotspots.
-         This makes them clickable, while the empty space around them
-         remains "see-through" for the mouse.
+         Step 3: Re-enable pointer events for ONLY the hotspot icons, so they
+         remain clickable.
         */
         .hotspot-icon {
             pointer-events: auto;
         }
-
-        /* When the popup is active, disable clicks on everything EXCEPT the popup */
+    
+        /* --- Styles for when the popup is active --- */
         body.popup-active .slide-container {
             pointer-events: none;
         }
