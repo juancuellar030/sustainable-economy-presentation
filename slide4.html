@@ -15,10 +15,10 @@
             
            <!-- FINAL, CORRECTED Toggle Switch -->
             <div class="toggle-container" id="enfoque-toggle">
-                <div class="toggle-highlighter"></div>
+                <div class="toggle-highlighter" id="highlighter"></div>
                 
                 <div class="toggle-option active" id="option-ambiental">
-                    <div class="toggle-icon icon-ambiental"></div>
+                    <div class="toggle-icon icon-ambiental">⚖</div>
                     <div class="toggle-label">Economía Ambiental</div>
                 </div>
                 <div class="toggle-option" id="option-ecologica">
@@ -57,76 +57,88 @@
             const contentAmbiental = document.getElementById('content-ambiental');
             const contentEcologica = document.getElementById('content-ecologica');
             const highlighter = document.getElementById('highlighter');
-        
-            const updateHighlighter = (targetElement) => {
+            
+            // Function to move the highlighter to match the target element
+            const moveHighlighter = (targetElement) => {
                 if (!targetElement || !highlighter) return;
                 
+                // Get the position relative to the toggle container
                 const containerRect = targetElement.parentElement.getBoundingClientRect();
                 const targetRect = targetElement.getBoundingClientRect();
                 
                 const relativeLeft = targetRect.left - containerRect.left - 8; // Account for container padding
-                const width = targetRect.width;
                 
-                highlighter.style.width = `${width}px`;
+                highlighter.style.width = `${targetElement.offsetWidth}px`;
                 highlighter.style.transform = `translateX(${relativeLeft}px)`;
             };
-        
+            
+            // Initialize the highlighter position
             const initializeHighlighter = () => {
-                // Wait for layout to be complete
+                // Temporarily disable transition for initial positioning
+                highlighter.style.transition = 'none';
+                
+                // Find the active option and position highlighter
+                const activeOption = document.querySelector('.toggle-option.active');
+                if (activeOption) {
+                    moveHighlighter(activeOption);
+                }
+                
+                // Re-enable transition after a brief delay
                 setTimeout(() => {
-                    const activeOption = document.querySelector('.toggle-option.active');
-                    if (activeOption) {
-                        // Disable transition temporarily for initial positioning
-                        highlighter.style.transition = 'none';
-                        updateHighlighter(activeOption);
-                        
-                        // Re-enable transition after positioning
-                        requestAnimationFrame(() => {
-                            highlighter.style.transition = 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                        });
-                    }
+                    highlighter.style.transition = 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
                 }, 100);
             };
-        
-            const switchToOption = (targetOption, targetContent, otherOption, otherContent) => {
-                if (targetOption.classList.contains('active')) return;
-                
-                // Update highlighter position
-                updateHighlighter(targetOption);
-                
-                // Update active states
-                targetOption.classList.add('active');
-                otherOption.classList.remove('active');
-                
-                // Update content visibility
-                otherContent.classList.remove('active');
-                setTimeout(() => {
-                    targetContent.classList.add('active');
-                }, 150);
-                
-                // Play sound if available
-                if (window.parent && typeof window.parent.playClickSound === 'function') {
-                    window.parent.playClickSound();
-                }
-            };
-        
-            // Event listeners
-            optionAmbiental.addEventListener('click', () => {
-                switchToOption(optionAmbiental, contentAmbiental, optionEcologica, contentEcologica);
-            });
-        
-            optionEcologica.addEventListener('click', () => {
-                switchToOption(optionEcologica, contentEcologica, optionAmbiental, contentAmbiental);
-            });
-        
-            // Initialize after animations complete
-            setTimeout(initializeHighlighter, 1200);
             
-            // Recalculate on resize
-            let resizeTimeout;
+            // Wait for animations to complete before initializing
+            setTimeout(() => {
+                initializeHighlighter();
+            }, 1200);
+            
+            // Handle window resize
             window.addEventListener('resize', () => {
-                clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(initializeHighlighter, 100);
+                setTimeout(initializeHighlighter, 100);
+            });
+            
+            // Handle click on Economía Ambiental
+            optionAmbiental.addEventListener('click', () => {
+                if (!optionAmbiental.classList.contains('active')) {
+                    // Update active states
+                    optionAmbiental.classList.add('active');
+                    optionEcologica.classList.remove('active');
+                    
+                    // Update content
+                    contentAmbiental.classList.add('active');
+                    contentEcologica.classList.remove('active');
+                    
+                    // Move highlighter
+                    moveHighlighter(optionAmbiental);
+                    
+                    // Trigger sound effect if available
+                    if (window.parent && typeof window.parent.playClickSound === 'function') {
+                        window.parent.playClickSound();
+                    }
+                }
+            });
+            
+            // Handle click on Economía Ecológica
+            optionEcologica.addEventListener('click', () => {
+                if (!optionEcologica.classList.contains('active')) {
+                    // Update active states
+                    optionEcologica.classList.add('active');
+                    optionAmbiental.classList.remove('active');
+                    
+                    // Update content
+                    contentEcologica.classList.add('active');
+                    contentAmbiental.classList.remove('active');
+                    
+                    // Move highlighter
+                    moveHighlighter(optionEcologica);
+                    
+                    // Trigger sound effect if available
+                    if (window.parent && typeof window.parent.playClickSound === 'function') {
+                        window.parent.playClickSound();
+                    }
+                }
             });
         });
     </script>
