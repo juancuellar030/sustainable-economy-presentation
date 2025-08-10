@@ -948,7 +948,7 @@ button,
 
 #solution-path {
     fill: none;
-    stroke: #a5ff9b; 
+    stroke: #B0F252; 
     stroke-width: 6;
     stroke-linecap: round;
     stroke-dasharray: 2000;
@@ -981,7 +981,7 @@ button,
 
 /* The active hotspot now has a solid border AND the pulse animation */
 .maze-hotspot.active {
-    background-color: rgba(176, 242, 82, 0.3); /* Slightly brighter fill when active */
+    background-color: rgba(176, 242, 82, 0.6); /* Slightly brighter fill when active */
     border-color: rgba(176, 242, 82, 0.9);
     animation: pulse 1.5s infinite;
 }
