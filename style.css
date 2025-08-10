@@ -952,7 +952,11 @@ button,
     stroke: #a5ff9b; 
     stroke-width: 6;
     stroke-linecap: round;
-    /* This will now be controlled by JavaScript */
+    stroke-dasharray: 2000;
+    
+    /* THE FIX: Set the initial hidden state in the CSS */
+    stroke-dashoffset: 2000; 
+
     transition: stroke-dashoffset 1.5s ease-out; /* The drawing animation */
 }
 
