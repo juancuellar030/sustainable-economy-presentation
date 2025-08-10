@@ -8,13 +8,15 @@
 
     <!-- THE FIX: This local style ensures the slide is always transparent to clicks -->
     <style>
-        body.content-page, #scene-container > canvas {
-            pointer-events: none; /* Disable clicks on the body and the 3D canvas */
+        /*
+         THE FIX IS HERE:
+         We ONLY disable pointer events on the 3D canvas itself.
+         This allows clicks to pass through the 3D model to the HTML hotspots underneath.
+        */
+        #scene-container > canvas {
+            pointer-events: none;
         }
-        /* Re-enable clicks for the card and the HTML icons */
-        .card, #scene-container > div {
-            pointer-events: auto;
-        }
+    
         /* When the popup is active, disable clicks on everything EXCEPT the popup */
         body.popup-active .slide-container {
             pointer-events: none;
