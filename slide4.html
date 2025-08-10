@@ -65,11 +65,20 @@
             highlighter.style.transform = `translateX(${targetElement.offsetLeft}px)`;
         };
     
-        // THE FIX IS HERE: Delay the initial calculation to ensure the layout is stable.
-        setTimeout(() => {
+        // This function sets the initial state correctly.
+        const initializeToggle = () => {
             const activeOption = document.querySelector('.toggle-option.active');
-            moveHighlighter(activeOption);
-        }, 50);
+            moveHighlighter(activeOption || optionAmbiental);
+        };
+
+        // THE FIX: Use the Font Loading API.
+        // This promise only resolves after all custom fonts on the page are loaded.
+        document.fonts.ready.then(() => {
+            initializeToggle();
+        });
+
+        // THE SECOND FIX: Add a resize listener to handle window size changes.
+        window.addEventListener('resize', initializeToggle);
     
         optionAmbiental.addEventListener('click', () => {
             if (!optionAmbiental.classList.contains('active')) {
