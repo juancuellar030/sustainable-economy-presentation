@@ -1035,3 +1035,59 @@ button,
 }
 #close-maze-popup-btn:hover { opacity: 1; }
 
+/*
+--- 14. 3D MODEL (SLIDE 7) ---
+*/
+
+#scene-container {
+    width: 100%;
+    height: 450px; /* Give the 3D view a fixed height */
+    position: relative;
+    margin-top: 20px;
+}
+
+/* Style for the clickable icons */
+.hotspot-icon {
+    width: 32px;
+    height: 32px;
+    background: #a5ff9b;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 0 0 0 rgba(165, 255, 155, 0.9);
+    animation: pulse 2s infinite;
+    transition: transform 0.3s ease;
+}
+
+.hotspot-icon:hover {
+    transform: scale(1.2);
+}
+
+/* Popup styles for the model (prefixed to avoid conflicts) */
+.model-popup-overlay {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 1000; display: none;
+    justify-content: center; align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+.model-popup-overlay.active { display: flex; }
+.model-popup-panel {
+    background: rgba(245, 245, 245, 0.95); 
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    max-width: 600px; padding: 40px;
+    position: relative; color: black;
+    text-align: left;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.model-popup-panel h3 { margin-top: 0; font-size: 1.8rem; }
+.model-popup-panel p { font-size: 1.1rem; line-height: 1.7; text-align: justify; }
+#close-model-popup-btn {
+    color: black; position: absolute; top: 15px; right: 20px;
+    background: none; border: none; font-size: 2.5rem;
+    line-height: 1; cursor: pointer; opacity: 0.5; transition: opacity 0.3s;
+}
+#close-model-popup-btn:hover { opacity: 1; }
