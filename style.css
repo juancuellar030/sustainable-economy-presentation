@@ -857,10 +857,10 @@ strong { font-weight: 700; } /* This will now work correctly */
 /* --- Active State for Tabs --- */
 .tab-item.active {
     color: white;
-    border-bottom-color: #a5ff9b;
+    border-bottom-color: #B0F252;
 }
 .tab-item.active .tab-icon {
-    background-color: #a5ff9b;
+    background-color: #B0F252;
 }
 
 /* --- Content Panel Styles --- */
@@ -958,8 +958,8 @@ button,
 
 .maze-hotspot {
     position: absolute;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     transform: translate(-50%, -50%);
     z-index: 20;
@@ -968,26 +968,31 @@ button,
     transition: opacity 0.5s ease;
     cursor: pointer;
     /* This will be the base outline for all revealed hotspots */
-    border: 3px solid transparent; 
+    border: 2px solid transparent; 
 }
+
 .maze-hotspot.revealed {
     opacity: 1;
     pointer-events: auto;
-    border-color: rgba(165, 255, 155, 0.4); /* A faint outline for inactive hotspots */
+    /* MODIFIED: Added a subtle, translucent background fill */
+    background-color: rgba(176, 242, 82, 0.2);
+    border-color: rgba(176, 242, 82, 0.4);
 }
-/* THE FIX: The active hotspot now has BOTH a solid border AND the pulse animation */
+
+/* The active hotspot now has a solid border AND the pulse animation */
 .maze-hotspot.active {
-    border-color: rgba(165, 255, 155, 0.9); /* A bright, solid outline */
+    background-color: rgba(176, 242, 82, 0.3); /* Slightly brighter fill when active */
+    border-color: rgba(176, 242, 82, 0.9);
     animation: pulse 1.5s infinite;
 }
 
 /* THE FIX: This keyframe rule was missing */
 @keyframes pulse {
     from {
-        box-shadow: 0 0 0 0 rgba(165, 255, 155, 0.7);
+        box-shadow: 0 0 0 0 rgba(176, 242, 82, 0.7);
     }
     to {
-        box-shadow: 0 0 0 20px rgba(165, 255, 155, 0);
+        box-shadow: 0 0 0 20px rgba(176, 242, 82, 0);
     }
 }
 
