@@ -90,10 +90,27 @@
 
         closeBtn.addEventListener('click', closePopup);
         popupOverlay.addEventListener('click', (event) => {
-            // Close if the user clicks on the overlay itself, not the panel
-            if (event.target === popupOverlay) {
-                closePopup();
-            }
+            if (event.target === popupOverlay) closePopup();
+        });
+
+        // --- NEW: Sound Effect Logic ---
+        const clickables = document.querySelectorAll('.tbl-circle');
+        const closeButtons = document.querySelectorAll('.close-btn');
+
+        clickables.forEach(elem => {
+            elem.addEventListener('click', () => {
+                if (window.parent && typeof window.parent.playClickSound === 'function') {
+                    window.parent.playClickSound();
+                }
+            });
+        });
+
+        closeButtons.forEach(elem => {
+            elem.addEventListener('click', () => {
+                if (window.parent && typeof window.parent.playCloseSound === 'function') {
+                    window.parent.playCloseSound();
+                }
+            });
         });
     });
     </script>
