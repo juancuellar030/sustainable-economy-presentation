@@ -946,22 +946,21 @@ button,
 
 /* Style the maze walls */
 #maze-walls {
-    fill: none;
-    stroke: rgba(255, 255, 255, 0.4);
-    stroke-width: 8;
-    stroke-linecap: round;
+
+    fill: rgba(255, 255, 255, 0.4);
 }
 
 /* Style the solution path */
 #solution-path {
     fill: none;
-    stroke: #ff6b6b; /* A vibrant red/coral color */
-    stroke-width: 4;
+    /* MODIFIED: Changed to a brighter, more thematic color */
+    stroke: #a5ff9b; 
+    stroke-width: 6; /* Slightly thicker for better visibility */
     stroke-linecap: round;
     /* Animation setup */
-    stroke-dasharray: 2000; /* A large number, longer than any path */
+    stroke-dasharray: 2000;
     stroke-dashoffset: 2000;
-    transition: stroke-dashoffset 4s ease-in-out; /* The drawing animation */
+    transition: stroke-dashoffset 4s ease-in-out;
 }
 #solution-path.drawing {
     stroke-dashoffset: 0;
