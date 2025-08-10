@@ -13,7 +13,7 @@
             <h2>Hacia un Enfoque Integrado: Cerrando la Brecha</h2>
             <p>Navega el laberinto desde la economía tradicional para descubrir un enfoque sostenible.</p>
             
-            <div class="maze-container" id="maze-container">
+            <div class="maze-container debug-mode" id="maze-container">
                 <div class="maze-svg-wrapper">
                     
                     <!-- CORRECTED AND EMBEDDED SVG CODE -->
@@ -62,9 +62,49 @@
         const closeBtn = document.getElementById('close-maze-popup-btn');
         const popupTitle = document.getElementById('maze-popup-title');
         const popupDescription = document.getElementById('maze-popup-description');
-        const startHotspot = document.getElementById('hotspot-start');
+        const mazeContainer = document.getElementById('maze-container');
         const solutionPath = document.getElementById('solution-path');
+        
+        let isDrawing = false;
+        const totalPathLength = solutionPath.getTotalLength();
+        solutionPath.style.strokeDasharray = totalPathLength;
+        solutionPath.style.strokeDashoffset = totalPathLength;
 
+        // --- Drawing Logic ---
+        const startDrawing = () => { isDrawing = true; };
+        const stopDrawing = () => { isDrawing = false; };
+        
+        const drawPath = (e) => {
+            if (!isDrawing) return;
+            const rect = mazeContainer.getBoundingClientRect();
+            // Use clientX for mouse, and touches[0].clientX for touch
+            const clientX = e.clientX || e.touches[0].clientX;
+            // Calculate progress as a percentage of mouse travel from left to right
+            let progress = (clientX - rect.left) / rect.width;
+            if (progress < 0) progress = 0;
+            if (progress > 1) progress = 1;
+
+            const drawLength = progress * totalPathLength;
+            solutionPath.style.strokeDashoffset = totalPathLength - drawLength;
+            
+            // Reveal hotspots as the path is drawn past them
+            hotspots.forEach(hotspot => {
+                const revealPoint = parseFloat(hotspot.dataset.reveal);
+                if (drawLength >= revealPoint) {
+                    hotspot.classList.add('revealed');
+                }
+            });
+        };
+
+        mazeContainer.addEventListener('mousedown', startDrawing);
+        window.addEventListener('mouseup', stopDrawing);
+        window.addEventListener('mousemove', drawPath);
+        // Add touch events for mobile
+        mazeContainer.addEventListener('touchstart', startDrawing, { passive: true });
+        window.addEventListener('touchend', stopDrawing);
+        window.addEventListener('touchmove', drawPath);
+
+        // --- Popup Logic ---
         hotspots.forEach(hotspot => {
             hotspot.addEventListener('click', () => {
                 const data = mazeData[hotspot.id];
@@ -73,12 +113,6 @@
                 popupOverlay.classList.add('active');
             });
         });
-
-        if (startHotspot && solutionPath) {
-            startHotspot.addEventListener('mouseenter', () => {
-                solutionPath.classList.add('drawing');
-            });
-        }
 
         const closePopup = () => { popupOverlay.classList.remove('active'); };
         closeBtn.addEventListener('click', closePopup);
