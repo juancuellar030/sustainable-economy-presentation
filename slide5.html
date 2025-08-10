@@ -70,14 +70,28 @@
         let currentState = 0;
 
         solutionPath.style.strokeDasharray = totalPathLength;
-        solutionPath.style.strokeDashoffset = totalPathLength; // Set initial state in JS as a fallback
+        solutionPath.style.strokeDashoffset = totalPathLength;
 
         const advanceState = () => {
-            if (currentState >= hotspots.length - 1) return;
+            // If the maze is already complete, do nothing.
+            if (mazeCompleted) return;
+            
+            // Deactivate current hotspot
             hotspots[currentState].classList.remove('active');
+            
+            if (currentState >= hotspots.length - 1) {
+                // MAZE IS NOW COMPLETE
+                mazeCompleted = true;
+                // Make all hotspots non-pulsing but clickable
+                hotspots.forEach(h => h.classList.remove('active'));
+                return;
+            }
+            
             currentState++;
+            
             const nextStopProgress = pathStops[currentState];
             solutionPath.style.strokeDashoffset = totalPathLength * (1 - nextStopProgress);
+            
             setTimeout(() => {
                 hotspots[currentState].classList.add('revealed', 'active');
             }, 1500);
@@ -90,11 +104,13 @@
 
         hotspots.forEach((hotspot, index) => {
             hotspot.addEventListener('click', () => {
-                if (index !== currentState) return;
-                const data = mazeData[hotspot.id];
-                popupTitle.textContent = data.title;
-                popupDescription.textContent = data.description;
-                popupOverlay.classList.add('active');
+                // Allow clicks if the maze is complete, OR if it's the current active hotspot
+                if (mazeCompleted || index === currentState) {
+                    const data = mazeData[hotspot.id];
+                    popupTitle.textContent = data.title;
+                    popupDescription.textContent = data.description;
+                    popupOverlay.classList.add('active');
+                }
             });
         });
         
