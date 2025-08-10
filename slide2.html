@@ -126,6 +126,16 @@
         handle.addEventListener('touchstart', startDrag, { passive: true });
         document.addEventListener('touchend', stopDrag);
         document.addEventListener('touchmove', doDrag);
+
+        // --- NEW: Sound Effect Logic ---
+        const clickables = document.querySelectorAll('.interactive-btn');
+        clickables.forEach(elem => {
+            elem.addEventListener('click', () => {
+                if (window.parent && typeof window.parent.playClickSound === 'function') {
+                    window.parent.playClickSound();
+                }
+            });
+        });
     });
     </script>
 
