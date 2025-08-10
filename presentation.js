@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     startButton.addEventListener('click', function(event) {
         event.preventDefault();
-        playClickSound(); // Play sound
+        playClickSound();
         enterFullscreen();
         if (!iframe) {
             iframe = document.createElement('iframe');
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     nextBtn.addEventListener('click', function(e) {
         e.preventDefault();
-        playClickSound(); // Play sound
+        playClickSound();
         if (currentIndex >= slides.length - 1) {
             currentIndex = -1;
         } else {
@@ -43,14 +43,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
     prevBtn.addEventListener('click', function(e) {
         e.preventDefault();
-        playClickSound(); // Play sound
-        if (currentIndex > -1) {
+        playClickSound();
+        // This logic is now simpler and more robust
+        if (currentIndex >= 0) {
             currentIndex--;
         }
         updateViewState();
     });
     
-     // --- Core View State Logic ---
+    // --- Core View State Logic ---
 
     function updateViewState() {
         if (currentIndex === -1) {
@@ -67,10 +68,8 @@ document.addEventListener("DOMContentLoaded", function() {
             iframe.style.display = 'block';
             iframe.src = slides[currentIndex];
             
-            // THE FIX IS HERE:
-            // Hide the 'Anterior' button ONLY on the first slide (index 0).
-            // Show it on all others.
-            prevBtn.style.display = (currentIndex <= 0) ? 'none' : 'inline-block';
+            // THE FIX IS HERE: Always show the 'Anterior' button on any slide.
+            prevBtn.style.display = 'inline-block';
             
             nextBtn.textContent = (currentIndex >= slides.length - 1) ? 'Reiniciar' : 'Siguiente';
         }
