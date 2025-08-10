@@ -49,74 +49,64 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const mazeData = {
-            'hotspot-start': { title: 'Punto de Partida: La "Economía Tradicional"', description: 'Este punto representa un universo económico aislado del mundo físico. Mide la producción con el "valor añadido", sin considerar el contenido físico, asumiendo que los recursos naturales son inagotables y los desechos irrelevantes.' },
-            'hotspot-e': { title: 'Parada 1: "Eficiencia (E)"', description: 'Este pilar se basa en las preferencias individuales y se mide por la disposición a pagar. Busca la asignación de recursos según la capacidad de pago, siendo clave para el desarrollo sostenible.' },
-            'hotspot-f': { title: 'Parada 2: "Justicia (F)"', description: 'Busca el consenso sobre valores justos para todos, incluyendo otras especies y generaciones futuras. Aborda la necesidad de una distribución equitativa de recursos y requiere políticas de transferencias para el beneficio social.' },
-            'hotspot-s': { title: 'Parada 3: "Sostenibilidad (S)"', description: 'Es un principio ético que busca la perpetuación de la vida humana. Se define como el desarrollo que satisface las necesidades del presente sin comprometer la capacidad de las generaciones futuras de satisfacer las propias.' },
-            'hotspot-end': { title: 'Destino Final: "Ecología y Patrimonio Natural"', description: 'Este destino representa la integración de la economía con la realidad biofisica. Busca un enfoque "ecointegrador" para reconciliar la utilidad económica con la estabilidad ecológica, promoviendo la conciencia colectiva y estilos de vida sostenibles.' }
-        };
-
-        const hotspots = document.querySelectorAll('.maze-hotspot');
+        const mazeData = { /* ... your data from before ... */ };
+        
+        const hotspots = Array.from(document.querySelectorAll('.maze-hotspot'));
         const popupOverlay = document.getElementById('maze-popup-overlay');
         const closeBtn = document.getElementById('close-maze-popup-btn');
-        const popupTitle = document.getElementById('maze-popup-title');
+        const popupTitle = document.getElementById('popup-title');
         const popupDescription = document.getElementById('maze-popup-description');
-        const mazeContainer = document.getElementById('maze-container');
         const solutionPath = document.getElementById('solution-path');
         
-        let isDrawing = false;
         const totalPathLength = solutionPath.getTotalLength();
+        // Define the drawing progress for each stop (0 is fully hidden, 1 is fully drawn)
+        const pathStops = [0, 0.25, 0.5, 0.75, 1]; // Start, E, F, S, End
+        let currentState = 0;
+
+        // Initialize path
         solutionPath.style.strokeDasharray = totalPathLength;
         solutionPath.style.strokeDashoffset = totalPathLength;
 
-        // --- Drawing Logic ---
-        const startDrawing = () => { isDrawing = true; };
-        const stopDrawing = () => { isDrawing = false; };
-        
-        const drawPath = (e) => {
-            if (!isDrawing) return;
-            const rect = mazeContainer.getBoundingClientRect();
-            // Use clientX for mouse, and touches[0].clientX for touch
-            const clientX = e.clientX || e.touches[0].clientX;
-            // Calculate progress as a percentage of mouse travel from left to right
-            let progress = (clientX - rect.left) / rect.width;
-            if (progress < 0) progress = 0;
-            if (progress > 1) progress = 1;
-
-            const drawLength = progress * totalPathLength;
-            solutionPath.style.strokeDashoffset = totalPathLength - drawLength;
+        const advanceState = () => {
+            if (currentState >= hotspots.length - 1) return;
             
-            // Reveal hotspots as the path is drawn past them
-            hotspots.forEach(hotspot => {
-                const revealPoint = parseFloat(hotspot.dataset.reveal);
-                if (drawLength >= revealPoint) {
-                    hotspot.classList.add('revealed');
-                }
-            });
+            // Deactivate current hotspot
+            hotspots[currentState].classList.remove('active');
+            
+            currentState++;
+            
+            // Animate path to the next stop
+            const nextStopProgress = pathStops[currentState];
+            solutionPath.style.strokeDashoffset = totalPathLength * (1 - nextStopProgress);
+            
+            // After the path finishes drawing, reveal the next hotspot
+            setTimeout(() => {
+                hotspots[currentState].classList.add('revealed', 'active');
+            }, 1500); // This duration should match the CSS transition
         };
 
-        mazeContainer.addEventListener('mousedown', startDrawing);
-        window.addEventListener('mouseup', stopDrawing);
-        window.addEventListener('mousemove', drawPath);
-        // Add touch events for mobile
-        mazeContainer.addEventListener('touchstart', startDrawing, { passive: true });
-        window.addEventListener('touchend', stopDrawing);
-        window.addEventListener('touchmove', drawPath);
+        const closePopup = () => {
+            popupOverlay.classList.remove('active');
+            advanceState();
+        };
 
-        // --- Popup Logic ---
-        hotspots.forEach(hotspot => {
+        hotspots.forEach((hotspot, index) => {
             hotspot.addEventListener('click', () => {
+                // Only allow clicking the currently active hotspot
+                if (index !== currentState) return;
+
                 const data = mazeData[hotspot.id];
                 popupTitle.textContent = data.title;
                 popupDescription.textContent = data.description;
                 popupOverlay.classList.add('active');
             });
         });
-
-        const closePopup = () => { popupOverlay.classList.remove('active'); };
+        
         closeBtn.addEventListener('click', closePopup);
         popupOverlay.addEventListener('click', e => { if (e.target === popupOverlay) closePopup(); });
+        
+        // Make the first hotspot active on load
+        hotspots[0].classList.add('active');
     });
     </script>
 </body>
