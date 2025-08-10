@@ -923,7 +923,7 @@ button,
 }
 
 /*
---- 13. INTERACTIVE MAZE (SLIDE 5) - FULL VERSION ---
+--- 13. INTERACTIVE MAZE (SLIDE 5) - MANUAL DRAWING VERSION ---
 */
 
 .maze-container {
@@ -931,51 +931,53 @@ button,
     width: 100%;
     height: 350px;
     margin-top: 20px;
+    cursor: crosshair; /* Indicates a drawing area */
 }
 
 .maze-svg-wrapper {
-    position: absolute;
-    top: 0; left: 0;
+    position: absolute; top: 0; left: 0;
     width: 100%; height: 100%;
 }
-
 .maze-svg-wrapper svg {
     width: 100%; height: 100%;
-    overflow: visible; /* Important for the path start/end arrows */
+    overflow: visible;
 }
 
-/* Style the maze walls */
-#maze-walls path { /* MODIFIED: Target the PATHS inside the group */
-    fill: rgba(255, 255, 255, 0.4) !important; /* Use !important to override Illustrator styles */
-    stroke: none !important; /* Explicitly remove any stroke */
+#maze-walls path {
+    fill: rgba(255, 255, 255, 0.4) !important;
+    stroke: none !important;
 }
 
-/* Style the solution path */
 #solution-path {
     fill: none;
-    /* MODIFIED: Changed to a brighter, more thematic color */
     stroke: #a5ff9b; 
-    stroke-width: 6; /* Slightly thicker for better visibility */
+    stroke-width: 6;
     stroke-linecap: round;
-    /* Animation setup */
-    stroke-dasharray: 2000;
-    stroke-dashoffset: 2000;
-    transition: stroke-dashoffset 4s ease-in-out;
-}
-#solution-path.drawing {
-    stroke-dashoffset: 0;
+    /* This will now be controlled by JavaScript */
 }
 
 /* The clickable areas over the maze */
 .maze-hotspot {
     position: absolute;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     transform: translate(-50%, -50%);
     z-index: 20;
-    /* The next line is for debugging, you can remove it later */
-    /* background: rgba(0, 255, 0, 0.2); */
+    opacity: 0; /* Hidden by default */
+    pointer-events: none; /* Not clickable until revealed */
+    transition: opacity 0.5s ease;
+}
+.maze-hotspot.revealed {
+    opacity: 1;
+    pointer-events: auto; /* Make it clickable */
+}
+
+/* --- DEBUG MODE: Add this class to see and position hotspots --- */
+.maze-container.debug-mode .maze-hotspot {
+    opacity: 1;
+    background: rgba(0, 255, 255, 0.4);
+    border: 2px dashed cyan;
 }
 
 /* The popup panel styles */
