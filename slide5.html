@@ -6,25 +6,92 @@
     <title>Hacia un Enfoque Integrado</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="background-container">
-        <div class="bg-layer layer-1"></div>
-        <div class="bg-layer layer-2"></div>
-        <div class="bg-layer layer-3"></div>
-        <div class="bg-layer layer-4"></div>
-    </div>
+<body class="content-page">
+
     <div class="slide-container">
         <div class="card">
             <h2>Hacia un Enfoque Integrado: Cerrando la Brecha</h2>
-            <p>Un enfoque "ecointegrador" es crucial para una comprensión holística y una acción efectiva, combinando conocimientos de la economía ambiental y la economía ecológica.</p>
-            <ul>
-                <li>Reconoce que ambos enfoques buscan la sostenibilidad y deben complementarse.</li>
-                <li>Esto requiere expandir el alcance del estudio económico más allá de los objetos meramente apropiables, valorables y producibles, para incluir flujos físicos y patrimonio natural.</li>
-                <li>Propone el uso de un marco de "valor sostenible" (E de eficiencia, F de justicia, S de sostenibilidad) para guiar la toma de decisiones, asegurando que las decisiones reflejen las preferencias individuales, comunitarias y del ecosistema para la sostenibilidad a largo plazo.</li>
-            </ul>
-            <!-- Navigation and script were here, but are now removed. -->
+            <p>El viaje de la economía tradicional a la sostenible requiere pasar por tres pilares de valor fundamentales.</p>
+            
+            <!-- Maze Container -->
+            <div class="maze-container">
+                <!-- Start and End Labels -->
+                <div class="maze-label start">Economía Tradicional</div>
+                <div class="maze-label end">Ecología y Patrimonio Natural</div>
+
+                <!-- The SVG Path -->
+                <svg class="maze-path" viewBox="0 0 400 300" preserveAspectRatio="none">
+                    <path id="maze-path-line" d="M 20,50 C 150,0 250,300 380,250" />
+                </svg>
+
+                <!-- Clickable Nodes -->
+                <div class="maze-node" id="node-e" style="top: 25%; left: 30%;">
+                    <div class="node-icon icon-e"></div>
+                    <div class="node-label">Eficiencia (E)</div>
+                </div>
+                <div class="maze-node" id="node-f" style="top: 50%; left: 50%;">
+                    <div class="node-icon icon-f"></div>
+                    <div class="node-label">Justicia (F)</div>
+                </div>
+                <div class="maze-node" id="node-s" style="top: 75%; left: 70%;">
+                    <div class="node-icon icon-s"></div>
+                    <div class="node-label">Sostenibilidad (S)</div>
+                </div>
+            </div>
         </div>
     </div>
-    <!-- The <script> tag is also removed. -->
+
+    <!-- Popup structure -->
+    <div class="maze-popup-overlay" id="maze-popup-overlay">
+        <div class="maze-popup-panel">
+            <button class="close-btn" id="close-maze-popup-btn">&times;</button>
+            <h3 id="maze-popup-title"></h3>
+            <p id="maze-popup-description"></p>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Data for the popups
+        const mazeData = {
+            'node-e': {
+                title: 'Parada 1: Eficiencia (E)',
+                description: 'Este pilar se basa en las preferencias individuales y su valor se mide por la disposición a pagar por un bien o servicio. Busca la asignación de recursos según la capacidad de pago. Una gestión y disposición más eficiente de los recursos es clave para el desarrollo sostenible.'
+            },
+            'node-f': {
+                title: 'Parada 2: Justicia (F)',
+                description: 'Se basa en las preferencias expresadas por los individuos como miembros de la comunidad. Busca el consenso sobre valores justos para todos, incluyendo otras especies y generaciones futuras. Requiere políticas de transferencias (como impuestos o pagos por servicios ambientales) para el beneficio social, ya que el mercado por sí solo no garantiza la justicia.'
+            },
+            'node-s': {
+                title: 'Parada 3: Sostenibilidad (S)',
+                description: 'Es un principio ético que busca la perpetuación de la vida humana. Se define como el "desarrollo que satisface las necesidades del presente sin comprometer la capacidad de las generaciones futuras de satisfacer las propias". Evalúa la contribución de un recurso a la sostenibilidad ecológica a largo plazo.'
+            }
+        };
+
+        const nodes = document.querySelectorAll('.maze-node');
+        const popupOverlay = document.getElementById('maze-popup-overlay');
+        const closeBtn = document.getElementById('close-maze-popup-btn');
+        const popupTitle = document.getElementById('maze-popup-title');
+        const popupDescription = document.getElementById('maze-popup-description');
+
+        nodes.forEach(node => {
+            node.addEventListener('click', () => {
+                const data = mazeData[node.id];
+                popupTitle.textContent = data.title;
+                popupDescription.textContent = data.description;
+                popupOverlay.classList.add('active');
+            });
+        });
+
+        const closePopup = () => {
+            popupOverlay.classList.remove('active');
+        };
+
+        closeBtn.addEventListener('click', closePopup);
+        popupOverlay.addEventListener('click', e => {
+            if (e.target === popupOverlay) closePopup();
+        });
+    });
+    </script>
 </body>
 </html>
