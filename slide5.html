@@ -115,6 +115,26 @@
         popupOverlay.addEventListener('click', e => { if (e.target === popupOverlay) closePopup(); });
         
         hotspots[0].classList.add('revealed', 'active');
+
+        // --- NEW: Sound Effect Logic ---
+        const clickables = document.querySelectorAll('.maze-hotspot');
+        const closeButtons = document.querySelectorAll('#close-maze-popup-btn');
+
+        clickables.forEach(elem => {
+            elem.addEventListener('click', () => {
+                if (window.parent && typeof window.parent.playClickSound === 'function') {
+                    window.parent.playClickSound();
+                }
+            });
+        });
+
+        closeButtons.forEach(elem => {
+            elem.addEventListener('click', () => {
+                if (window.parent && typeof window.parent.playCloseSound === 'function') {
+                    window.parent.playCloseSound();
+                }
+            });
+        });
     });
     </script>
 </body>
