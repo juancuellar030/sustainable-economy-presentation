@@ -72,12 +72,13 @@
         };
 
         // THE FIX: Use the Font Loading API.
-        // This promise only resolves after all custom fonts on the page are loaded.
+        // This promise only resolves after all custom fonts on the page are loaded and rendered.
         document.fonts.ready.then(() => {
             initializeToggle();
         });
 
-        // THE SECOND FIX: Add a resize listener to handle window size changes.
+        // THE SECOND FIX: Add a resize listener to handle window size changes,
+        // which can also cause misalignments.
         window.addEventListener('resize', initializeToggle);
     
         optionAmbiental.addEventListener('click', () => {
