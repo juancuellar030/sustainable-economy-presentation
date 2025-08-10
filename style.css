@@ -1036,17 +1036,30 @@ button,
 #close-maze-popup-btn:hover { opacity: 1; }
 
 /*
---- 14. 3D MODEL (SLIDE 7) ---
+--- 14. 3D MODEL (SLIDE 7) - CORRECTED ---
 */
 
 #scene-container {
     width: 100%;
-    height: 450px; /* Give the 3D view a fixed height */
-    position: relative;
+    height: 450px;
+    position: relative; /* Crucial for stacking the layers */
     margin-top: 20px;
 }
 
-/* Style for the clickable icons */
+/* THE FIX for Unclickable Icons: */
+/* Style the renderers that live inside the container */
+#scene-container > canvas, 
+#scene-container > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+/* Make the 3D canvas un-clickable so mouse events pass through to the HTML below */
+#scene-container > canvas {
+    pointer-events: none;
+}
+
+/* Style for the clickable icons (hotspots) */
 .hotspot-icon {
     width: 32px;
     height: 32px;
@@ -1058,7 +1071,6 @@ button,
     animation: pulse 2s infinite;
     transition: transform 0.3s ease;
 }
-
 .hotspot-icon:hover {
     transform: scale(1.2);
 }
