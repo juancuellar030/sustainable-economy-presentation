@@ -71,17 +71,24 @@
 
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                // Get the target content ID from the tab's ID
                 const targetId = tab.id.replace('tab-', 'content-');
                 const targetContent = document.getElementById(targetId);
 
-                // Remove 'active' class from all tabs and contents
                 tabs.forEach(t => t.classList.remove('active'));
                 contents.forEach(c => c.classList.remove('active'));
 
-                // Add 'active' class to the clicked tab and its corresponding content
                 tab.classList.add('active');
                 targetContent.classList.add('active');
+            });
+        });
+
+        // --- NEW: Sound Effect Logic ---
+        const clickables = document.querySelectorAll('.tab-item');
+        clickables.forEach(elem => {
+            elem.addEventListener('click', () => {
+                if (window.parent && typeof window.parent.playClickSound === 'function') {
+                    window.parent.playClickSound();
+                }
             });
         });
     });
