@@ -15,11 +15,22 @@ document.addEventListener("DOMContentLoaded", function() {
     const navContainer = document.getElementById('nav-container');
     let iframe = null;
 
-    // --- Event Listeners with Sound Calls ---
+    // --- NEW: Music Elements ---
+    const music = document.getElementById('background-music');
+    const musicToggleBtn = document.getElementById('music-toggle-btn');
 
+    // --- Event Listeners ---
     startButton.addEventListener('click', function(event) {
         event.preventDefault();
         playClickSound();
+        
+        // Play music if it's the first time
+        if (music && music.paused) {
+            music.play();
+            musicToggleBtn.classList.remove('music-off');
+        }
+        musicToggleBtn.style.display = 'block'; // Show the music button
+
         enterFullscreen();
         if (!iframe) {
             iframe = document.createElement('iframe');
@@ -51,7 +62,17 @@ document.addEventListener("DOMContentLoaded", function() {
         updateViewState();
     });
     
-    // --- Core View State Logic ---
+    // NEW: Music Toggle Listener
+    musicToggleBtn.addEventListener('click', () => {
+        playClickSound();
+        if (music.paused) {
+            music.play();
+            musicToggleBtn.classList.remove('music-off');
+        } else {
+            music.pause();
+            musicToggleBtn.classList.add('music-off');
+        }
+    });
 
     function updateViewState() {
         if (currentIndex === -1) {
