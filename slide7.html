@@ -90,25 +90,27 @@
             earth.scale.set(1.2, 1.2, 1.2); // Adjust scale if needed
             scene.add(earth);
 
-            // --- Create Clickable Icons ---
+            // --- THE FIX for Floating Icons ---
+            // NOTE: You will likely need to adjust these X, Y, Z values to place the 
+            // icons perfectly on the continents of YOUR specific 3D model.
+            // A good way to find coordinates is to experiment with values between -1.3 and 1.3.
             const iconPositions = {
-                // NOTE: You will need to adjust these X, Y, Z values to place the icons on your model
-                recursos: new THREE.Vector3(0.8, 0.8, 0.8),   // North America area
-                eficiencia: new THREE.Vector3(-1, -0.2, -0.8), // South America / Africa area
-                economia: new THREE.Vector3(0.5, -1, 0.5)      // Antarctica area
+                recursos: new THREE.Vector3(-0.8, 0.7, 0.8),   // Approx. North America
+                eficiencia: new THREE.Vector3(-0.3, -0.3, 1.3), // Approx. South America
+                economia: new THREE.Vector3(1.2, 0.2, -0.5)      // Approx. Europe/Asia
             };
 
             for (const key in iconPositions) {
                 const div = document.createElement('div');
                 div.className = 'hotspot-icon';
                 div.id = key;
-                
                 const label = new CSS2DObject(div);
                 label.position.copy(iconPositions[key]);
                 earth.add(label);
             }
             
-            addClickListeners(); // Add listeners after icons are created
+            addClickListeners();
+        });
 
         }, undefined, function (error) {
             console.error(error);
