@@ -728,14 +728,14 @@ strong { font-weight: 700; } /* This will now work correctly */
 }
 
 /*
---- 11. TOGGLE SWITCH (SLIDE 4) - FINAL VERSION ---
+--- 11. TOGGLE SWITCH (SLIDE 4) - SLIDING VERSION ---
 */
 
 .toggle-container {
+    position: relative; /* Crucial for positioning the highlighter */
     display: flex;
     justify-content: center;
-    align-items: stretch; /* Make options same height */
-    gap: 10px;
+    align-items: stretch;
     margin-top: 30px;
     user-select: none;
     background: rgba(0,0,0,0.3);
@@ -743,7 +743,20 @@ strong { font-weight: 700; } /* This will now work correctly */
     padding: 8px;
 }
 
+/* This is the new sliding element */
+.toggle-highlighter {
+    position: absolute;
+    top: 8px;
+    height: calc(100% - 16px); /* Fills the vertical space inside the padding */
+    background-color: #B0F252;
+    border-radius: 40px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth slide and resize */
+    z-index: 0; /* Behind the text and icons */
+}
+
 .toggle-option {
+    position: relative; /* Put options on top of the highlighter */
+    z-index: 1;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -755,48 +768,39 @@ strong { font-weight: 700; } /* This will now work correctly */
 
 .toggle-label {
     font-weight: 400;
-    color: rgba(255,255,255,0.5); /* Inactive text is faded */
+    /* Inactive text is faded */
+    color: rgba(255,255,255,0.5); 
     transition: color 0.4s ease;
 }
 
 .toggle-icon {
     width: 24px;
     height: 24px;
-    background-color: rgba(255,255,255,0.5); /* Inactive icon is faded */
-    -webkit-mask-size: contain;
-    mask-size: contain;
-    -webkit-mask-position: center;
-    mask-position: center;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
+    /* Inactive icon is faded */
+    background-color: rgba(255,255,255,0.5); 
+    -webkit-mask-size: contain; mask-size: contain;
+    -webkit-mask-position: center; mask-position: center;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
     transition: background-color 0.4s ease;
 }
 
 /* --- Icon Definitions --- */
-
-/* MODIFIED: Now points to your uploaded file */
 .icon-ambiental {
     -webkit-mask-image: url('images/scale-svgrepo-com.svg');
     mask-image: url('images/scale-svgrepo-com.svg');
 }
-
-/* MODIFIED: Now points to your uploaded file */
 .icon-ecologica {
     -webkit-mask-image: url('images/sprout-svgrepo-com.svg');
     mask-image: url('images/sprout-svgrepo-com.svg');
 }
 
-/* --- Active State --- */
-.toggle-option.active {
-    background: rgba(255,255,255,0.2);
-}
+/* --- Active State Styling (Now only affects text and icon color) --- */
 .toggle-option.active .toggle-label {
-    color: white;
+    color: black;
 }
 .toggle-option.active .toggle-icon {
-    background-color: #a5ff9b; /* Bright green highlight color */
+    background-color: black;
 }
-
 
 /* --- Content Panel Styles --- */
 .toggle-content-container { margin-top: 25px; min-height: 200px; }
