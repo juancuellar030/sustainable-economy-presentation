@@ -50,6 +50,7 @@
         </div>
     </div>
 
+   <!-- FINAL: Merged script with sound effect triggers -->
    <script>
     document.addEventListener('DOMContentLoaded', () => {
         const optionAmbiental = document.getElementById('option-ambiental');
@@ -58,19 +59,17 @@
         const contentEcologica = document.getElementById('content-ecologica');
         const highlighter = document.querySelector('.toggle-highlighter');
     
-        // Function to move the highlighter
         const moveHighlighter = (targetElement) => {
             highlighter.style.width = `${targetElement.offsetWidth}px`;
             highlighter.style.transform = `translateX(${targetElement.offsetLeft}px)`;
         };
     
-        // Set initial position of the highlighter
-        moveHighlighter(optionAmbiental);
+        // Set initial position of the highlighter on a slight delay to ensure render
+        setTimeout(() => moveHighlighter(optionAmbiental), 50);
     
-        // Listener for the Ambiental side
         optionAmbiental.addEventListener('click', () => {
             if (!optionAmbiental.classList.contains('active')) {
-                moveHighlighter(optionAmbiental); // Move the slider
+                moveHighlighter(optionAmbiental);
                 optionAmbiental.classList.add('active');
                 optionEcologica.classList.remove('active');
                 contentEcologica.classList.remove('active');
@@ -78,15 +77,24 @@
             }
         });
     
-        // Listener for the Ecológica side
         optionEcologica.addEventListener('click', () => {
             if (!optionEcologica.classList.contains('active')) {
-                moveHighlighter(optionEcologica); // Move the slider
+                moveHighlighter(optionEcologica);
                 optionEcologica.classList.add('active');
                 optionAmbiental.classList.remove('active');
                 contentAmbiental.classList.remove('active');
                 contentEcologica.classList.add('active');
             }
+        });
+
+        // --- NEW: Sound Effect Logic ---
+        const clickables = document.querySelectorAll('.toggle-option');
+        clickables.forEach(elem => {
+            elem.addEventListener('click', () => {
+                if (window.parent && typeof window.parent.playClickSound === 'function') {
+                    window.parent.playClickSound();
+                }
+            });
         });
     });
     </script>
