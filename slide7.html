@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beneficios del Cuidado Ambiental</title>
     <link rel="stylesheet" href="style.css">
+
+    <!-- THE FIX: This local style ensures the slide is always transparent to clicks -->
+    <style>
+        body.content-page {
+            pointer-events: none;
+        }
+        #scene-container, .card, .slide-container {
+            pointer-events: auto; /* Make sure the card itself is still interactive */
+        }
+    </style>
     
     <!-- Load the 3D Library: Three.js -->
     <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
