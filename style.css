@@ -945,9 +945,9 @@ button,
 }
 
 /* Style the maze walls */
-#maze-walls {
-
-    fill: rgba(255, 255, 255, 0.4);
+#maze-walls path { /* MODIFIED: Target the PATHS inside the group */
+    fill: rgba(255, 255, 255, 0.4) !important; /* Use !important to override Illustrator styles */
+    stroke: none !important; /* Explicitly remove any stroke */
 }
 
 /* Style the solution path */
