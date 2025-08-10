@@ -9,14 +9,23 @@
     <!-- THE FIX: This local style ensures the slide is always transparent to clicks -->
     <style>
         /*
-         THE FIX IS HERE:
-         We ONLY disable pointer events on the 3D canvas itself.
-         This allows clicks to pass through the 3D model to the HTML hotspots underneath.
+         Step 1: Make the HTML overlay (which holds the hotspots)
+         transparent to mouse events by default. This lets you click
+         and drag the 3D canvas underneath it.
         */
-        #scene-container > canvas {
+        #scene-container > div {
             pointer-events: none;
         }
-    
+
+        /*
+         Step 2: Now, re-enable mouse events for ONLY the hotspots.
+         This makes them clickable, while the empty space around them
+         remains "see-through" for the mouse.
+        */
+        .hotspot-icon {
+            pointer-events: auto;
+        }
+
         /* When the popup is active, disable clicks on everything EXCEPT the popup */
         body.popup-active .slide-container {
             pointer-events: none;
