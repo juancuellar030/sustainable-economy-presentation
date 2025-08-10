@@ -92,7 +92,7 @@
         container.appendChild(labelRenderer.domElement);
 
         // --- Controls (for rotating the globe) ---
-        const controls = new OrbitControls(camera, labelRenderer.domElement);
+        const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.minDistance = 2.5;
         controls.maxDistance = 6;
