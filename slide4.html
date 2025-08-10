@@ -56,10 +56,21 @@
         const optionEcologica = document.getElementById('option-ecologica');
         const contentAmbiental = document.getElementById('content-ambiental');
         const contentEcologica = document.getElementById('content-ecologica');
+        const highlighter = document.querySelector('.toggle-highlighter');
+    
+        // Function to move the highlighter
+        const moveHighlighter = (targetElement) => {
+            highlighter.style.width = `${targetElement.offsetWidth}px`;
+            highlighter.style.transform = `translateX(${targetElement.offsetLeft}px)`;
+        };
+    
+        // Set initial position of the highlighter
+        moveHighlighter(optionAmbiental);
     
         // Listener for the Ambiental side
         optionAmbiental.addEventListener('click', () => {
             if (!optionAmbiental.classList.contains('active')) {
+                moveHighlighter(optionAmbiental); // Move the slider
                 optionAmbiental.classList.add('active');
                 optionEcologica.classList.remove('active');
                 contentEcologica.classList.remove('active');
@@ -70,6 +81,7 @@
         // Listener for the Ecológica side
         optionEcologica.addEventListener('click', () => {
             if (!optionEcologica.classList.contains('active')) {
+                moveHighlighter(optionEcologica); // Move the slider
                 optionEcologica.classList.add('active');
                 optionAmbiental.classList.remove('active');
                 contentAmbiental.classList.remove('active');
