@@ -8,11 +8,19 @@
 
     <!-- THE FIX: This local style ensures the slide is always transparent to clicks -->
     <style>
-        body.content-page {
+        body.content-page, #scene-container > canvas {
+            pointer-events: none; /* Disable clicks on the body and the 3D canvas */
+        }
+        /* Re-enable clicks for the card and the HTML icons */
+        .card, #scene-container > div {
+            pointer-events: auto;
+        }
+        /* When the popup is active, disable clicks on everything EXCEPT the popup */
+        body.popup-active .slide-container {
             pointer-events: none;
         }
-        #scene-container, .card, .slide-container {
-            pointer-events: auto; /* Make sure the card itself is still interactive */
+        body.popup-active .model-popup-overlay {
+            pointer-events: auto;
         }
     </style>
     
@@ -100,7 +108,7 @@
         const popupDescription = document.getElementById('model-popup-description');
 
         function showPopup(hotspotId) {
-            console.log('Showing popup for:', hotspotId); // Debug log
+            document.body.classList.add('popup-active');
             const data = benefitsData[hotspotId];
             if (data) {
                 popupTitle.textContent = data.title;
@@ -113,6 +121,7 @@
         }
         
         const closePopup = () => {
+            document.body.classList.remove('popup-active');
             popupOverlay.classList.remove('active');
             if (window.parent && typeof window.parent.playCloseSound === 'function') {
                 window.parent.playCloseSound();
