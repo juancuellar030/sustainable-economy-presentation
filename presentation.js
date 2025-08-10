@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
         updateViewState();
     });
     
-    // --- Core View State Logic ---
+     // --- Core View State Logic ---
 
     function updateViewState() {
         if (currentIndex === -1) {
@@ -66,7 +66,12 @@ document.addEventListener("DOMContentLoaded", function() {
             navContainer.style.display = 'flex';
             iframe.style.display = 'block';
             iframe.src = slides[currentIndex];
+            
+            // THE FIX IS HERE:
+            // Hide the 'Anterior' button ONLY on the first slide (index 0).
+            // Show it on all others.
             prevBtn.style.display = (currentIndex <= 0) ? 'none' : 'inline-block';
+            
             nextBtn.textContent = (currentIndex >= slides.length - 1) ? 'Reiniciar' : 'Siguiente';
         }
     }
