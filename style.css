@@ -923,7 +923,7 @@ button,
 }
 
 /*
---- 13. INTERACTIVE MAZE (SLIDE 5) - MANUAL DRAWING VERSION ---
+--- 13. INTERACTIVE MAZE (SLIDE 5) - FINAL VERSION ---
 */
 
 .maze-container {
@@ -931,7 +931,6 @@ button,
     width: 100%;
     height: 350px;
     margin-top: 20px;
-    cursor: crosshair; /* Indicates a drawing area */
 }
 
 .maze-svg-wrapper {
@@ -954,9 +953,9 @@ button,
     stroke-width: 6;
     stroke-linecap: round;
     /* This will now be controlled by JavaScript */
+    transition: stroke-dashoffset 1.5s ease-out; /* The drawing animation */
 }
 
-/* The clickable areas over the maze */
 .maze-hotspot {
     position: absolute;
     width: 50px;
@@ -964,16 +963,26 @@ button,
     border-radius: 50%;
     transform: translate(-50%, -50%);
     z-index: 20;
-    opacity: 0; /* Hidden by default */
-    pointer-events: none; /* Not clickable until revealed */
-    transition: opacity 0.5s ease;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
 .maze-hotspot.revealed {
     opacity: 1;
-    pointer-events: auto; /* Make it clickable */
+    pointer-events: auto;
+}
+/* NEW: Pulsing animation for the active hotspot */
+.maze-hotspot.active {
+    box-shadow: 0 0 0 0 rgba(165, 255, 155, 0.7);
+    animation: pulse 1.5s infinite;
 }
 
-/* --- DEBUG MODE: Add this class to see and position hotspots --- */
+@keyframes pulse {
+    to { box-shadow: 0 0 0 20px rgba(165, 255, 155, 0); }
+}
+
+/* Optional: Debug mode to see hotspots */
 .maze-container.debug-mode .maze-hotspot {
     opacity: 1;
     background: rgba(0, 255, 255, 0.4);
