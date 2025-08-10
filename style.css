@@ -732,30 +732,34 @@ strong { font-weight: 700; } /* This will now work correctly */
 */
 
 .toggle-container {
-    position: relative; /* Crucial for positioning the highlighter */
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: stretch;
-    margin-top: 30px;
+    margin: 30px auto;
     user-select: none;
     background: rgba(0,0,0,0.3);
     border-radius: 50px;
     padding: 8px;
+    width: fit-content; /* This helps contain the toggle properly */
 }
 
 /* This is the new sliding element */
 .toggle-highlighter {
     position: absolute;
     top: 8px;
-    height: calc(100% - 16px); /* Fills the vertical space inside the padding */
+    height: calc(100% - 16px);
     background-color: #B0F252;
     border-radius: 40px;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth slide and resize */
-    z-index: 0; /* Behind the text and icons */
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 0;
+            /* Initialize with proper width and position */
+    width: 0;
+    left: 0;
 }
 
 .toggle-option {
-    position: relative; /* Put options on top of the highlighter */
+    position: relative;
     z-index: 1;
     display: flex;
     align-items: center;
@@ -764,6 +768,7 @@ strong { font-weight: 700; } /* This will now work correctly */
     border-radius: 40px;
     cursor: pointer;
     transition: all 0.4s ease;
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
 .toggle-label {
@@ -782,6 +787,7 @@ strong { font-weight: 700; } /* This will now work correctly */
     -webkit-mask-position: center; mask-position: center;
     -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
     transition: background-color 0.4s ease;
+    flex-shrink: 0; /* Prevent icon from shrinking */
 }
 
 /* --- Icon Definitions --- */
